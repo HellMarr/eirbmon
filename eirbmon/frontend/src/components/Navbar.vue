@@ -7,7 +7,7 @@
     <body style="margin:0;">
         <header>
             <p class="main-title">
-                EirbMon.
+                <router-link to="/">EirbMon.</router-link>
             </p>
             <div class="right-buttons">
                 <router-link to="/play">Play</router-link>
@@ -34,6 +34,11 @@ export default {
     font-size: 40px;
     padding-bottom: 5px;
     font-family: 'Fredoka';
+}
+
+.main-title>a{
+    text-decoration: none;
+    color:white;
 }
 
 .main-title:hover{
