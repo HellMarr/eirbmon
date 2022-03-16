@@ -1,20 +1,21 @@
 <template>
-  <div class="bg-secondary">
-    <HeaderView />
-    <router-view></router-view>
-    <FooterView />
-  </div>
+  <Navbar/>
+  <router-view/>
 </template>
 
 <script>
-import HeaderView from "./components/HeaderView.vue";
-import FooterView from "./components/FooterView.vue";
+import Navbar from './components/Navbar.vue'
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    HeaderView,
-    FooterView,
-  },
-};
+    Navbar,
+  }
+}
 </script>
+
+<style>
+#app{
+  font-family: 'Quicksand', sans-serif;
+}
+</style>
