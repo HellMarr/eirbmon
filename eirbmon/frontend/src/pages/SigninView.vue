@@ -32,7 +32,7 @@
 import axios from 'axios';
 
 export default {
-  name: "Signin",
+  name: "SigninView",
   data() {
     return{
       username_email: "",

@@ -1,20 +1,20 @@
 <template>
   <div class="bg-secondary">
-    <Header />
+    <HeaderView />
     <router-view></router-view>
-    <Footer />
+    <FooterView />
   </div>
 </template>
 
 <script>
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+import HeaderView from "./components/HeaderView.vue";
+import FooterView from "./components/FooterView.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
-    Footer,
+    HeaderView,
+    FooterView,
   },
 };
 </script>

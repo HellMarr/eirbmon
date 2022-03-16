@@ -38,6 +38,6 @@
 
 <script>
 export default {
-  name: "Header",
+  name: "HeaderView",
 };
 </script>
