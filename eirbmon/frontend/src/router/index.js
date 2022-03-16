@@ -1,25 +1,39 @@
-import { createWebHistory, createRouter } from 'vue-router'
-import SigninView from "../pages/SigninView.vue"
-import SignupView from '../pages/SignupView.vue';
-import HomeView from '../pages/HomeView.vue';
+import { createRouter, createWebHashHistory } from 'vue-router'
+import HomePage from '../views/HomePage.vue'
+import Marketplace from '../views/MarketPlace.vue'
+import EirbMon from '../views/EirbMon.vue'
+import SigninView from "../views/SigninView.vue"
+import SignupView from '../views/SignupView.vue';
+
 const routes = [
-    {
-        path: "/signup",
-        component: SignupView,
-    },
-    {
-        path: "/signin",
-        component: SigninView,
-    },
-    {
-        path: "/home",
-        component: HomeView
-    }
-];
+  {
+    path: '/',
+    name: 'home',
+    component: HomePage
+  },
+  {
+    path: '/marketplace',
+    name: 'marketplace',
+    component: Marketplace
+  },
+  {
+    path: '/eirbmon',
+    name: 'eirbmon',
+    component: EirbMon
+  },
+  {
+    path: "/signup",
+    component: SignupView,
+  },
+  {
+    path: "/signin",
+    component: SigninView,
+  },
+]
 
 const router = createRouter({
-    history: createWebHistory(),
-    routes,
-});
+  history: createWebHashHistory(),
+  routes
+})
 
-export default router;
+export default router
