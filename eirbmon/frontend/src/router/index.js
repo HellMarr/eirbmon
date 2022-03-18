@@ -4,6 +4,7 @@ import Marketplace from '../views/MarketPlace.vue'
 import EirbMon from '../views/EirbMon.vue'
 import SigninView from "../views/SigninView.vue"
 import SignupView from '../views/SignupView.vue';
+import ProgressBar from '../components/ProgressBar.vue';
 
 const routes = [
   {
@@ -28,6 +29,10 @@ const routes = [
   {
     path: "/signin",
     component: SigninView,
+  },
+  {
+    path: "/bar",
+    component: ProgressBar,
   },
 ]
 

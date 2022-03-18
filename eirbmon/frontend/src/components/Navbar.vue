@@ -12,8 +12,10 @@
             <div class="right-buttons">
                 <router-link to="/play">Play</router-link>
                 <router-link to="/marketplace">Marketplace</router-link>
+                <router-link to="/eirbmon">eirbmon</router-link>
                 <router-link to="/signup">Sign Up</router-link>
                 <router-link to="/signin">Sign In</router-link>
+                <router-link to="/bar">ProgressBar</router-link>
             </div>
         </header>
     </body>
@@ -51,7 +53,7 @@ header{
     top: 0;
     height: 100px;
     background: rgb(253,153,45);
-    background: linear-gradient(90deg, rgba(253,153,45,1) 0%, #FFBF49 40%);
+    background: linear-gradient(90deg, #FD992D 0%, #FFBF49 40%);
     display: flex;
     flex-direction: row;
     align-items: center;
