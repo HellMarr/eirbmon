@@ -1,0 +1,33 @@
+doctype html
+html(lang="en")
+  head
+    title= "Bee Generator"
+    meta( charset='utf-8' )
+    meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+    meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+    style. 
+       h1 { color: #ffffff; font-family: 'Lato', sans-serif; font-size: 54px; font-weight: 300; line-height: 58px; margin: 0 0 58px; }
+    link(href='main.css' rel='stylesheet')
+    body(style='background-color:#a5c6d8;')
+    section.container
+        form(action="/generate" method="POST") 
+            center
+                h1 Entrez votre filière
+                .dropdown.dropdown-dark
+                    select.dropdown-select(name='filiere' multiple='')
+                        option(value='telecom') Telecom
+                        option(value='info') Informatique
+                        option(value='matmeca') Matmeca
+                        option(value='elec') Electronique
+                
+                div  
+                    input(type="submit" value="Générer")
+                if (filiere=="telecom")
+                    img(src='http://localhost:4000/abeilles/abeille_sortie_accessories0.svg' width="600" height="600")
+                else if (filiere=="info")
+                    img(src='http://localhost:4000/abeilles/abeille_sortie_accessories1.svg' width="600" height="600")
+                else if (filiere=="matmeca")
+                    img(src='http://localhost:4000/abeilles/abeille_sortie_accessories2.svg' width="600" height="600")
+                else if (filiere=="elec")
+                    img(src='http://localhost:4000/abeilles/abeille_sortie_accessories3.svg' width="600" height="600")
+                        
