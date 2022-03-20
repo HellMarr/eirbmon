@@ -161,4 +161,18 @@ body{
   background: #705898;
 }
 
+
+@media (max-width: 800px){
+  body{
+    flex-direction: column;
+  }
+  
+  .upper-div{
+    flex-direction: column;
+  }
+  .description{
+    width: 100%;
+  }
+}
+
 </style>
