@@ -1,5 +1,5 @@
 <template>
-    <body>
+    <div class="container">
         <img class="image" :style="style" src="../assets/Salameche.png">
         <div class="description">
           <div class="upper-div">
@@ -19,7 +19,7 @@
             <ProgressBar/>
           </div>
         </div>
-    </body>
+    </div>
 </template>
 
 
@@ -48,8 +48,7 @@ export default {
 
 <style scoped>
 /*https://codepen.io/WebDevSimplified/pen/oVXKQx*/
-body{
-  position: relative;
+.container{
   display: flex;
   flex-direction: row;
   justify-content: space-around;

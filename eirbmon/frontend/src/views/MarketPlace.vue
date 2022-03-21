@@ -34,25 +34,13 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.grid-container {
-    display: grid;
-    grid-template-columns: 0.8fr repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 20px;
-    grid-row-gap: 30px;
-}
 
-.menu{ 
-    grid-area: 1 / 1 / 6 / 2; 
-    background: red;
-
+.menu{
+    height:50px;
+    background-color:grey;
+    margin-bottom:20px;
+    border-radius: 10px;
 }
-.market{ 
-    grid-area: 1 / 2 / 6 / 6;
-    display: flex;
-    flex-direction: row;
-}
-
 .card-container{
     max-width: 400px;
     min-width: 300px;
@@ -70,6 +58,12 @@ export default {
     padding-bottom: 20px;
     padding-right: 20px;
     align-items: center;
+}
+
+@media(max-width:750px){
+    .card-container{
+        width: 250px;
+    }
 }
 
 </style>

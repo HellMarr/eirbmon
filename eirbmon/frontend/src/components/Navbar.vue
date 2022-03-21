@@ -4,19 +4,32 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500&family=Lato:wght@700&display=swap" rel="stylesheet">
     </head>
-    <body style="margin:0;">
-        <header>
-            <p class="main-title">
-                <router-link to="/">EirbMon.</router-link>
-            </p>
-            <div class="right-buttons">
-                <router-link to="/play">Play</router-link>
-                <router-link to="/marketplace">Marketplace</router-link>
-                <router-link to="/eirbmon">eirbmon</router-link>
-                <router-link to="/signup">Sign Up</router-link>
-                <router-link to="/signin">Sign In</router-link>
-                <router-link to="/bar">ProgressBar</router-link>
-            </div>
+    <body>
+        <header :class="{'scrolled-nav':scrolledNav}">
+            <nav>
+                <div class="branding">
+                    <router-link to="/" class="title">EirbMon.</router-link>
+                </div>
+                <ul v-show="!mobile" class="navigation">
+                    <li><router-link to="/play" class="link">Play</router-link></li>
+                    <li><router-link to="/marketplace" class="link">Marketplace</router-link></li>
+                    <li><router-link to="/eirbmon" class="link">eirbmon</router-link></li>
+                    <li><router-link to="/signup" class="link">Sign Up</router-link></li>
+                    <li><router-link to="/signin" class="link">Sign In</router-link></li>
+                </ul>
+                <div class="icon">
+                    <img @click="toggleMobileNav" src="../assets/bars.png" v-show="mobile" class="i" :class="{'icon-active':mobileNav}">
+                </div>
+                <transition name="mobile-nav">
+                    <ul v-show="mobileNav" class="dropdown-nav">
+                        <li><router-link to="/play" class="link">Play</router-link></li>
+                        <li><router-link to="/marketplace" class="link">Marketplace</router-link></li>
+                        <li><router-link to="/eirbmon" class="link">eirbmon</router-link></li>
+                        <li><router-link to="/signup" class="link">Sign Up</router-link></li>
+                        <li><router-link to="/signin" class="link">Sign In</router-link></li>
+                    </ul>
+                </transition>
+            </nav>
         </header>
     </body>
 </template>
@@ -24,74 +37,181 @@
 <script>
 export default {
   name: 'NavBar',
+  data(){
+    return{
+      scrolledNav:null,
+      mobile:null,
+      mobileNav:null,
+      windowWidth:null,
+    };
+  },
+  created(){
+    window.addEventListener('resize',this.checkScreen);
+    this.checkScreen();
+  },
+  mounted(){
+    window.addEventListener('scroll',this.updateScrolls)
+  },
+  methods:{
+    toggleMobileNav(){
+      this.mobileNav=!this.mobileNav;
+    },
+
+    updateScroll(){
+      const scrollPosition=window.scrollY;
+      if(scrollPosition>50){
+        this.scrolledNav=true;
+        return;
+      }
+      this.scrolledNav=false;
+    },
+
+    checkScreen(){
+      this.windowWidth=window.innerWidth;
+      if(this.windowWidth <= 750){
+        this.mobile=true;
+        return;
+      }
+      this.mobile=false;
+      this.mobileNav=false;
+      return;
+    }
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
+/*https://www.youtube.com/watch?v=u2AwJAFeaKc*/
+body{
+    header{
+        background: linear-gradient(90deg, #FD992D 0%, #FFBF49 40%);
+        z-index: 99;
+        width: 100%;
+        position: fixed;  /*mettre fixed à la place*/
+        transition: .5s ease all;
+        color: white;
 
-.main-title{
-    color: #faf9f6;
-    margin: 10px 20px;
-    font-size: 40px;
-    padding-bottom: 5px;
-    font-family: 'Fredoka';
-}
+        nav{
+            position: relative;
+            display: flex;
+            flex-direction:row;
+            padding: 12px 0;
+            transition: .5s ease all;
+            width:90%;
+            margin: 0 auto;
+            @media(min-width:1140px){
+                max-width: 1140px;
+            }
 
-.main-title>a{
-    text-decoration: none;
-    color:white;
-}
+            ul,
+            .link{
+                font-weight: 500;
+                color:white;
+                list-style: none;
+                text-decoration:none;
+                font-family: 'Fredoka';
+            }
 
-.main-title:hover{
-    cursor:default;
-}
+            li{
+                text-transform: uppercase;
+                padding: 16px;
+                margin-left:16px;
+            }
 
-header{
-    margin: 0;
-    position: sticky;
-    top: 0;
-    height: 100px;
-    background: rgb(253,153,45);
-    background: linear-gradient(90deg, #FD992D 0%, #FFBF49 40%);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-}
+            .link{
+                font-size: 20px;
+                transition: .3s ease all;
+                padding-bottom: 4px;
+                border-bottom: 1px solid transparent;
 
-header>img{
-    position: absolute;
-    right: 0px;
-    top: 100px;
-    z-index: 10;
-}
+                &:hover{
+                    color:rgb(22, 22, 22);
+                    border-color:black;
+                }
+            }
+            .branding{
+                display: flex;
+                align-items: center;
+                font-size: 40px;
+                .title{
+                    text-decoration:none;
+                    font-family: 'Fredoka';
+                    color:white;
+                }
+            }
 
-.right-buttons{
-    margin-right: 20px;
-    gap: 20px;
-    padding-bottom: 5px;
-    font-size: 25px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-}
+            .navigation{
+                display: flex;
+                align-items:center;
+                flex:1;
+                justify-content: flex-end;
+            }
 
-.right-buttons>a{
-    padding: 7px 15px;
-    text-decoration: none;
-    color: white;
-    text-transform: capitalize;
-    font-family: 'Fredoka', sans-serif;
-}
+            .icon{
+                display:flex;
+                position:absolute;
+                align-items: center;
+                top:0;
+                right:24px;
+                height:100%;
 
-.right-buttons>a:hover{
-    color:#2B2A49;
-    transition: 0.2s ease-in-out;
-}
+                img{
+                    width:30px;
+                    transition: .5s ease all;
+                }
 
-#wave{
-    width: 550px;
+                .i{
+                    cursor:pointer;
+                    font-size:24px;
+                    transition: .4s ease all; 
+                }
+            }
+            
+            .icon-active{
+                transform: rotate(180deg);
+            }
+
+            .dropdown-nav{
+                display: flex;
+                flex-direction: column;
+                position:fixed;
+                width:100%;
+                max-width: 250px;
+                height: 100%;
+                background-color: white;
+                top:0;
+                left: 0;
+
+                li{
+                    margin-left: 0;
+                    .link{
+                    color:#FD992D;
+                    }
+                }
+            }
+
+            .mobile-nav-enter-active,
+            .mobile-nav-leave-active{
+            transition: 0.6s ease all;
+            }
+            .mobile-nav-enter-from,
+            .mobile-nav-leave-to{
+            transform: translateX(-250px);
+            }
+
+            .mobile-nav-enter-to{
+            transform: translateX(0);
+            }
+            }
+        }
+
+        .scrolled-nav{
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+
+        nav{
+            padding: 8px 0;
+        }
+    }
 }
 </style>

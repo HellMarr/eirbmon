@@ -67,38 +67,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
-
-.navbar{
-    margin: 0px;
-    border: 0px;
-    background-color: whitesmoke;
-    display: flex;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    border:none;
-    border-bottom: 1px solid #ddd;
-}
-
-.title{
-    font-size: 50px;
-    color : #fca311;
-    font-family: 'Fredoka';
-}
-
-.onglets{
-    color :grey;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-a {
-    display: block;
-    padding: 8px;  
-}
-
 /* Code du carousel */
 
 input[type=radio] {
