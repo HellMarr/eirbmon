@@ -1,6 +1,7 @@
 <template>
 <body>
     <div class="carousel-container">
+        <div class="gap"></div>
         <input type="radio" name="slider" id="item-1" checked>
         <input type="radio" name="slider" id="item-2">
         <input type="radio" name="slider" id="item-3">
@@ -73,20 +74,25 @@ input[type=radio] {
     display: none;
 }
 
+.gap{
+    margin:200px 0;
+}
+
 .carousel-container {
-    margin:10%;
     height: 60%;
     transform-style: preserve-3d;
     display: flex;
     justify-content: center;
     flex-direction: row;
     align-items: center;
+    margin-bottom:150px;
 }
 
 .card {
     position: absolute;
     width: 40%;
     height: 100%;
+    top:-150px;
     left: 0;
     right: 0;
     margin: auto;

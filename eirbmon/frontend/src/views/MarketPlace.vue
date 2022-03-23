@@ -1,23 +1,23 @@
 <template>
     
-<div class="grid-container">
+<div class="marketplace-container">
     <div class="menu">
         MENU
     </div>
     <div class="market">
         <ul>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['electrik','ghost','fight','flight']" color="#9ADCFF"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#001BZ1" price="9999" :types="['fire','water']" color="#FFF89A"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['plant','ground','water']" color="#FFB2A6"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="1089" :types="['ground','fire','water']" color="#FF8AAE"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="#FCF4DD"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="#DDEDEA"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="#9ADCFF"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#0011BZ" price="9999" :types="['fire','water']" color="#FFF89A"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['plant','ground','water']" color="#FFB2A6"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="1089" :types="['ground','fire','water']" color="#FF8AAE"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="#DDEDEA"></CardItem></div></li>
-            <li><div class="card-container"><CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="#FCF4DD"></CardItem></div></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['elec']" color="#9ADCFF"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#001BZ1" price="9999" :types="['info']" color="#FFF89A"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['telecom']" color="#FFB2A6"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="1089" :types="['matmeca']" color="#FF8AAE"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#FCF4DD"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#DDEDEA"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#9ADCFF"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#0011BZ" price="9999" :types="['telecom','info']" color="#FFF89A"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['elec','telecom','matmeca']" color="#FFB2A6"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="1089" :types="['matmeca']" color="#FF8AAE"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#DDEDEA"></CardItem></li>
+            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#FCF4DD"></CardItem></li>
         </ul>
     </div>
 </div>
@@ -34,17 +34,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.marketplace-container{
+    padding: 0 5%;
+}
 .menu{
     height:50px;
-    background-color:grey;
+    background-color:lightgrey;
     margin-bottom:20px;
     border-radius: 10px;
-}
-.card-container{
-    max-width: 400px;
-    min-width: 300px;
-    max-height: 800px;
+    position: relative;
 }
 
 .market ul{
@@ -55,9 +53,8 @@ export default {
 .market ul li {
     list-style: none;
     flex: 1;
-    padding-bottom: 20px;
-    padding-right: 20px;
     align-items: center;
+    padding-bottom: 20px;
 }
 
 @media(max-width:750px){

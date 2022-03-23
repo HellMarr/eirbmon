@@ -11,22 +11,22 @@
                     <router-link to="/" class="title">EirbMon.</router-link>
                 </div>
                 <ul v-show="!mobile" class="navigation">
-                    <li><router-link to="/play" class="link">Play</router-link></li>
-                    <li><router-link to="/marketplace" class="link">Marketplace</router-link></li>
-                    <li><router-link to="/eirbmon" class="link">eirbmon</router-link></li>
-                    <li><router-link to="/signup" class="link">Sign Up</router-link></li>
-                    <li><router-link to="/signin" class="link">Sign In</router-link></li>
+                    <li><router-link  to="/play" class="link">Play</router-link></li>
+                    <li><router-link  to="/marketplace" class="link">Marketplace</router-link></li>
+                    <li><router-link  to="/eirbmon" class="link">eirbmon</router-link></li>
+                    <li><router-link  to="/signup" class="link">Sign Up</router-link></li>
+                    <li><router-link  to="/signin" class="link">Sign In</router-link></li>
                 </ul>
                 <div class="icon">
                     <img @click="toggleMobileNav" src="../assets/bars.png" v-show="mobile" class="i" :class="{'icon-active':mobileNav}">
                 </div>
                 <transition name="mobile-nav">
                     <ul v-show="mobileNav" class="dropdown-nav">
-                        <li><router-link to="/play" class="link">Play</router-link></li>
-                        <li><router-link to="/marketplace" class="link">Marketplace</router-link></li>
-                        <li><router-link to="/eirbmon" class="link">eirbmon</router-link></li>
-                        <li><router-link to="/signup" class="link">Sign Up</router-link></li>
-                        <li><router-link to="/signin" class="link">Sign In</router-link></li>
+                        <li><router-link @click="toggleMobileNav" to="/play" class="link">Play</router-link></li>
+                        <li><router-link @click="toggleMobileNav" to="/marketplace" class="link">Marketplace</router-link></li>
+                        <li><router-link @click="toggleMobileNav" to="/eirbmon" class="link">eirbmon</router-link></li>
+                        <li><router-link @click="toggleMobileNav" to="/signup" class="link">Sign Up</router-link></li>
+                        <li><router-link @click="toggleMobileNav" to="/signin" class="link">Sign In</router-link></li>
                     </ul>
                 </transition>
             </nav>

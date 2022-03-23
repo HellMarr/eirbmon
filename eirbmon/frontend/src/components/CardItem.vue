@@ -46,18 +46,17 @@ export default {
 /*https://codepen.io/lyon-etyo/pen/OJmyMGd*/
 .container{
   background: #ECE9E6;
-  width:100%;
-  height: 100%;
+  width: 300px;
   position: relative;
   display: flex;
   flex-direction: column;
-  border-radius: 20px;
+  border-radius: 50px;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
   background-size: cover;
 }
 
 .image{
-  margin: 15px;
+  padding: 15px;
 }
 
 .description{
@@ -96,44 +95,17 @@ export default {
   text-transform: capitalize;
 }
 
-.fire {
-  background: #f08030;
+.info {
+  background: #16A116;
 }
-.water {
-  background: #6890f0;
+.telecom {
+  background: #fbc235;
 }
-.plant {
-  background: #78c850;
+.elec {
+  background: #198DBC;
 }
-.electrik{
-  background: #f8d030;
-}
-.ice {
-  background: #98d8d8;
-}
-.fight{
-  background: #c03028;
-}
-.poison{
-  background:#a040a0;
-}
-.ground {
-  background: #e0c068;
-}
-.rock {
-  background: #6b3d22;
-}
-.flight{
-  background:#a890f0;
-}
-.psy{
-  background: #f85888;
-}
-.insect {
-  background: #a8b820;
-}
-.ghost {
-  background: #705898;
+.matmeca{
+  background: #E74737;
 }
 
 .stats{
