@@ -163,11 +163,13 @@ async function ValidateMatchPassword(password,username_email){
     let errors = [];
     test = false
     const good_user = await users.findOne({ $or: [ { user_mail: username_email } , { user_name: username_email } ] })
-    if (good_user.user_password === password) {
-      test = true
-    }
-    if (!test){
-        errors.push("The password is wrong")
+    if (good_user !== null){
+        if (good_user.user_password === password) {
+        test = true
+        }
+        if (!test){
+            errors.push("The password is wrong")
+        }
     }
     return errors;
 }
@@ -212,6 +214,7 @@ app.post("/api/signup", async(req, res) => {
 
 
 app.get("/api/signup", async(req, res) => {
+    
     const users = await findUsers()
     console.log(users[1]);
     res.status(200).send({
@@ -221,6 +224,7 @@ app.get("/api/signup", async(req, res) => {
 })
 
 app.post("/api/signin", async(req, res) => {
+    
     console.log("Signing in...	");
     let username_email = req.body.username_email;
     let password = req.body.password;
@@ -255,6 +259,6 @@ app.get("/api/signin", async(req, res) => {
     })
 })
 
-app.listen(3000, () => {
+app.listen(3001, () => {
     console.log("Server started ...");
 });

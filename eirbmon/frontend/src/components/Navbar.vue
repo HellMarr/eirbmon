@@ -11,7 +11,7 @@
                     <router-link to="/" class="title">Eirbmon.</router-link>
                 </div>
                 <ul v-show="!mobile" class="navigation">
-                    <li><a class="link" href="https://www.google.fr">Play</a></li>
+                    <li><a class="link" href="http://localhost:3000">Play</a></li>
                     <li><router-link  to="/marketplace" class="link">Marketplace</router-link></li>
                     <li><router-link  to="/eirbmon" class="link">eirbmon</router-link></li>
                     <li><router-link  to="/signup" class="link">Sign Up</router-link></li>
