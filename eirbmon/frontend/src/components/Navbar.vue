@@ -22,7 +22,6 @@
                 </div>
                 <transition name="mobile-nav">
                     <ul v-show="mobileNav" class="dropdown-nav">
-                        <li><router-link @click="toggleMobileNav" to="/play" class="link">Play</router-link></li>
                         <li><router-link @click="toggleMobileNav" to="/marketplace" class="link">Marketplace</router-link></li>
                         <li><router-link @click="toggleMobileNav" to="/eirbmon" class="link">eirbmon</router-link></li>
                         <li><router-link @click="toggleMobileNav" to="/signup" class="link">Sign Up</router-link></li>
