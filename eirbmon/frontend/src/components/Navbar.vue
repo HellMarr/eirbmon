@@ -8,10 +8,10 @@
         <header :class="{'scrolled-nav':scrolledNav}">
             <nav>
                 <div class="branding">
-                    <router-link to="/" class="title">EirbMon.</router-link>
+                    <router-link to="/" class="title">Eirbmon.</router-link>
                 </div>
                 <ul v-show="!mobile" class="navigation">
-                    <li><router-link  to="/play" class="link">Play</router-link></li>
+                    <li><a class="link" href="https://www.google.fr">Play</a></li>
                     <li><router-link  to="/marketplace" class="link">Marketplace</router-link></li>
                     <li><router-link  to="/eirbmon" class="link">eirbmon</router-link></li>
                     <li><router-link  to="/signup" class="link">Sign Up</router-link></li>

@@ -7,13 +7,13 @@
         <input type="radio" name="slider" id="item-3">
         <div class="cards">
             <label class="card" for="item-1" id="song-1">
-                <CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="blue"></CardItem>
+                <CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['telecom']" color="lightgrey"></CardItem>
             </label>
             <label class="card" for="item-2" id="song-2">
-                <CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="red"></CardItem>
+                <CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['matmeca']" color="lightgrey"></CardItem>
             </label>
             <label class="card" for="item-3" id="song-3">
-                <CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['ground','fire','water']" color="green"></CardItem>
+                <CardItem name="Salamèche" id="#000AAA" price="0.001" :types="['elec']" color="lightgrey"></CardItem>
             </label>
         </div>
 
