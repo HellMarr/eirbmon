@@ -33,13 +33,12 @@ export default {
   },
   computed: {
     style () {
-      return `background-color: ${this.color};`;
+     return `background-color: ${this.color};`;
     }
   },
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 /* Pour l'url de l'image regarder le parsing du webpath https://cli.vuejs.org/guide/html-and-static-assets.html#url-transform-rules*/
 /*https://codepen.io/lyon-etyo/pen/OJmyMGd*/
