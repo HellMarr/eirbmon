@@ -34,7 +34,7 @@ export default {
   },
   computed: {
     style () {
-      return 'background-color: ' + this.color;
+      return `background-color: ${this.color};`;
     }
   },
 }
