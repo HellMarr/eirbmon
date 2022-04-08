@@ -7,7 +7,7 @@
     <img class="image" src="../assets/abeille_sortie_accessories3.svg">
     <div class="description">
       <div class="upper-div">
-        <div class="name">{{nft_id}}</div> 
+        <div class="name">#{{nft_id}}</div> 
       </div>
       <div class="types">
         <div class="type" :class="nft_type">
@@ -25,8 +25,8 @@
 export default {
   name: 'CardItem',
   props:{
-    nft_id:String,
-    nft_price:String,
+    nft_id:Number,
+    nft_price:Number,
     nft_type:String,
     nft_bg_color:String,
   },
