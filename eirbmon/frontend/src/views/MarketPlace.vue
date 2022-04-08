@@ -25,36 +25,24 @@ export default {
 
     data:function(){
         return{
-            nft_list:[
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"rgb(218,247,166)",},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
-                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-            ],
+            nft_list:[],
         }
     },
-    methods: {
-        getMarketplace: function() {
-
-        axios.post("/api/marketplace").then((res) => {
+    mounted(){
+        axios.get("/api/marketplace").then((res) => {
             if(res.data.msg === "Validation Failed"){
-            //let errors = res.data.errors;
-            let errorMsg = "";
-            alert(errorMsg);
+                //let errors = res.data.errors;
+                let errorMsg = "";
+                alert(errorMsg);
+            }
+            else{
+                this.nft_list=res.data.nft_list;
+                console.log(res)
             }
         }).catch(()=>{
             alert("Something Went Wrong");
         })
-        }
-  }
+    }
 }
 </script>
 

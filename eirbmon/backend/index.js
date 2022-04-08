@@ -263,6 +263,29 @@ app.get("/api/signin", async(req, res) => {
     })
 })
 
+app.get("/api/marketplace", async(req, res) => {
+    
+    console.log("Fetching Marketplace nft");
+ 
+    req.session.logged = true;  
+    res.status(200).send({nft_list:[
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"rgb(218,247,166)",},
+        {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
+        {nft_id:1225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
+        {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
+        {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
+    ]})
+
+});
+
+
 app.listen(3001, () => {
     console.log("Server started ...");
 });
