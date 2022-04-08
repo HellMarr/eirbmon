@@ -1,23 +1,15 @@
 <template>
-    
 <div class="marketplace-container">
     <div class="menu">
         MENU
     </div>
     <div class="market">
         <ul>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['elec']" color="#9ADCFF"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#001BZ1" price="9999" :types="['info']" color="#FFF89A"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['telecom']" color="#FFB2A6"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="1089" :types="['matmeca']" color="#FF8AAE"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#FCF4DD"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#DDEDEA"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#9ADCFF"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#0011BZ" price="9999" :types="['telecom','info']" color="#FFF89A"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['elec','telecom','matmeca']" color="#FFB2A6"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="1089" :types="['matmeca']" color="#FF8AAE"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#DDEDEA"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#FCF4DD"></CardItem></li>
+
+            <li v-for="nft in nft_list" :key="nft">
+                <CardItem :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItem>
+            </li>
+
         </ul>
     </div>
 </div>
@@ -28,7 +20,40 @@ import CardItem from '../components/CardItem.vue'
 
 export default {
     name: "MarketPlace",
-    components: { CardItem }
+    components: { CardItem },
+
+    data:function(){
+        return{
+            nft_list:[
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"rgb(218,247,166)",},
+                {nft_id:"#001BZ1",nft_price:"9999",nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"#FFB2A6"},
+                {nft_id:"#000AAA",nft_price:"1089",nft_type:"elec",nft_bg_color:"#FF8AAE"},
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"#FCF4DD"},
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"#9ADCFF"},
+                {nft_id:"#0011BZ",nft_price:"9999",nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"#FFB2A6",},
+                {nft_id:"#000AAA",nft_price:"1089",nft_type:"elec",nft_bg_color:"#FF8AAE"},
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:"#000AAA",nft_price:"0.001",nft_type:"elec",nft_bg_color:"#FCF4DD"},
+            ],
+        }
+    },
+    /*methods: {
+        getMarketplace: function() {
+
+        axios.post("/api/marketplace").then((res) => {
+            if(res.data.msg === "Validation Failed"){
+            let errors = res.data.errors;
+            let errorMsg = "";
+            alert(errorMsg);
+            }
+        }).catch(()=>{
+            alert("Something Went Wrong");
+        })
+        }
+  }*/
 }
 </script>
 
