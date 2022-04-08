@@ -16,7 +16,8 @@
 </template>
 
 <script>
-import CardItem from '../components/CardItem.vue'
+import CardItem from '../components/CardItem.vue';
+import axios from 'axios';
 
 export default {
     name: "MarketPlace",
@@ -40,12 +41,12 @@ export default {
             ],
         }
     },
-    /*methods: {
+    methods: {
         getMarketplace: function() {
 
         axios.post("/api/marketplace").then((res) => {
             if(res.data.msg === "Validation Failed"){
-            let errors = res.data.errors;
+            //let errors = res.data.errors;
             let errorMsg = "";
             alert(errorMsg);
             }
@@ -53,7 +54,7 @@ export default {
             alert("Something Went Wrong");
         })
         }
-  }*/
+  }
 }
 </script>
 
