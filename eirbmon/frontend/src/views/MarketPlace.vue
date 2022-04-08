@@ -1,34 +1,48 @@
 <template>
-    
 <div class="marketplace-container">
     <div class="menu">
         MENU
     </div>
     <div class="market">
         <ul>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['elec']" color="#9ADCFF"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#001BZ1" price="9999" :types="['info']" color="#FFF89A"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['telecom']" color="#FFB2A6"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="1089" :types="['matmeca']" color="#FF8AAE"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#FCF4DD"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#DDEDEA"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#9ADCFF"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#0011BZ" price="9999" :types="['telecom','info']" color="#FFF89A"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['elec','telecom','matmeca']" color="#FFB2A6"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="1089" :types="['matmeca']" color="#FF8AAE"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#DDEDEA"></CardItem></li>
-            <li><CardItem name="Eirbee" id="#000AAA" price="0.001" :types="['matmeca']" color="#FCF4DD"></CardItem></li>
+
+            <li v-for="nft in nft_list" :key="nft">
+                <CardItem :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItem>
+            </li>
+
         </ul>
     </div>
 </div>
 </template>
 
 <script>
-import CardItem from '../components/CardItem.vue'
+import CardItem from '../components/CardItem.vue';
+import axios from 'axios';
 
 export default {
     name: "MarketPlace",
-    components: { CardItem }
+    components: { CardItem },
+
+    data:function(){
+        return{
+            nft_list:[],
+        }
+    },
+    mounted(){
+        axios.get("/api/marketplace").then((res) => {
+            if(res.data.msg === "Validation Failed"){
+                //let errors = res.data.errors;
+                let errorMsg = "";
+                alert(errorMsg);
+            }
+            else{
+                this.nft_list=res.data.nft_list;
+                console.log(res)
+            }
+        }).catch(()=>{
+            alert("Something Went Wrong");
+        })
+    }
 }
 </script>
 

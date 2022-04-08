@@ -7,16 +7,16 @@
     <img class="image" src="../assets/abeille_sortie_accessories3.svg">
     <div class="description">
       <div class="upper-div">
-        <div class="name">{{id}}</div> 
+        <div class="name">#{{nft_id}}</div> 
       </div>
       <div class="types">
-        <div class="type" v-for="type in types" :key="type" :class="type">
-          {{type}}
+        <div class="type" :class="nft_type">
+          {{nft_type}}
         </div>
       </div>
       <div class="stats">
-        <div class="price">{{price}} ETH</div>
-    </div>
+        <div class="price">{{nft_price}} ETH</div>
+      </div>
     </div>
   </div>
 </template>
@@ -25,15 +25,14 @@
 export default {
   name: 'CardItem',
   props:{
-    name:String,
-    id:String,
-    price:String,
-    types:Array,
-    color:String,
+    nft_id:Number,
+    nft_price:Number,
+    nft_type:String,
+    nft_bg_color:String,
   },
   computed: {
     style () {
-     return `background-color: ${this.color};`;
+     return `background-color: ${this.nft_bg_color};`;
     }
   },
 }
@@ -62,7 +61,8 @@ export default {
   flex-direction: column;
   gap: .5rem;
   background: rgba(238, 238, 238, 0.7);
-  border-radius: 20px;
+  border-radius: 35px;
+  margin-bottom: 15px;
 }
 
 .upper-div{

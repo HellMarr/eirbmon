@@ -1,5 +1,5 @@
 const mongooseconnection = require("mongoose");
-mongooseconnection.connect("mongodb://127.0.0.1:27017/test", {
+mongooseconnection.connect('mongodb+srv://eirbmon:eirbmon@cluster0.9jyvc.mongodb.net/eirbmon?retryWrites=true&w=majority', {
     useNewUrlParser: true
 });
 const connection = mongooseconnection.connection;

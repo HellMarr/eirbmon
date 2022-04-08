@@ -2,7 +2,6 @@
 node_modules
 /dist
 
-.expo
 
 # local env files
 .env.local
@@ -22,3 +21,6 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+
+.gitkeep

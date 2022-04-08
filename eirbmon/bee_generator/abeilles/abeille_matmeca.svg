@@ -371,7 +371,7 @@
            id="path1231" /></g></g><g
        transform="matrix(0.28153298,-2.7948714,-2.7948714,-0.28153298,2065.7888,2249.08)"
        id="g1947"><g
-       style="display:PEN"
+       style="display:CASE"
          transform="matrix(0.75,0,0,-0.74797297,-55.5,322.37634)"
          clip-path="url(#1-3)"
          id="g1945"><path
@@ -433,7 +433,7 @@
            id="path1943" /></g></g><g
        transform="matrix(2.3596776,-1.65607,-1.65607,-2.3596776,1727.5274,2501.4307)"
        id="g1825"
-       style="display:RULE"
+       style="display:CASE"
        inkscape:transform-center-x="1215.902"
        inkscape:transform-center-y="987.07811"><g
          transform="matrix(0.75,0,0,-0.74797297,-55.5,322.37634)"

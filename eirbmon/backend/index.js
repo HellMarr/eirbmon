@@ -10,13 +10,17 @@ const session = require('express-session');
 
 const mongoose = require('mongoose');
 let users = require('./users.js');
-mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true, useUnifiedTopology: true});
+let nft = require('./nft.js');
+mongoose.connect('mongodb+srv://eirbmon:eirbmon@cluster0.9jyvc.mongodb.net/eirbmon?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log("connecté à Mongoose")
   db.collection('users').findOne({}, function (findErr, result) {
+    if (findErr) throw findErr;
+  });
+  db.collection('nft').findOne({}, function (findErr, result) {
     if (findErr) throw findErr;
   });
 });
@@ -44,13 +48,13 @@ const createUser = async object => {
     const collection = db.collection('users');
     const user = await collection.insertOne(object);
     return user
-  }
+}
   
 
 const findUsers = async user_name => {
-const userss = await users.find({})
-userss.map(users => users.user_name);
-return userss
+    const userss = await users.find({});
+    userss.map(users => users.user_name);
+    return userss
 }
 
 app.get("/", (req, res) => {
@@ -76,7 +80,6 @@ function validatePasswordconfirm(password,passwordconfirm) {
     if (password !== passwordconfirm || passwordconfirm === "") {
         errors.push("password confirmation is different from password");
     }
-
     return errors;
 }
 
@@ -258,6 +261,29 @@ app.get("/api/signin", async(req, res) => {
         data: users
     })
 })
+
+app.get("/api/marketplace", async(req, res) => {
+    
+    console.log("Fetching Marketplace nft");
+ 
+    req.session.logged = true;  
+    res.status(200).send({nft_list:[
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"rgb(218,247,166)",},
+        {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
+        {nft_id:1225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
+        {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
+        {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
+    ]})
+
+});
+
 
 app.listen(3001, () => {
     console.log("Server started ...");
