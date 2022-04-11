@@ -48,13 +48,13 @@ const createUser = async object => {
     const collection = db.collection('users');
     const user = await collection.insertOne(object);
     return user
-  }
+}
   
 
 const findUsers = async user_name => {
-const userss = await users.find({})
-userss.map(users => users.user_name);
-return userss
+    const userss = await users.find({});
+    userss.map(users => users.user_name);
+    return userss
 }
 
 app.get("/", (req, res) => {
@@ -80,7 +80,6 @@ function validatePasswordconfirm(password,passwordconfirm) {
     if (password !== passwordconfirm || passwordconfirm === "") {
         errors.push("password confirmation is different from password");
     }
-
     return errors;
 }
 

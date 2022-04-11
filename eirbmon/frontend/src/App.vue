@@ -33,11 +33,13 @@ const logIn = async () => {
 logIn()
 
 
+//import FooterView from './components/FooterView.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
+    //FooterView
   }
 }
 </script>
