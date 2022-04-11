@@ -4,6 +4,7 @@ import Marketplace from '../views/MarketPlace.vue'
 import EirbMon from '../views/EirbMon.vue'
 import SigninView from "../views/SigninView.vue"
 import SignupView from '../views/SignupView.vue'
+import ProfileView from "../views/ProfileView"
 import PageNotFound from '../views/PageNotFound.vue'
 
 const routes = [
@@ -18,6 +19,11 @@ const routes = [
     component: Marketplace
   },
   {
+    path: '/eirbmon/:id',
+    name: 'marketplace-id',
+    component: EirbMon
+  },
+  {
     path: '/eirbmon',
     name: 'eirbmon',
     component: EirbMon
@@ -29,6 +35,11 @@ const routes = [
   {
     path: "/signin",
     component: SigninView,
+  },
+  {
+    path: "/profile",
+    name: "profile",
+    component: ProfileView
   },
   {
     name:'NotFound',
