@@ -8,19 +8,20 @@
     <div class="app">
       <Navbar/>
       <router-view class="router"/>
+      <FooterView/>
     </div>
   </body>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
-//import FooterView from './components/FooterView.vue'
+import FooterView from './components/FooterView.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
-    //FooterView
+    FooterView
   }
 }
 </script>
