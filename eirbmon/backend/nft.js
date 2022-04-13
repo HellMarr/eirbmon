@@ -11,6 +11,8 @@ const nftSchema = new Schema({
     nft_price: Number,
     nft_type: String,
     nft_bg_color: String,
+    nft_pedicel_color: String,
+    nft_wings_color: String,
     nft_forsale: Boolean,
     nft_potential: Number,
   });
