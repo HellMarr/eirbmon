@@ -20,7 +20,8 @@ export default {
 
 <style scoped>
   footer{
-    height: 100px;
+    /* background: linear-gradient(90deg, #FD992D 0%, #FFBF49 40%); */
+    height: 70px;
     display: flex;
     justify-content: space-between;
     align-items: center;

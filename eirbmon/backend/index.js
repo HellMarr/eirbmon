@@ -293,10 +293,9 @@ app.get("/api/eirbmon/:id", async(req, res) => {
     
     // await createNft({nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"});
     const id = req.params.id;
-    console.log('id = ' + id);
-    const nft_info = await nft.findOne({ nft_id: '1225' });
-    console.log("Sending NFT's info...");
+    const nft_info = await nft.findOne({ nft_id: id});
     console.log(nft_info);
+    console.log("Sending NFT's info...");
     res.status(200).send({
         data : nft_info,
     })
@@ -305,9 +304,7 @@ app.get("/api/eirbmon/:id", async(req, res) => {
 
 app.get("/api/profile", async(req, res) => {
 
-
-
-    let username = req.body.username;
+    let username = req.session.username;
     const user_nfts = await nft.find({ user_name: username }, 'user_nft');
 
     console.log("Sending profile info...");
