@@ -100,7 +100,7 @@ export default {
   border-radius: 1em;
   background: #a8a878;
   color: #fafafa;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .info {

@@ -9,11 +9,9 @@
       <div class="properties">
         <div class="title">Properties</div>
         <div class="types">Type <div class="type" :class="nft_type">{{nft_type}}</div></div>
-        <div class="types">Wings <div class="type">{{nft_wings_color}}</div></div>
-        <div class="types">Antenna <div class="type">{{nft_antenna_color}}</div></div>
+        <div class="types">Wings <div class="type" :style="wings">{{nft_wings_color}}</div></div>
+        <div class="types">Antenna <div class="type" :style="antenna">{{nft_antenna_color}}</div></div>
         <div class="types">Background <div class="type" :style="background">{{nft_bg_color}}</div></div>
-        <div class="types">Object <div class="type">{{nft_type}}</div></div>
-
       </div>
       <div class="potential">
         <div class="price">Potential {{nft_potential}}</div>
@@ -146,14 +144,16 @@ export default {
 
 .type {
   align-self: flex-start;
-  padding: .25em .75em;
+  padding: .2em .75em;
   border-radius: 1em;
   background: #a8a878;
-  color: #fafafa;
-  text-transform: capitalize;
+  color: #000;
+  text-transform: uppercase;
   font-family: 'Fredoka', sans-serif;
   font-size:20px;
   margin-left: 10px;
+
+  border: 1px solid #AAA;
 }
 .info {
   background: #16A116;

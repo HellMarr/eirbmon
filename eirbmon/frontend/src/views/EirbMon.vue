@@ -17,7 +17,6 @@ export default {
             nft_potential:undefined,
             nft_price:undefined,
             nft_type:undefined,
-            nft_color:undefined,
             nft_antenna_color:undefined,
             nft_wings_color:undefined,
         };
@@ -27,14 +26,16 @@ export default {
     },
     async mounted(){
         let res= await axios.get("/api/eirbmon/"+this.id.toString());
-        let nft_info = res.data.data;
+        console.log(res.data);
+        let nft_info = res.data.nft;
         this.nft_id=nft_info.nft_id;
         this.nft_potential=nft_info.nft_potential;
         this.nft_price=nft_info.nft_price;
         this.nft_type=nft_info.nft_type;
-        this.nft_color=nft_info.nft_color;
         this.nft_type=nft_info.nft_type;
         this.nft_bg_color=nft_info.nft_bg_color;
+        this.nft_antenna_color=nft_info.nft_antenna_color;
+        this.nft_wings_color=nft_info.nft_wings_color;
     },
 }
 </script>
