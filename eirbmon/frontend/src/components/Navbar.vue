@@ -16,6 +16,7 @@
                     <li><router-link  to="/eirbmon" class="link">eirbmon</router-link></li>
                     <li><router-link  to="/signup" class="link">Sign Up</router-link></li>
                     <li><router-link  to="/signin" class="link">Sign In</router-link></li>
+                    <li><router-link  to="/profile" class="link">Profile</router-link></li>
                 </ul>
                 <div class="icon">
                     <img @click="toggleMobileNav" src="../assets/bars.png" v-show="mobile" class="i" :class="{'icon-active':mobileNav}">
@@ -26,6 +27,7 @@
                         <li><router-link @click="toggleMobileNav" to="/eirbmon" class="link">eirbmon</router-link></li>
                         <li><router-link @click="toggleMobileNav" to="/signup" class="link">Sign Up</router-link></li>
                         <li><router-link @click="toggleMobileNav" to="/signin" class="link">Sign In</router-link></li>
+                        <li><router-link @click="toggleMobileNav" to="/profile" class="link">Profile</router-link></li>
                     </ul>
                 </transition>
             </nav>

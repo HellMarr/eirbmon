@@ -1,6 +1,4 @@
-const { Double } = require('bson');
 const mongoose = require('mongoose');
-const { boolean } = require('webidl-conversions');
 const Schema = mongoose.Schema;
 
 const nftSchema = new Schema({
@@ -13,7 +11,8 @@ const nftSchema = new Schema({
     nft_price: Number,
     nft_type: String,
     nft_bg_color: String,
-    nft_insale: Boolean,
+    nft_forsale: Boolean,
+    nft_potential: Number,
   });
 
 const nft = mongoose.model('nft', nftSchema)

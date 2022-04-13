@@ -16,8 +16,8 @@ function App() {
       <Unity 
         unityContext={unityContext} 
         style={{
-          width: "600px",
-          height: "400px",
+          width: "900px",
+          height: "680px",
           border: "2px solid black",
           background: "green",
         }}

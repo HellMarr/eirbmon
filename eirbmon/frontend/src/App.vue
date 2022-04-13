@@ -8,17 +8,40 @@
     <div class="app">
       <Navbar/>
       <router-view class="router"/>
+      <FooterView/>
     </div>
   </body>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
+import FooterView from './components/FooterView.vue'
+import detectEthereumProvider from '@metamask/detect-provider'
+import Web3 from "web3/dist/web3.min.js";
+
+const logIn = async () => {
+  const provider = await detectEthereumProvider();
+  if (provider) {
+    console.log("metamask is installed")
+    console.log(await provider.request({method: 'eth_requestAccounts'}));
+    const web3 = new Web3(provider);
+    console.log(await web3.eth.personal.getAccounts())
+    
+
+  } else {
+    console.log("please install metamask")
+  }
+}
+logIn()
+
+
+//import FooterView from './components/FooterView.vue'
 
 export default {
   name: 'App',
   components: {
     Navbar,
+    FooterView
   }
 }
 </script>
