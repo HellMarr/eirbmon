@@ -27,13 +27,14 @@ export default {
     },
     async mounted(){
         let res= await axios.get("/api/eirbmon/"+this.id.toString());
-        this.nft_id=res.data.nft_id;
-        this.nft_potential=res.data.nft_potential;
-        this.nft_price=res.data.nft_price;
-        this.nft_type=res.data.nft_type;
-        this.nft_color=res.data.nft_color;
-        this.nft_type=res.data.nft_type;
-        this.nft_color=res.data.nft_color;
+        let nft_info = res.data.data;
+        this.nft_id=nft_info.nft_id;
+        this.nft_potential=nft_info.nft_potential;
+        this.nft_price=nft_info.nft_price;
+        this.nft_type=nft_info.nft_type;
+        this.nft_color=nft_info.nft_color;
+        this.nft_type=nft_info.nft_type;
+        this.nft_bg_color=nft_info.nft_bg_color;
     },
 }
 </script>
