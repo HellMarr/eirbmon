@@ -1,8 +1,8 @@
 
 
 
-async function addNftInMarket(_marketplaceContract, _tokenId, _price, _from, _to) {
-    const CONTRACT_ADDRESS_NFT = "0xAbaf091fC64e10d54418A4A71e603882587fc84B";
+async function addNftInMarket(_provider, _marketplaceContract, _tokenId, _price, _from, _to) {
+    const CONTRACT_ADDRESS_NFT = "0xF7554cd71F96D7b0a1768f02B9FDeA7A9E4F445d";
 
     const transactionParameters = {
     // from: "0xa8a61e4D04cDde5349311b96213B14b8Da300197",//ethereum.selectedAddress, // must match user's active address.
@@ -12,7 +12,7 @@ async function addNftInMarket(_marketplaceContract, _tokenId, _price, _from, _to
     value: _price,
     data: _marketplaceContract.methods.addNftInMarketplace(CONTRACT_ADDRESS_NFT, _tokenId, _price).encodeABI()
   };
-  provider.request({
+  _provider.request({
     method: 'eth_sendTransaction',
     params: [transactionParameters],
   })

@@ -54,4 +54,23 @@ async function mintNFT(tokenURI) {
     })
 }
 
-mintNFT("https://ipfs.io/ipfs/QmbGF1UAVidtHGtJ3QEG2mvYhyKK2YZfbw6qXHu8qCnZth?filename=eirbeeTest1.json")
+// mintNFT("https://ipfs.io/ipfs/QmbGF1UAVidtHGtJ3QEG2mvYhyKK2YZfbw6qXHu8qCnZth?filename=eirbeeTest1.json")
+
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
+// async function mint4000Nfts() {
+//   for(let i = 5; i <= 4000; i++){
+//     await sleep(1000);
+//     var str = "" + i
+//     var pad = "0000"
+//     var id = pad.substring(0, pad.length - str.length) + str
+    
+//     await mintNFT("https://ipfs.io/ipfs/QmVfMoyBitJoXKvjGSii15BiWfGUYADZvHqesoK77RSf4Z/"+id+".json")
+//   }
+// }
+// mint4000Nfts();
+mintNFT("https://ipfs.io/ipfs/QmVfMoyBitJoXKvjGSii15BiWfGUYADZvHqesoK77RSf4Z/0005.json")
