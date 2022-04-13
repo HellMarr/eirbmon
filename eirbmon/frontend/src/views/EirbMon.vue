@@ -1,6 +1,6 @@
 <template>
     <div class="container-eirbmon">
-        <EirbMonItem nft_id=1253 nft_potential=100 nft_price=0.001 nft_type="elec" nft_color="#9ADCFF"></EirbMonItem>
+        <EirbMonItem nft_id=1253 nft_potential=100 nft_price=0.001 nft_type="elec" nft_bg_color="#9ADCFF"></EirbMonItem>
     </div>
 </template>
 
