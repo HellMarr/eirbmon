@@ -7,13 +7,13 @@
         <input type="radio" name="slider" id="item-3">
         <div class="cards">
             <label class="card" for="item-1" id="song-1">
-                <CardItem homepage="True" name="Salamèche" id="#000AAA" price="0.001" :types="['telecom']" color="rgb(218,247,166)"></CardItem>
+                <CardItem homepage="True" nft_id="1" nft_price="0.001" nft_type="elec" nft_bg_color="rgb(218,247,166)"></CardItem>
             </label>
             <label class="card" for="item-2" id="song-2">
-                <CardItem homepage="True" name="Salamèche" id="#000AAA" price="0.001" :types="['matmeca']" color="rgb(218,247,166)"></CardItem>
+                <CardItem homepage="True" nft_id="2" nft_price="0.001" nft_type="elec" nft_bg_color="rgb(218,247,166)"></CardItem>
             </label>
             <label class="card" for="item-3" id="song-3">
-                <CardItem homepage="True" name="Salamèche" id="#000AAA" price="0.001" :types="['elec']" color="rgb(218,247,166)"></CardItem>
+                <CardItem homepage="True" nft_id="3" nft_price="0.001" nft_type="elec" nft_bg_color="rgb(218,247,166)"></CardItem>
             </label>
         </div>
 
@@ -21,13 +21,13 @@
             <div class="upper-part">
                 <div class="info-area" id="title">
                     <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="title">EirbMon 1</div>
+                        <div class="title">Eirbee#1</div>
                     </label>
                     <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="title">EirbMon 2</div>
+                        <div class="title">Eirbee#2</div>
                     </label>
                     <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="title">EirbMon 3</div>
+                        <div class="title">Eirbee#3</div>
                     </label>
                 </div>
             </div>
@@ -47,7 +47,8 @@
     </div>
     
     <div class="video-container">
-        <iframe class="video" width="560" height="315" src="https://www.youtube.com/embed/zPpmYJ8CKVg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <img width="560" height="315" class="video" src="../assets/Ingame_fight.png">
+        <img width="560" height="315" class="video" src="../assets/Ingame.png">
         <div class="video-text">
             <div class="title">Présentation du jeu</div>
             <div class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce posuere, tortor nec ultricies dapibus, massa diam tempus lectus, sed iaculis libero neque eget ex. Integer ante mauris, imperdiet ac diam in, tempus cursus nibh. Nullam auctor tempor dui ac commodo. Nullam quis erat ipsum. Quisque lacinia nisl non mi efficitur, quis tempor tortor vestibulum. Aliquam in vehicula ex. Mauris non dui purus. Suspendisse dignissim semper aliquet.</div>
@@ -217,12 +218,14 @@ img {
 
 .video{
     border-radius: 15px;
+    width: 450px;
+    height: auto;
 }
 
 .video-text{
     padding:25px;
     max-width: 400px;
-    background-color: red;
+    background-color: rgb(104, 104, 104);
     border: 1px solid #ddd;
     border-radius: 15px;
 }

@@ -7,6 +7,7 @@
         <div class="price">{{nft_price}} ETH</div>
       </div>
       <div class="properties">
+        <div class="title">Properties</div>
         <div class="types">Type <div class="type" :class="nft_type">{{nft_type}}</div></div>
         <div class="types">Wings <div class="type">{{nft_wings_color}}</div></div>
         <div class="types">Antenna <div class="type">{{nft_antenna_color}}</div></div>
@@ -133,6 +134,14 @@ export default {
   font-family: 'Fredoka', sans-serif;
   font-size:20px;
   margin:2px;
+}
+
+.title{
+  font-size: 30px;
+  position: relative;
+  top:0%;
+  text-decoration: underline;
+  padding-bottom: 10px;
 }
 
 .type {
