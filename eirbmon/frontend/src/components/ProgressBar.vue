@@ -1,9 +1,7 @@
 <template>
   <div class="progress2 progress-moved">
-    <div class="progress-bar2"></div>                       
+    <div class="progress-bar2" :style="style"></div>                       
   </div>
-  <h1>Attack {{value}}</h1>
-
 </template>
 
 
@@ -11,19 +9,16 @@
 export default {
     name: "ProgressBar2",
     props:{
-        value:{
-          type:Number,
-          default:80,
-        },
-        stat:{
-          type:String,
-        }
+      value:{
+        type:Number,
+        default:70,
+      },
     },
-    computed: {
-        Width() {
-            return '@keyframes load {0% { width: 0; }100% { width:'+ this.value+ '%; }';
-        }
+  computed: {
+    style () {
+     return `width: ${this.value}%;`;
     }
+  },
 }
 </script>
 
@@ -43,17 +38,6 @@ body{
 .progress-bar2 {
   height: 10px;
   border-radius: 1.5em;
-  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-  transition: 0.4s linear;  
-  transition-property: width, background-color;    
-}
-
-.progress-moved .progress-bar2 {
-  animation: progressAnimation 1s normal forwards;
-}
-
-@keyframes progressAnimation {
-  0%   { width: 2.5%; background-color: #ffbf49;}
-  100% { width: 80%; background-color: #FFBF49; }
+  background-color: #FFBF49;
 }
 </style>
