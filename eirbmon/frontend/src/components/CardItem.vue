@@ -51,10 +51,12 @@ export default {
   border-radius: 50px;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
   background-size: cover;
+  transition: box-shadow .15s ease-in-out;
 }
 
 .container:hover{
   cursor: pointer;
+  box-shadow: 0 .5rem 2rem rgba(0, 0, 0, 0.3);
 }
 
 .image{
