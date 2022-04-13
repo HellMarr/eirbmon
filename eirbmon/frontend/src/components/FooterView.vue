@@ -21,14 +21,14 @@ export default {
 <style scoped>
   footer{
     height: 100px;
-    background-color: rgb(174, 185, 194);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 100px;
     padding: 0px 80px;
     position: relative;
     color: rgb(73, 73, 73);
+    box-shadow: 0px -4px 5px 0px rgba(168, 168, 168, 0.75);
   }
 
   #logo{

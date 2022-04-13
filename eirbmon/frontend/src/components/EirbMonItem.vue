@@ -1,113 +1,130 @@
 <template>
-    <div class="container">
-        <img class="image" :style="style" src="../assets/abeille_sortie_accessories3.svg">
-        <div class="description">
-          <div class="upper-div">
-            <div class="infos">
-              <div class="name">{{name}}</div> 
-              <div class="id">{{id}}</div>
-            </div>
-            <div class="tags-div">
-              <div class="types">
-                <div class="type" v-for="type in types" :key="type" :class="type">
-                  {{type}}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="lower-div">
-            <ProgressBar/>
-          </div>
-        </div>
+  <div class="grid">
+    <img class="image" :style="style" src="../assets/abeille_sortie_accessories3.svg">
+    <div class="description">
+      <div class="infos">
+        <div class="id">Eirbee#{{nft_id}}</div>
+        <div class="price">{{nft_price}} ETH</div>
+      </div>
+      <div class="properties">
+        <div class="types">Type : <div class="type" :class="nft_type">{{nft_type}}</div></div>
+        <div class="types">Wings : <div class="type">{{nft_type}}</div></div>
+        <div class="types">Antenna : <div class="type">{{nft_type}}</div></div>
+        <div class="types">Background : <div class="type">#198DBC</div></div>
+        <div class="types">Object : <div class="type">{{nft_type}}</div></div>
+
+      </div>
+      <div class="potential">
+        <div class="price">Potential {{nft_potential}}</div>
+        <GaussianCurve :left="nft_potential"/>
+      </div>
     </div>
+  </div>
 </template>
 
 
 <script>
-import ProgressBar from './ProgressBar.vue'
+import GaussianCurve from './GaussianCurve.vue'
 
 export default {
     name: "EirbMonItem",
     props: {
-        name: String,
-        id: String,
-        price: String,
-        types: Array,
-        color: String,
+      nft_id:Number,
+      nft_price:Number,
+      nft_type:String,
+      nft_bg_color:String,
+      nft_potential:Number,
     },
     computed: {
         style() {
-            return "background-color: " + this.color;
+          return "background-color: " + this.nft_color;
         }
     },
     components:{
-      ProgressBar,
-    }
+    GaussianCurve
+}
 }
 </script>
 
 <style scoped>
-/*https://codepen.io/WebDevSimplified/pen/oVXKQx*/
-.container{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+.grid {
+  margin-left: 10%;
+  width:80%;
+  display: grid;
+  grid-template-columns: 0.7fr 1fr;
+  grid-template-rows: 1fr;
+  grid-column-gap: 10px;
+  border-radius: 2%;
 }
 
 .image{
-  margin: 15px;
-  width:400px;
-  border-radius: 20px;
+  grid-area: 1 / 1 / 2 / 2;
+  width:100%;
+  border-radius:20px;
   background-size: cover;
+  margin:auto;
 }
 
 .description{
-  width:50%;
-  padding:25px;
-  display: flex;
-  flex-direction: column;
+  width:100%;
+  height:100%;
   border-radius: 20px;
   background-size: cover;
   background: rgba(238, 238, 238, 0.7);
+  grid-area: 1 / 2 / 2 / 3;
+  font-family: 'Fredoka', sans-serif;
+  margin:auto;
+  padding-right: 5%;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 0.5fr 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
-.upper-div{
-  display:flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
 .infos{
+  grid-area: 1 / 1 / 2 / 3;
   display:flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  align-items: center;
 }
-.name, .id{
+.id{
   font-size: 50px;
+}
+.price{
+  font-size:30px;
+}
+.price, .id{
   font-family: 'Fredoka', sans-serif;
 }
 
-.id{
-  color:rgb(117, 117, 117);
+.properties{
+  grid-area: 2 / 1 / 3 / 2;
+  padding-left: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
 }
 
-.tags-div{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+.potential{
+  grid-area: 2 / 2 / 3 / 3;
+    display: flex;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
-
-.lower-div{
-  display: flex;
-  flex-direction: column;
-}
 .types{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  gap:5px;
+  align-items: center;
+  font-family: 'Fredoka', sans-serif;
+  font-size:20px;
+  margin:2px;
 }
 
 .type {
@@ -117,9 +134,9 @@ export default {
   background: #a8a878;
   color: #fafafa;
   text-transform: capitalize;
+  font-family: 'Fredoka', sans-serif;
   font-size:20px;
 }
-
 .info {
   background: #16A116;
 }
@@ -132,19 +149,4 @@ export default {
 .matmeca{
   background: #E74737;
 }
-
-
-@media (max-width: 800px){
-  body{
-    flex-direction: column;
-  }
-  
-  .upper-div{
-    flex-direction: column;
-  }
-  .description{
-    width: 100%;
-  }
-}
-
 </style>

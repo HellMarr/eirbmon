@@ -8,12 +8,14 @@
     <div class="app">
       <Navbar/>
       <router-view class="router"/>
+      <FooterView/>
     </div>
   </body>
 </template>
 
 <script>
 import Navbar from './components/Navbar.vue'
+import FooterView from './components/FooterView.vue'
 import detectEthereumProvider from '@metamask/detect-provider'
 import Web3 from "web3/dist/web3.min.js";
 
@@ -39,7 +41,7 @@ export default {
   name: 'App',
   components: {
     Navbar,
-    //FooterView
+    FooterView
   }
 }
 </script>
