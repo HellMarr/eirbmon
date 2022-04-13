@@ -1,9 +1,5 @@
 <template>
-<head>
-
-
-</head>
-  <div class="container" :style="style">
+  <div @click="test" class="container" :style="style">
     <img class="image" src="../assets/abeille_sortie_accessories3.svg">
     <div class="description">
       <div class="upper-div">
@@ -35,6 +31,11 @@ export default {
      return `background-color: ${this.nft_bg_color};`;
     }
   },
+  methods: {
+    test(){
+      this.$router.push(`/eirbmon/${this.nft_id}`);
+    }
+  }
 }
 </script>
 
@@ -50,6 +51,10 @@ export default {
   border-radius: 50px;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
   background-size: cover;
+}
+
+.container:hover{
+  cursor: pointer;
 }
 
 .image{
