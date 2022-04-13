@@ -68,7 +68,11 @@ function generateAll(files,changes,color,accessoiries){
                 let tab = { 
                     QI: 0,
                     type: "", 
-                    accessories: []
+                    accessories: [],
+                    background: "",
+                    pedicel: "",
+                    wings: "",
+
                 };
 
                 if (a==0){
@@ -91,145 +95,160 @@ function generateAll(files,changes,color,accessoiries){
                 if (b % 5 === 0){
                     while (xmlFile.includes(changes[0])){
                         xmlFile = xmlFile.replace(changes[0],color[0][0])
+                        tab.background = color[0][0]
                     }
                 }
                 else if (b % 5 === 1){
                     while (xmlFile.includes(changes[0])){
                         xmlFile = xmlFile.replace(changes[0],color[0][1])
+                        tab.background = color[0][1]
                     }
                 }
                 else if (b % 5 === 2){
                     while (xmlFile.includes(changes[0])){
                         xmlFile = xmlFile.replace(changes[0],color[0][2])
+                        tab.background = color[0][2]
                     }
                 }
                 else if (b % 5 === 3){
                     while (xmlFile.includes(changes[0])){
                         xmlFile = xmlFile.replace(changes[0],color[0][3])
+                        tab.background = color[0][3]
                     }
                 }
                 else if (b % 5 === 4){
                     while (xmlFile.includes(changes[0])){
                         xmlFile = xmlFile.replace(changes[0],color[0][4])
+                        tab.background = color[0][4]
                     }
                 }
                 if (b % 5 === 0){
                     while (xmlFile.includes(changes[1])){
                         xmlFile = xmlFile.replace(changes[1],color[1][0])
+                        tab.wings = color[1][0]
                     }
                 }
                 else if (b % 5 === 1){
                     while (xmlFile.includes(changes[1])){
                         xmlFile = xmlFile.replace(changes[1],color[1][1])
+                        tab.wings = color[1][1]
                     }
                 }
                 else if (b % 5 === 2){
                     while (xmlFile.includes(changes[1])){
                         xmlFile = xmlFile.replace(changes[1],color[1][2])
+                        tab.wings = color[1][2]
                     }
                 }
                 else if (b % 5 === 3){
                     while (xmlFile.includes(changes[1])){
                         xmlFile = xmlFile.replace(changes[1],color[1][3])
+                        tab.wings = color[1][3]
                     }
                 }
                 else if (b % 5 === 4){
                     while (xmlFile.includes(changes[1])){
                         xmlFile = xmlFile.replace(changes[1],color[1][4])
+                        tab.wings = color[1][4]
                     }
                 }
                 if (b % 5 === 0){
                     while (xmlFile.includes(changes[2])){
                         xmlFile = xmlFile.replace(changes[2],color[2][0])
+                        tab.pedicel = color[2][0]
                     }
                 }
                 else if (b % 5 === 1){
                     while (xmlFile.includes(changes[2])){
                         xmlFile = xmlFile.replace(changes[2],color[2][1])
+                        tab.pedicel = color[2][1]
                     }
                 }
                 else if (b % 5 === 2){
                     while (xmlFile.includes(changes[2])){
                         xmlFile = xmlFile.replace(changes[2],color[2][2])
+                        tab.pedicel = color[2][2]
                     }
                 }
                 else if (b % 5 === 3){
                     while (xmlFile.includes(changes[2])){
                         xmlFile = xmlFile.replace(changes[2],color[2][3])
+                        tab.pedicel = color[2][3]
                     }
                 }
                 else if (b % 5 === 4){
                     while (xmlFile.includes(changes[2])){
                         xmlFile = xmlFile.replace(changes[2],color[2][4])
+                        tab.pedicel = color[2][4]
                     }
                 }
                 if (c===0){
-                    //Vide
+                    //enlève rien
+                    tab.accessories.push(accessoiries[a][0]);
+                    tab.accessories.push(accessoiries[a][1]);
+                    tab.accessories.push(accessoiries[a][2]);
                 }
                 if (c===1){
 
                     while (xmlFile.includes(accessoiries[a][2])){
                     xmlFile = xmlFile.replace(accessoiries[a][2],"none")
                     }
-                    tab.accessories.push(accessoiries[a][2]);
+                    tab.accessories.push(accessoiries[a][0]);
+                    tab.accessories.push(accessoiries[a][1]);
                 }
                 if (c===2){
                     while (xmlFile.includes(accessoiries[a][1])){
                     xmlFile = xmlFile.replace(accessoiries[a][1],"none")
                     }
-                    tab.accessories.push(accessoiries[a][1]);
+                    tab.accessories.push(accessoiries[a][0]);
+                    tab.accessories.push(accessoiries[a][2]);
                 }
                 if (c===3){
                     while (xmlFile.includes(accessoiries[a][0])){
                         xmlFile = xmlFile.replace(accessoiries[a][0],"none")
                     }
-                    tab.accessories.push(accessoiries[a][0]);
+                    tab.accessories.push(accessoiries[a][1]);
+                    tab.accessories.push(accessoiries[a][2]);
 
                 }
                 if (c===4){
                     while (xmlFile.includes(accessoiries[a][1])){
                         xmlFile = xmlFile.replace(accessoiries[a][1],"none")
                         }
-                    tab.accessories.push(accessoiries[a][1]);
-                    while (xmlFile.includes(accessoiries[a][2])){
-                        xmlFile = xmlFile.replace(accessoiries[a][2],"none")
+                        while (xmlFile.includes(accessoiries[a][2])){
+                            xmlFile = xmlFile.replace(accessoiries[a][2],"none")
                         }
-                    tab.accessories.push(accessoiries[a][2]);
+                    tab.accessories.push(accessoiries[a][0]);
                 }
                 if (c===5){
                     while (xmlFile.includes(accessoiries[a][0])){
                         xmlFile = xmlFile.replace(accessoiries[a][0],"none")
                     }
-                    tab.accessories.push(accessoiries[a][0]);
                     while (xmlFile.includes(accessoiries[a][1])){
                         xmlFile = xmlFile.replace(accessoiries[a][1],"none")
                         }
-                    tab.accessories.push(accessoiries[a][1]);
+                    tab.accessories.push(accessoiries[a][2]);
 
                 }
                 if (c===6){
                     while (xmlFile.includes(accessoiries[a][0])){
                         xmlFile = xmlFile.replace(accessoiries[a][0],"none")
                     }
-                    tab.accessories.push(accessoiries[a][0]);
                     while (xmlFile.includes(accessoiries[a][2])){
                         xmlFile = xmlFile.replace(accessoiries[a][2],"none")
                         }
-                    tab.accessories.push(accessoiries[a][2]);
+                    tab.accessories.push(accessoiries[a][1]);
                 }
                 if (c===7){
                     while (xmlFile.includes(accessoiries[a][0])){
                         xmlFile = xmlFile.replace(accessoiries[a][0],"none")
                     }
-                    tab.accessories.push(accessoiries[a][0]);
                     while (xmlFile.includes(accessoiries[a][2])){
                         xmlFile = xmlFile.replace(accessoiries[a][2],"none")
                         }
-                    tab.accessories.push(accessoiries[a][2]);
                     while (xmlFile.includes(accessoiries[a][1])){
                         xmlFile = xmlFile.replace(accessoiries[a][1],"none")
                         }
-                    tab.accessories.push(accessoiries[a][1]);
                 }
                 tab.QI = Math.floor(randomG(10)*200)
                 var str = "" + compteur
