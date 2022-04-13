@@ -7,7 +7,7 @@
         <ul>
 
             <li v-for="nft in nft_list" :key="nft">
-                <CardItem :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItem>
+                <CardItem homepage="False" :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItem>
             </li>
 
         </ul>

@@ -25,6 +25,7 @@ export default {
     nft_price:Number,
     nft_type:String,
     nft_bg_color:String,
+    homepage:String
   },
   computed: {
     style () {
@@ -33,7 +34,9 @@ export default {
   },
   methods: {
     test(){
-      this.$router.push(`/eirbmon/${this.nft_id}`);
+      if(this.homepage==="False"){
+        this.$router.push(`/eirbmon/${this.nft_id}`);
+      }
     }
   }
 }
