@@ -28,7 +28,7 @@ export default {
 }
 
 .bar{
-  border-left: 5px solid red;
+  border-left: 8px solid red;
   border-radius: 10px;
   height: 100%;
   margin-left: -3px;

@@ -1,18 +1,17 @@
 <template>
   <div class="grid">
-    <img class="image" :style="style" src="../assets/abeille_sortie_accessories3.svg">
+    <img class="image" src="../assets/abeille_sortie_accessories3.svg">
     <div class="description">
       <div class="infos">
         <div class="id">Eirbee#{{nft_id}}</div>
         <div class="price">{{nft_price}} ETH</div>
       </div>
       <div class="properties">
-        <div class="types">Type : <div class="type" :class="nft_type">{{nft_type}}</div></div>
-        <div class="types">Wings : <div class="type">{{nft_type}}</div></div>
-        <div class="types">Antenna : <div class="type">{{nft_type}}</div></div>
-        <div class="types">Background : <div class="type">#198DBC</div></div>
-        <div class="types">Object : <div class="type">{{nft_type}}</div></div>
-
+        <div class="title">Properties</div>
+        <div class="types">Type <div class="type" :class="nft_type">{{nft_type}}</div></div>
+        <div class="types">Wings <div class="type" :style="wings">{{nft_wings_color}}</div></div>
+        <div class="types">Antenna <div class="type" :style="antenna">{{nft_antenna_color}}</div></div>
+        <div class="types">Background <div class="type" :style="background">{{nft_bg_color}}</div></div>
       </div>
       <div class="potential">
         <div class="price">Potential {{nft_potential}}</div>
@@ -34,11 +33,19 @@ export default {
       nft_type:String,
       nft_bg_color:String,
       nft_potential:Number,
+      nft_antenna_color:String,
+      nft_wings_color:String,
     },
     computed: {
-        style() {
-          return "background-color: " + this.nft_color;
-        }
+      wings () {
+        return `background-color: ${this.nft_wings_color};`;
+      },
+      antenna () {
+        return `background-color: ${this.nft_antenna_color};`;
+      },
+      background () {
+        return `background-color: ${this.nft_bg_color};`;
+      }
     },
     components:{
     GaussianCurve
@@ -127,15 +134,26 @@ export default {
   margin:2px;
 }
 
+.title{
+  font-size: 30px;
+  position: relative;
+  top:0%;
+  text-decoration: underline;
+  padding-bottom: 10px;
+}
+
 .type {
   align-self: flex-start;
-  padding: .25em .75em;
+  padding: .2em .75em;
   border-radius: 1em;
   background: #a8a878;
-  color: #fafafa;
-  text-transform: capitalize;
+  color: #000;
+  text-transform: uppercase;
   font-family: 'Fredoka', sans-serif;
   font-size:20px;
+  margin-left: 10px;
+
+  border: 1px solid #AAA;
 }
 .info {
   background: #16A116;

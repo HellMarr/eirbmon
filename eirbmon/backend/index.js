@@ -9,24 +9,17 @@ app.use(bodyParser.json());
 const session = require('express-session');
 
 const mongoose = require('mongoose');
-let users = require('./users.js');
-let nft = require('./nft.js');
+let users = require('./db/users.js');
+let nft = require('./db/nft.js');
 mongoose.connect('mongodb+srv://eirbmon:eirbmon@cluster0.9jyvc.mongodb.net/eirbmon?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true});
 
 db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("connecté à Mongoose")
-  db.collection('users').findOne({}, function (findErr, result) {
-    if (findErr) throw findErr;
-  });
-  db.collection('nft').findOne({}, function (findErr, result) {
-    if (findErr) throw findErr;
-  });
+  console.log("connecté à Mongoose");
 });
 
 const config = {
-    //store: new SQLiteStore,
     secret: 'secret key',
     resave: true,
     rolling: true,
@@ -46,19 +39,25 @@ app.use(session(config))
 
 const createUser = async object => {
     const collection = db.collection('users');
-    const user = await collection.insertOne(object);
-    return user
+    return await collection.insertOne(object);
+}
+
+const createNft = async object => {
+    const collection = db.collection('nft');
+    return await collection.insertOne(object);
 }
   
 
-const findUsers = async user_name => {
-    const userss = await users.find({});
-    userss.map(users => users.user_name);
-    return userss
-}
+// const findUsers = async user_name => {
+//     const userss = await users.find({});
+//     userss.map(users => users.user_name);
+//     return userss
+// }
+
+
 
 app.get("/", (req, res) => {
-    res.send("Hello From The Server");
+    res.send("Hello From The Server!");
 })
 
 
@@ -78,7 +77,7 @@ function validateUsername(username) {
 function validatePasswordconfirm(password,passwordconfirm) {
     let errors = [];
     if (password !== passwordconfirm || passwordconfirm === "") {
-        errors.push("password confirmation is different from password");
+        errors.push("password confirmation is different from password.");
     }
     return errors;
 }
@@ -88,7 +87,7 @@ function validatePassword(password) {
 
     // check whether contact no is empty or not
     if (password.length == 0) {
-        errors.push("Password Is Null");
+        errors.push("Password Is Null.");
     }
 
     return errors;
@@ -99,12 +98,12 @@ function validateEmail(email) {
 
     // checks whether email is empty or not
     if (email.length == 0) {
-        errors.push("Email Is Null");
+        errors.push("Email Is Null.");
     }
 
     // checks whether email length is more then 100 or not
     if (email.length > 100) {
-        errors.push("Email Can not exceed 100 Character");
+        errors.push("Email Can not exceed 100 characters.");
     }
 
 
@@ -116,62 +115,62 @@ function validateEmail(email) {
     return errors;
 }
 
-async function validateRegister(username,email){   
+async function validateRegister(username,email) {   
     let errors = [];
-    const users = await findUsers()
+    const users_db = await users.find({});
     //On parcourt les pseudos et les emails pour voir si ils sont déjà pris
-    let test = false
-    for (let i = 0; i<users.length; i++){
-        if (users[i].user_mail ===email) {
-            test = true
+    let test = false;
+    for (const element of users_db) {
+        if (element.user_mail ===email) {
+            test = true;
         }
     }
     if (test){
         errors.push("The chosen email is already taken!"); 
     }
-    test = false
-    for (let i = 0; i<users.length; i++){
-        if (users[i].user_name ===username) {
-            test = true
+    test = false;
+    for (const element of users_db) {
+        if (element.user_name ===username) {
+            test = true;
         }
     }
-    if (test){
+    if (test) {
         errors.push("The chosen username is already taken!");  
     }
     return errors;
 }
 
-async function ValidateUser_email(username_email){   
+async function ValidateUser_email(username_email) {   
     let errors = [];
-    const userss = await findUsers()
+    const users_db = await users.find({});
     let test = false;
-    for (let i = 0; i<userss.length; i++){
-        if (userss[i].user_mail ===username_email) {
-            console.log(userss[i]);
-            test = true
+    for (const element of users_db) {
+        if (element.user_mail ===username_email) {
+            console.log(element);
+            test = true;
         }
     }
-    for (let i = 0; i<userss.length; i++){
-        if (userss[i].user_name ===username_email) {
-            test = true
+    for (const element of users_db) {
+        if (element.user_name ===username_email) {
+            test = true;
         }
     }
     if (!test){
-            errors.push("There are no accounts linked to this email or username")
+            errors.push("There are no accounts linked to this email or username");
     }
     return errors;
 }
 
-async function ValidateMatchPassword(password,username_email){   
+async function ValidateMatchPassword(password,username_email) {   
     let errors = [];
-    test = false
-    const good_user = await users.findOne({ $or: [ { user_mail: username_email } , { user_name: username_email } ] })
+    test = false;
+    const good_user = await users.findOne({ $or: [ { user_mail: username_email } , { user_name: username_email } ] });
     if (good_user !== null){
         if (good_user.user_password === password) {
-        test = true
+        test = true;
         }
         if (!test){
-            errors.push("The password is wrong")
+            errors.push("The password is wrong");
         }
     }
     return errors;
@@ -205,9 +204,9 @@ app.post("/api/signup", async(req, res) => {
         });
     }
     else {
-        console.log("We add a new user to the database")
-        console.log("We redirect to the home page")
-        await createUser({ user_name: username, user_mail: email,user_password:password})
+        console.log("We add a new user to the database");
+        console.log("We redirect to the home page");
+        await createUser({ user_name: username, user_mail: email,user_password:password});
         req.session.logged = true; 
         res.status(200).send({
             msg: "Student Registered Succesfully",
@@ -216,15 +215,15 @@ app.post("/api/signup", async(req, res) => {
 });
 
 
-app.get("/api/signup", async(req, res) => {
+// app.get("/api/signup", async(req, res) => {
     
-    const users = await findUsers()
-    console.log(users[1]);
-    res.status(200).send({
-        msg: "All the data fetched successfully",
-        data: users
-    })
-})
+//     const users_db = await users.find({});
+//     console.log(users_db[1]);
+//     res.status(200).send({
+//         msg: "All the data fetched successfully",
+//         data: users_db
+//     })
+// })
 
 app.post("/api/signin", async(req, res) => {
     
@@ -245,7 +244,7 @@ app.post("/api/signin", async(req, res) => {
         });
     }
     else {
-        console.log("We redirect to the home page")
+        console.log("We redirect to the home page");
         req.session.logged = true;  
         res.status(200).send({
             msg: "Student Registered Succesfully",
@@ -253,35 +252,100 @@ app.post("/api/signin", async(req, res) => {
     }
 });
 
-app.get("/api/signin", async(req, res) => {
-    const users = await findUsers()
-    console.log(users[1]);
-    res.status(200).send({
-        msg: "All the data fetched successfully",
-        data: users
-    })
-})
+// app.get("/api/signin", async(req, res) => {
+//     const users_db = await users.find({})
+//     console.log(users_db[1]);
+//     res.status(200).send({
+//         msg: "All the data fetched successfully",
+//         data: users_db
+//     })
+// })
 
 app.get("/api/marketplace", async(req, res) => {
     
+    //const NFTs = await nft.find({});
     console.log("Fetching Marketplace nft");
  
     req.session.logged = true;  
-    res.status(200).send({nft_list:[
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"rgb(218,247,166)",},
-        {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
-        {nft_id:1225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
-        {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-        {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-        {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-    ]})
+    res.status(200).send(
+        {
+            nft_list: [
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
+                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
+                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
+                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
+                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
+                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
+                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
+                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
+                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
+                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
+                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
+                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+            ],
+            //{data: NFTs},
+        }
+    )
 
+});
+
+app.get("/api/eirbmon/:id", async(req, res) => {
+    
+    // await createNft({nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"});
+    const id = req.params.id;
+    const nft_info = await nft.findOne({ nft_id: id});
+    console.log(nft_info);
+    res.status(200).send(
+        {nft:{nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",nft_wings_color:"#ffffff",nft_antenna_color:"#00ff64",nft_potential:120}}
+    )
 });
 
 app.post("/api/profile", async(req, res) => {
@@ -303,6 +367,22 @@ app.post("/api/profile", async(req, res) => {
     
       res.send(nft_list)
 });
+
+
+// app.get("/api/profile", async(req, res) => {
+
+//     let username = req.session.username;
+//     const user_nfts = await nft.find({ user_name: username }, 'user_nft');
+
+//     console.log("Sending profile info...");
+ 
+//     res.status(200).send({
+//         msg: 'nft info sent successfully',
+//         lol : user_nfts,
+//     })
+
+// });
+
 
 
 app.listen(3001, () => {

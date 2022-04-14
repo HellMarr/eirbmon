@@ -9,6 +9,6 @@ const usersSchema = new Schema({
     user_wallet: String,
   });
 
-const Users = mongoose.model('User', usersSchema)
+const Users = mongoose.model('User', usersSchema, "users");
 
-module.exports = Users
+module.exports = Users;

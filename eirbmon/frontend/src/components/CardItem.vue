@@ -1,9 +1,5 @@
 <template>
-<head>
-
-
-</head>
-  <div class="container" :style="style">
+  <div @click="test" class="container" :style="style">
     <img class="image" src="../assets/abeille_sortie_accessories3.svg">
     <div class="description">
       <div class="upper-div">
@@ -29,12 +25,20 @@ export default {
     nft_price:Number,
     nft_type:String,
     nft_bg_color:String,
+    homepage:String
   },
   computed: {
     style () {
      return `background-color: ${this.nft_bg_color};`;
     }
   },
+  methods: {
+    test(){
+      if(this.homepage==="False"){
+        this.$router.push(`/eirbmon/${this.nft_id}`);
+      }
+    }
+  }
 }
 </script>
 
@@ -50,6 +54,12 @@ export default {
   border-radius: 50px;
   box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
   background-size: cover;
+  transition: box-shadow .15s ease-in-out;
+}
+
+.container:hover{
+  cursor: pointer;
+  box-shadow: 0 .5rem 2rem rgba(0, 0, 0, 0.3);
 }
 
 .image{
@@ -90,7 +100,7 @@ export default {
   border-radius: 1em;
   background: #a8a878;
   color: #fafafa;
-  text-transform: capitalize;
+  text-transform: uppercase;
 }
 
 .info {
