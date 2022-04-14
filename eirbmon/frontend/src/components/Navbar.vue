@@ -13,6 +13,7 @@
                 <ul v-show="!mobile" class="navigation">
                     <li><a class="link" href="http://localhost:3000">Play</a></li>
                     <li><router-link  to="/marketplace" class="link">Marketplace</router-link></li>
+                    <li><router-link  to="/profile" class="link">Profile</router-link></li>
                 </ul>
                 <div class="icon">
                     <img @click="toggleMobileNav" src="../assets/bars.png" v-show="mobile" class="i" :class="{'icon-active':mobileNav}">

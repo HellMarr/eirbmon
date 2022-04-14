@@ -4,7 +4,7 @@
 
 </head>
   <div class="container" :style="style">
-    <img class="image" :src="'../assets/000'+nft_id+'.svg'">
+    <img class="image" :src="nft_image_path">
     <div class="description">
       <div class="upper-div">
         <div class="name">#{{nft_id}}</div> 
@@ -33,6 +33,9 @@ export default {
   computed: {
     style () {
      return `background-color: ${this.nft_bg_color};`;
+    },
+    nft_image_path(){
+      return `../assets/000${this.nft_id}.svg;`
     }
   },
   // beforeCreate: {
