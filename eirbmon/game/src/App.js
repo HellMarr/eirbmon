@@ -12,19 +12,19 @@ const unityContext = new UnityContext({
 function App() {
   return (
     <div className="App">
-      <h1>Eirbmon</h1>
+      <h1 style={{fontSize:35}}>Eirbmon</h1>
       <Unity 
         unityContext={unityContext} 
         style={{
-          width: "900px",
-          height: "680px",
+          width: "80%",
+          height: "90%",
           border: "2px solid black",
-          background: "green",
+          background: "white",
         }}
       />
       <div>
         <form action="http://localhost:8080">
-          <button type="submit">Revenir vers Eirbmon</button>
+          <button type="submit" style={{padding:'10px 20px 10px 20px',fontSize:'32px',background:'linear-gradient(90deg, #FD992D 0%, #FFBF49 100%)',borderRadius:'1em', fontWeight:'bold'}}>Revenir vers Eirbmon</button>
         </form>
       </div>
     </div>
