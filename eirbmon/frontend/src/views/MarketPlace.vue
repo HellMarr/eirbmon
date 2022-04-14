@@ -2,6 +2,7 @@
 <div class="marketplace-container">
     <div class="menu">
         MENU
+        <button @click="getMarketItems"> check items in market place (see console / test)</button>
     </div>
     <div class="market">
         <ul>
@@ -19,6 +20,12 @@
 import CardItem from '../components/CardItem.vue';
 import axios from 'axios';
 
+// blockchain
+import {fetchMarketItems} from '../script/blockchain.js'
+import detectEthereumProvider from '@metamask/detect-provider'
+import Web3 from "web3/dist/web3.min.js";
+
+
 export default {
     name: "MarketPlace",
     components: { CardItem },
@@ -26,6 +33,24 @@ export default {
     data:function(){
         return{
             nft_list:[],
+        }
+    },
+    methods: {
+        // récupère tableau des nfts dans le martketplace
+        getMarketItems: async () => {
+            const provider = await detectEthereumProvider();
+            if (provider) {
+                const web3 = new Web3(provider);
+                const contract = require("../../../blockchain/build/contracts/NFTMarketplace")
+                const CONTRACT_ADDRESS_MARKETPLACE = "0x0aD920cDD7547622ed470086FA787A75b2D7EefE"
+                const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
+                const addr = await provider.request({method: 'eth_requestAccounts'})
+                const items = await fetchMarketItems(marketplaceContract, addr[0]);
+                console.log(items)
+
+            } else {
+                console.log("please install metamask")
+            }
         }
     },
     mounted(){

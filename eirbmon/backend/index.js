@@ -344,23 +344,44 @@ app.get("/api/eirbmon/:id", async(req, res) => {
     const nft_info = await nft.findOne({ nft_id: id});
     console.log(nft_info);
     res.status(200).send(
-        {nft:{nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",nft_wings_color:"#00ff64",nft_antenna_color:"#ffffff",nft_potential:120}}
+        {nft:{nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",nft_wings_color:"#ffffff",nft_antenna_color:"#00ff64",nft_potential:120}}
     )
 });
 
-app.get("/api/profile", async(req, res) => {
+app.post("/api/profile", async(req, res) => {
+    console.log("Fetching Profile Nft")
 
-    let username = req.session.username;
-    const user_nfts = await nft.find({ user_name: username }, 'user_nft');
+    req.session.logged = true;
+    const _user_wallet = req.body.user_wallet;
+    
+    
+    const userss = await db.collection('users').findOne({user_wallet:_user_wallet});
+    // console.log(userss.tokenIds)
 
-    console.log("Sending profile info...");
- 
-    res.status(200).send({
-        msg: 'nft info sent successfully',
-        lol : user_nfts,
-    })
-
+    nft_list = [];
+    for await (const doc of db.collection("nft").find({nft_id: {$in: userss.tokenIds} })) {
+        console.log(doc);
+        nft_list[nft_list.length] = doc;
+      }
+      console.log(nft_list)
+    
+      res.send(nft_list)
 });
+
+
+// app.get("/api/profile", async(req, res) => {
+
+//     let username = req.session.username;
+//     const user_nfts = await nft.find({ user_name: username }, 'user_nft');
+
+//     console.log("Sending profile info...");
+ 
+//     res.status(200).send({
+//         msg: 'nft info sent successfully',
+//         lol : user_nfts,
+//     })
+
+// });
 
 
 
