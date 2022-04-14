@@ -1,5 +1,5 @@
 <template>
-    <div class="container-eirbmon">
+    <div class="container-eirbmon" style="padding-bottom:205px">
         <EirbMonItem :nft_id="nft_id" :nft_potential="nft_potential" :nft_price="nft_price" :nft_type="nft_type" :nft_bg_color="nft_bg_color" :nft_antenna_color="nft_antenna_color" :nft_wings_color="nft_wings_color"></EirbMonItem>
     </div>
 </template>

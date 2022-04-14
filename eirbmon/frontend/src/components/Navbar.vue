@@ -13,8 +13,6 @@
                 <ul v-show="!mobile" class="navigation">
                     <li><a class="link" href="http://localhost:3000">Play</a></li>
                     <li><router-link  to="/marketplace" class="link">Marketplace</router-link></li>
-                    <li><router-link  to="/eirbmon" class="link">eirbmon</router-link></li>
-                    <li><router-link  to="/profile" class="link">Profile</router-link></li>
                 </ul>
                 <div class="icon">
                     <img @click="toggleMobileNav" src="../assets/bars.png" v-show="mobile" class="i" :class="{'icon-active':mobileNav}">
@@ -22,7 +20,6 @@
                 <transition name="mobile-nav">
                     <ul v-show="mobileNav" class="dropdown-nav">
                         <li><router-link @click="toggleMobileNav" to="/marketplace" class="link">Marketplace</router-link></li>
-                        <li><router-link @click="toggleMobileNav" to="/eirbmon" class="link">eirbmon</router-link></li>
                     </ul>
                 </transition>
             </nav>

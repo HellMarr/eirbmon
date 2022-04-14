@@ -34,7 +34,7 @@
             <div class="lower-part">
                 <div class="info-area" id="test">
                     <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce posuere, tortor nec ultricies dapibus, massa diam tempus lectus, sed iaculis libero neque eget ex. Integer ante mauris, imperdiet ac diam in, tempus cursus nibh. Nullam auctor tempor dui ac commodo. Nullam quis erat ipsum. Quisque lacinia nisl non mi efficitur, quis tempor tortor vestibulum. Aliquam in vehicula ex. Mauris non dui purus. Suspendisse dignissim semper aliquet.</div>
+                        <div class="subtitle">Buy or capture, then fight with your Eirbees!</div>
                     </label>
                 </div>
             </div>
@@ -50,8 +50,8 @@
         <img width="560" height="315" class="video" src="../assets/Ingame_fight.png">
         <img width="560" height="315" class="video" src="../assets/Ingame.png">
         <div class="video-text">
-            <div class="title">Présentation du jeu</div>
-            <div class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce posuere, tortor nec ultricies dapibus, massa diam tempus lectus, sed iaculis libero neque eget ex. Integer ante mauris, imperdiet ac diam in, tempus cursus nibh. Nullam auctor tempor dui ac commodo. Nullam quis erat ipsum. Quisque lacinia nisl non mi efficitur, quis tempor tortor vestibulum. Aliquam in vehicula ex. Mauris non dui purus. Suspendisse dignissim semper aliquet.</div>
+            <div class="title">Eirbmon's game</div>
+            <div class="subtitle">Collect bees from all the main sectors of Enseirb, exchange them with others, fight them, and increase their value! Become the most accomplished trainer in Enseirb!</div>
         </div>
     </div>
 
@@ -83,7 +83,7 @@ input[type=radio] {
     height: 60%;
     transform-style: preserve-3d;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: row;
     align-items: center;
     margin-bottom:150px;
@@ -142,6 +142,8 @@ img {
     align-items: center;
     justify-content: center;
     border-width: 1px;
+    position: relative;
+    right:15%
 }
 
 .upper-part {
@@ -225,13 +227,12 @@ img {
 .video-text{
     padding:25px;
     max-width: 400px;
-    background-color: rgb(104, 104, 104);
-    border: 1px solid #ddd;
+    background: radial-gradient(circle, #FFBF49 0%, #FD992D 100%);
     border-radius: 15px;
 }
 
 .video-text .title {
-    color: #403d40;
+    color: white;
     font-size: 40px;
     line-height: 60px;
 }
@@ -239,7 +240,7 @@ img {
 .video-text .subtitle {
     font-size: 20px;
     line-height: 20px;
-    color: #c6c5c6;
+    color: white;
 }
 
 /* Footer */
