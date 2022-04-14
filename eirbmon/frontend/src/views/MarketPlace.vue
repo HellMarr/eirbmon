@@ -2,7 +2,7 @@
 <div class="marketplace-container">
     <div class="menu">
         MENU
-        <button @click="getMarketItems"> check items in market place</button>
+        <button @click="getMarketItems"> check items in market place (see console / test)</button>
     </div>
     <div class="market">
         <ul>
@@ -42,7 +42,7 @@ export default {
             if (provider) {
                 const web3 = new Web3(provider);
                 const contract = require("../../../blockchain/build/contracts/NFTMarketplace")
-                const CONTRACT_ADDRESS_MARKETPLACE = "0xD23945A0CFA6835554F8790da0f3de10658035Ad"
+                const CONTRACT_ADDRESS_MARKETPLACE = "0x0aD920cDD7547622ed470086FA787A75b2D7EefE"
                 const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
                 const addr = await provider.request({method: 'eth_requestAccounts'})
                 const items = await fetchMarketItems(marketplaceContract, addr[0]);

@@ -284,6 +284,26 @@ app.get("/api/marketplace", async(req, res) => {
 
 });
 
+app.post("/api/profile", async(req, res) => {
+    console.log("Fetching Profile Nft")
+
+    req.session.logged = true;
+    const _user_wallet = req.body.user_wallet;
+    
+    
+    const userss = await db.collection('users').findOne({user_wallet:_user_wallet});
+    // console.log(userss.tokenIds)
+
+    nft_list = [];
+    for await (const doc of db.collection("nft").find({nft_id: {$in: userss.tokenIds} })) {
+        console.log(doc);
+        nft_list[nft_list.length] = doc;
+      }
+      console.log(nft_list)
+    
+      res.send(nft_list)
+});
+
 
 app.listen(3001, () => {
     console.log("Server started ...");
