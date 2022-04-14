@@ -344,7 +344,7 @@ app.get("/api/eirbmon/:id", async(req, res) => {
     const nft_info = await nft.findOne({ nft_id: id});
     console.log(nft_info);
     res.status(200).send(
-        {nft:{nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",nft_wings_color:"#00ff64",nft_antenna_color:"#ffffff",nft_potential:120}}
+        {nft:{nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",nft_wings_color:"#ffffff",nft_antenna_color:"#00ff64",nft_potential:120}}
     )
 });
 
