@@ -30,5 +30,10 @@ contract mintNft is ERC721URIStorage, Ownable {
 
         return newItemId;
     }
+
+    function sendNft(address nftContract, address _from, address _to, uint tokenId) public returns (uint256) {
+        IERC721(nftContract).transferFrom(_from, _to, tokenId);
+        return tokenId;
+    }
 }
 
