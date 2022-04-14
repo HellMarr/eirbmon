@@ -35,7 +35,7 @@ export default {
      return `background-color: ${this.nft_bg_color};`;
     },
     nft_image_path(){
-      return `../assets/000${this.nft_id}.svg;`
+      return `../assets/000${this.nft_id}.svg;`;
     }
   },
   // beforeCreate: {
