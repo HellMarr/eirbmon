@@ -8,7 +8,11 @@
             <ul>
                 <li v-for="nft in nft_list" :key="nft">
                     <CardItemProfile :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItemProfile>
-                    <button @click="sellNft(1,100,this.addr)">sell</button>
+                    <div class="sell">
+                        <input v-model="price" placeholder="price">
+                        <button @click="sellNft(1,100,this.addr)">sell</button>
+                    </div>
+                        
                 </li>
             </ul>
         </div>
@@ -54,20 +58,6 @@
             this.provider = _provider;
             this.contract = _contract;
             this.marketplaceContract = await getContract(this.provider, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
-
-            // axios.get("/api/marketplace").then((res) => {
-            //     if(res.data.msg === "Validation Failed"){
-            //         //let errors = res.data.errors;
-            //         let errorMsg = "";
-            //         alert(errorMsg);
-            //     }
-            //     else{
-            //         this.nft_list=res.data.nft_list;
-            //         console.log(res)
-            //     }
-            // }).catch(()=>{
-            //     alert("Something Went Wrong");
-            // })
 
             axios.post("/api/profile", {user_wallet:this.addr}).then((res) => {
                 console.log(res.data)
@@ -118,6 +108,11 @@
     .card-container{
         width: 250px;
     }
+}
+
+.sell {
+    justify-content: center;
+    padding-left: 25%;
 }
 
 </style>

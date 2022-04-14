@@ -28,6 +28,7 @@ const config = {
   app.use(session(config))
 
 app.set('views', './Views');
+app.use(express.static(__dirname + '/Views'));
 app.set('view engine', 'jade');
 app.use('/abeilles', express.static('abeilles'));
 
@@ -63,10 +64,17 @@ function randomAccessories(files,accessoiries,odds){
     }
 }
 
-app.get("/",async(req,res)=> {
+app.get("/generate",async(req,res)=> {
+    let files = ["./abeilles/abeille_telecom.svg","./abeilles/abeille_info.svg","./abeilles/abeille_matmeca.svg","./abeilles/abeille_elec.svg"]
+    let changes = ["BACKGROUND","WINGS","PEDICEL"]
+    let color = [["DAF7A6","FFFFFF","74E38C","F16F6F","CEAEF6"],["FFEDED","59675E","B9930E","355C8C","5FBB52"],["FFFF00","FF00D1","00FF04","FF0000","00FF64"]]
+    changeBeeColor(files,changes,color)
+    let accessoiries = [["SIGNAL","SLEEP","DOLLAR"],["KEYBOARD","BINARY","CROWN"],["RULE","PEN","GLASSES","PI"],["FLASH","ROBOT","CANNONBALL"]]
+    let odds = [[0.5,0.5,0.5],[0.5,0.5,0.5],[0.5,0.5,0.5,0.5],[0.5,0.5,0.5]]
+    randomAccessories(files,accessoiries,odds)
     const data = {
+      filiere:req.query.filiere,
     }
-
     res.render("projet",data)
 });
 
@@ -79,13 +87,14 @@ app.post("/generate",async(req,res)=> {
   let odds = [[0.5,0.5,0.5],[0.5,0.5,0.5],[0.5,0.5,0.5,0.5],[0.5,0.5,0.5]]
   randomAccessories(files,accessoiries,odds)
   const data = {
-    filiere:req.body.filiere,
+    filiere:req.query.filiere,
   }
+  console.log(data.filiere)
   res.render("projet",data)
 });
 
 
-app.get("/generate",async(req,res)=> {
+app.get("/",async(req,res)=> {
   const data = {
   }
   res.render("projet",data)
