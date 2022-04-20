@@ -108,7 +108,7 @@ export default {
 
 .properties{
   grid-area: 2 / 1 / 3 / 2;
-  padding-left: 20%;
+  padding-left: 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -167,4 +167,37 @@ export default {
 .matmeca{
   background: #E74737;
 }
+
+
+  @media (max-width: 850px) {
+    .grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .image{
+      grid-area: 1 / 1 / 2 / 2;
+      width:100%;
+      border-radius:20px;
+      background-size: cover;
+      margin-bottom:15px;
+    }
+
+    .description{
+      padding: 5%;
+      gap:20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .properties{
+      padding-left: 5%;
+    }
+
+    .infos{
+      flex-direction: column;
+    } 
+  }
+
 </style>
