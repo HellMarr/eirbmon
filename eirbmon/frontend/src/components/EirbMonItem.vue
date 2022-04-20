@@ -150,9 +150,8 @@ export default {
   color: #000;
   text-transform: uppercase;
   font-family: 'Fredoka', sans-serif;
-  font-size:20px;
-  margin-left: 10px;
-
+  font-size:18px;
+  margin-left: 8px;
   border: 1px solid #AAA;
 }
 .info {
@@ -174,6 +173,7 @@ export default {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      padding: 5%;
     }
 
     .image{

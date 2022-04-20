@@ -227,7 +227,7 @@ img {
 .video-text{
     padding:25px;
     max-width: 400px;
-    background: radial-gradient(circle, #FFBF49 0%, #FD992D 100%);
+    background: linear-gradient(#FFBF49 0%, #FD992D 100%);
     border-radius: 15px;
 }
 
