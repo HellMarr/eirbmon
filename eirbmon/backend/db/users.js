@@ -7,6 +7,7 @@ const usersSchema = new Schema({
     user_password:   String,
     user_nft: Array,
     user_wallet: String,
+    tokenIds: Array,
   });
 
 const Users = mongoose.model('User', usersSchema, "users");
