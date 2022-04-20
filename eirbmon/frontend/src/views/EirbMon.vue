@@ -1,5 +1,5 @@
 <template>
-    <div class="container-eirbmon" style="padding-bottom:205px">
+    <div class="container-eirbmon">
         <EirbMonItem :nft_id="nft_id" :nft_potential="nft_potential" :nft_price="nft_price" :nft_type="nft_type" :nft_bg_color="nft_bg_color" :nft_antenna_color="nft_antenna_color" :nft_wings_color="nft_wings_color"></EirbMonItem>
     </div>
 </template>
@@ -41,5 +41,7 @@ export default {
 </script>
 
 <style scoped>
-
+.container-eirbmon{
+    padding-bottom: 10px;
+}
 </style>
