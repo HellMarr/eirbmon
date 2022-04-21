@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const fs = require('fs');
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -261,6 +262,15 @@ app.post("/api/signin", async(req, res) => {
 //     })
 // })
 
+app.get("/api/marketplace/:type", async(req, res) => {
+
+    console.log("Fetching Marketplace nft by type");
+    console.log(req.params.type)
+    const bees = await nft.findOne({ $or: [ { nft_type: req.query.type }, {nft_forsale:true} ] });
+    console.log(bees)
+    res.status(200).send(bees)
+});
+
 app.get("/api/marketplace", async(req, res) => {
     
     //const NFTs = await nft.find({});
@@ -387,6 +397,16 @@ app.post("/api/profile", async(req, res) => {
 
 
 
+
 app.listen(3001, () => {
     console.log("Server started ...");
 });
+
+
+//Génération des métadata nft dans la database
+/*for (let i = 1; i < 4001; i++) {
+    let rawdata = fs.readFileSync('../bee_generator/abeilles/' + i +'.json');
+    let bee = JSON.parse(rawdata);
+    let price = Math.random() * 2;
+    createNft({ nft_id: i, nft_accessory_list: bee.accessories,nft_price: price,nft_type:bee.type,nft_bg_color:bee.background,nft_pedicel_color:bee.pedicel,nft_wings_color:bee.wings,nft_forsale:true,nft_potential:bee.QI,nft_image:"https://masteronepiece.com/wp-content/uploads/eirbmon/"+ i +".svg"});
+}*/

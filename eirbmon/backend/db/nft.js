@@ -15,6 +15,7 @@ const nftSchema = new Schema({
     nft_wings_color: String,
     nft_forsale: Boolean,
     nft_potential: Number,
+    nft_image: String,
   });
 
 const nft = mongoose.model('nft', nftSchema, "nft");
