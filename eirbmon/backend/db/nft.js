@@ -8,7 +8,7 @@ const nftSchema = new Schema({
     nft_level: Number,
     nft_owner: String,
     nft_attack: Array,
-    nft_price: Number,
+    nft_price: Object,
     nft_type: String,
     nft_bg_color: String,
     nft_pedicel_color: String,
