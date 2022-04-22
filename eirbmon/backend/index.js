@@ -281,7 +281,7 @@ app.get("/api/marketplace/lowtohigh", async(req, res) => {
 app.get("/api/marketplace/potential", async(req, res) => {
 
     console.log("Fetching Marketplace nft from high potential to low");
-    const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(60);
+    const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: 0}).limit(60);
     console.log(bees)
     res.status(200).send(bees)
 });
@@ -293,84 +293,6 @@ app.get("/api/marketplace/:type", async(req, res) => {
     const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
     console.log(bees)
     res.status(200).send(bees)
-});
-
-
-
-app.get("/api/marketplace", async(req, res) => {
-    
-    //const NFTs = await nft.find({});
-    console.log("Fetching Marketplace nft");
- 
-    req.session.logged = true;  
-    res.status(200).send(
-        {
-            nft_list: [
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
-                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
-                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
-                {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
-            ],
-            //{data: NFTs},
-        }
-    )
-
 });
 
 app.get("/api/eirbmon/:id", async(req, res) => {
