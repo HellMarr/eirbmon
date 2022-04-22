@@ -7,13 +7,13 @@
         <input type="radio" name="slider" id="item-3">
         <div class="cards">
             <label class="card" for="item-1" id="song-1">
-                <CardItem homepage="True" nft_id="1" nft_price="0.001" nft_type="elec" nft_bg_color="rgb(218,247,166)"></CardItem>
+                <CardItem homepage="True" nft_id="1" nft_price="0.001" nft_type="Elec" nft_bg_color="rgb(218,247,166)"></CardItem>
             </label>
             <label class="card" for="item-2" id="song-2">
-                <CardItem homepage="True" nft_id="2" nft_price="0.001" nft_type="elec" nft_bg_color="rgb(218,247,166)"></CardItem>
+                <CardItem homepage="True" nft_id="2" nft_price="0.001" nft_type="Elec" nft_bg_color="rgb(218,247,166)"></CardItem>
             </label>
             <label class="card" for="item-3" id="song-3">
-                <CardItem homepage="True" nft_id="3" nft_price="0.001" nft_type="elec" nft_bg_color="rgb(218,247,166)"></CardItem>
+                <CardItem homepage="True" nft_id="3" nft_price="0.001" nft_type="Elec" nft_bg_color="rgb(218,247,166)"></CardItem>
             </label>
         </div>
 

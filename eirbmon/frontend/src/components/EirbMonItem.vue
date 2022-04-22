@@ -2,9 +2,15 @@
   <div class="grid">
     <img class="image" :src="nft_image">
     <div class="description">
-      <div class="infos">
-        <div class="id">Eirbee#{{nft_id}}</div>
-        <div class="price">{{nft_price}} ETH</div>
+      <div class="head">
+        <div class="infos">
+          <div class="id">Eirbee#{{nft_id}}</div>
+          <div class="price">{{nft_price}} ETH</div>
+          <div class="owner">Owner</div>
+        </div>
+        <div v-if="nft_forsale" class="sale">
+          Buy
+        </div>
       </div>
       <div class="properties">
         <div class="title">Properties</div>
@@ -36,6 +42,7 @@ export default {
       nft_antenna_color:String,
       nft_wings_color:String,
       nft_image:String,
+      nft_forsale:Boolean,
     },
     computed: {
       wings () {
@@ -71,6 +78,7 @@ export default {
   border-radius:20px;
   background-size: cover;
   margin:auto;
+  border: 4px rgb(142, 142, 142) solid;
 }
 
 .description{
@@ -88,23 +96,38 @@ export default {
   grid-template-rows: 0.5fr 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  border: 4px rgb(142, 142, 142) solid;
 }
 
-.infos{
+.head{
   grid-area: 1 / 1 / 2 / 3;
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
 }
+
+.infos{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+}
 .id{
   font-size: 50px;
 }
-.price{
-  font-size:30px;
+.price .owner{
+  font-size:20px;
 }
 .price, .id{
   font-family: 'Fredoka', sans-serif;
+}
+
+.sale{
+  color:'red';
+  font-size:40px;
+  font-weight: bold;
+  color:'red';
 }
 
 .properties{
@@ -196,7 +219,7 @@ export default {
       padding-left: 5%;
     }
 
-    .infos{
+    .head{
       flex-direction: column;
     } 
   }

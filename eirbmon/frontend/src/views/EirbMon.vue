@@ -1,6 +1,6 @@
 <template>
     <div class="container-eirbmon">
-        <EirbMonItem :nft_id="nft_id" :nft_potential="nft_potential" :nft_price="nft_price" :nft_type="nft_type" :nft_bg_color="nft_bg_color" :nft_antenna_color="nft_antenna_color" :nft_wings_color="nft_wings_color" :nft_image="nft_image"></EirbMonItem>
+        <EirbMonItem :nft_id="nft_id" :nft_potential="nft_potential" :nft_price="nft_price" :nft_type="nft_type" :nft_bg_color="nft_bg_color" :nft_antenna_color="nft_antenna_color" :nft_wings_color="nft_wings_color" :nft_image="nft_image" :nft_forsale="nft_forsale"></EirbMonItem>
     </div>
 </template>
 
@@ -20,6 +20,7 @@ export default {
             nft_antenna_color:undefined,
             nft_wings_color:undefined,
             nft_image:undefined,
+            nft_forsale:undefined,
         };
     },
     components: {
@@ -38,6 +39,7 @@ export default {
         this.nft_antenna_color=nft_info.nft_pedicel_color;
         this.nft_wings_color=nft_info.nft_wings_color;
         this.nft_image=nft_info.nft_image;
+        this.nft_forsale=nft_info.nft_forsale;
     },
 }
 </script>
