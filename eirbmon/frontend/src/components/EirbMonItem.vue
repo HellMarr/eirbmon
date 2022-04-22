@@ -124,6 +124,10 @@ export default {
   align-items: center;
 }
 
+.potential svg{
+  width: 30px;
+}
+
 .types{
   display: flex;
   flex-direction: row;
