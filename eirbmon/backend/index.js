@@ -262,37 +262,81 @@ app.post("/api/signin", async(req, res) => {
 //     })
 // })
 
-app.get("/api/marketplace/hightolow", async(req, res) => {
+/*app.get("/api/marketplace/hightolow", async(req, res) => {
 
     console.log("Fetching Marketplace nft from high price to low price");
     const bees = await nft.find({nft_forsale:true}).sort({ nft_price: -1}).limit(60);
     // console.log(bees)
     res.status(200).send(bees)
-});
+});*/
 
-app.get("/api/marketplace/lowtohigh", async(req, res) => {
+/*app.get("/api/marketplace/lowtohigh", async(req, res) => {
 
     console.log("Fetching Marketplace nft from low price to high price");
     const bees = await nft.find({nft_forsale:true}).sort({ nft_price: 1}).limit(60);
     // console.log(bees)
     res.status(200).send(bees)
-});
+});*/
 
-app.get("/api/marketplace/potential", async(req, res) => {
+/*app.get("/api/marketplace/potential", async(req, res) => {
 
     console.log("Fetching Marketplace nft from high potential to low");
     const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(60);
     //console.log(bees)
     res.status(200).send(bees)
-});
+});*/
 
-app.get("/api/marketplace/:type", async(req, res) => {
-
-    console.log("Fetching Marketplace nft by type");
-    console.log(req.params.type)
-    const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
-    // console.log(bees)
-    res.status(200).send(bees)
+app.get("/api/marketplace", async(req, res) => {
+    let page = 1
+    if (req.query.page){
+        page = req.query.page
+    }
+    let bees = 1
+    if (req.query.type){
+        console.log("Fetching Marketplace nft by type "+ req.query.type);
+        bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60*page)
+        if (req.query.potential == "descending"){
+            console.log("Fetching Marketplace nft from high potential to low");
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : -1}).limit(60*page)
+        }
+        if (req.query.potential == "ascending"){
+            console.log("Fetching Marketplace nft from low potential to high");
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : -1}).limit(60*page)
+        }
+        if (req.query.price == "descending"){
+            console.log("Fetching Marketplace nft from high price to low price");
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_price : -1}).limit(60*page)
+        }
+        if (req.query.price = "ascending"){
+            console.log("Fetching Marketplace nft from low price to high price");
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_price : 1}).limit(60*page)
+        }
+        res.status(200).json(bees)
+        return;
+    }
+    else if (req.query.potential == "descending"){
+        console.log("Fetching Marketplace nft from high potential to low");
+        bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(60*page);
+    }
+    else if (req.query.potential = "ascending"){
+        console.log("Fetching Marketplace nft from low potential to high");
+        bees = await nft.find({nft_forsale:true}).sort({ nft_potential: 1}).limit(60*page);
+    }
+    else if (req.query.price == "descending"){
+        console.log("Fetching Marketplace nft from high price to low price");
+        bees = await nft.find({nft_forsale:true}).sort({ nft_price: -1}).limit(60*page);
+    }
+    else if (req.query.price = "ascending"){
+        console.log("Fetching Marketplace nft from low price to high price");
+        bees = await nft.find({nft_forsale:true}).sort({ nft_price: 1}).limit(60*page);
+    }
+    else {
+        bees = await nft.aggregate([
+            { $match: { nft_forsale: true } },
+            { $sample: { size: 60*page } }
+        ])
+    }
+    res.status(200).json(bees.slice((page-1)*60,page*60))
 });
 
 app.get("/api/eirbmon/:id", async(req, res) => {

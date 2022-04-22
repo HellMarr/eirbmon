@@ -54,7 +54,7 @@ export default {
         }
     },
     mounted(){
-        axios.get("/api/marketplace/potential").then((res) => {
+        axios.get("/api/marketplace").then((res) => {
             if(res.data.msg === "Validation Failed"){
                 //let errors = res.data.errors;
                 let errorMsg = "";
