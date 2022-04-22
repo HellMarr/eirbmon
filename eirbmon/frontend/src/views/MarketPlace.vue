@@ -104,7 +104,7 @@ export default {
             }
         },
         getMarketplaceSorted(){
-            let route="/api/marketplace/?type="+this.type_form+"&sort_price="+this.pricesort_form+"&sort_potential="+this.potentialsort_form+"&minprice="+this.pricemin_form+"&maxprice="+this.pricemax_form+"&minpotential="+this.potentialmin_form+"&maxpotential="+this.potentialmax_form
+            let route="/api/marketplace/?type="+this.type_form+"&price="+this.pricesort_form+"&potential="+this.potentialsort_form+"&minprice="+this.pricemin_form+"&maxprice="+this.pricemax_form+"&minpotential="+this.potentialmin_form+"&maxpotential="+this.potentialmax_form
             this.route=route;
             axios.get(route).then((res) => {
                 if(res.data.msg === "Validation Failed"){

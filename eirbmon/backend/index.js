@@ -301,7 +301,7 @@ app.get("/api/marketplace", async(req, res) => {
         }
         if (req.query.potential == "ascending"){
             console.log("Fetching Marketplace nft from low potential to high");
-            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : -1}).limit(60*page)
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : 1}).limit(60*page)
         }
         if (req.query.price == "descending"){
             console.log("Fetching Marketplace nft from high price to low price");
@@ -338,24 +338,6 @@ app.get("/api/marketplace", async(req, res) => {
     }
     res.status(200).json(bees.slice((page-1)*60,page*60))
 });
-
-//Test
-        app.get("/api/marketplace/?type=:type&sort_price=:sort_price&sort_potential=:sort_potential&minprice=:minprice&maxprice=:maxprice&minpotential=:minpotential&maxpotential=:maxpotential", async(req, res) => {
-            console.log("Salut");
-            console.log(req.params)
-            const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
-            // console.log(bees)
-            res.status(200).send(bees)
-        });
-
-        app.get("/api/marketplace//api/marketplace/?type=null&sort_price=ascending&sort_potential=descending&minprice=0&maxprice=2&minpotential=0&maxpotential=200", async(req, res) => {
-            console.log("Salut");
-            console.log(req.params)
-            const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
-            // console.log(bees)
-            res.status(200).send(bees)
-        });
-        
 
 app.get("/api/eirbmon/:id", async(req, res) => {
     
