@@ -295,6 +295,24 @@ app.get("/api/marketplace/:type", async(req, res) => {
     res.status(200).send(bees)
 });
 
+//Test
+        app.get("/api/marketplace/?type=:type&sort_price=:sort_price&sort_potential=:sort_potential&minprice=:minprice&maxprice=:maxprice&minpotential=:minpotential&maxpotential=:maxpotential", async(req, res) => {
+            console.log("Salut");
+            console.log(req.params)
+            const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
+            // console.log(bees)
+            res.status(200).send(bees)
+        });
+
+        app.get("/api/marketplace//api/marketplace/?type=null&sort_price=ascending&sort_potential=descending&minprice=0&maxprice=2&minpotential=0&maxpotential=200", async(req, res) => {
+            console.log("Salut");
+            console.log(req.params)
+            const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
+            // console.log(bees)
+            res.status(200).send(bees)
+        });
+        
+
 app.get("/api/eirbmon/:id", async(req, res) => {
     
     // await createNft({nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"});
