@@ -9,7 +9,7 @@
           <div class="owner">Owner</div>
         </div>
         <div v-if="nft_forsale" class="sale">
-          Buy
+          <button class="buyBtn" @click="buy(nft_owner, nft_id, nft_price)"> Buy </button>
         </div>
       </div>
       <div class="properties">
@@ -31,6 +31,11 @@
 <script>
 import GaussianCurve from './GaussianCurve.vue'
 
+// blockchain
+import {buyNftInMarket} from '../script/blockchain.js'
+import detectEthereumProvider from '@metamask/detect-provider'
+import Web3 from "web3/dist/web3.min.js";
+
 export default {
     name: "EirbMonItem",
     props: {
@@ -43,6 +48,7 @@ export default {
       nft_wings_color:String,
       nft_image:String,
       nft_forsale:Boolean,
+      nft_owner:String,
     },
     computed: {
       wings () {
@@ -53,6 +59,22 @@ export default {
       },
       background () {
         return `background-color: #${this.nft_bg_color};`;
+      }
+    },
+    methods: {
+      async buy (nft_owner, nft_id, nft_price) {
+        console.log(nft_id+" "+nft_price)
+         const provider = await detectEthereumProvider();
+            if (provider) {
+                const web3 = new Web3(provider);
+                const contract = require("../../../blockchain/build/contracts/NFTMarketplace")
+                const CONTRACT_ADDRESS_MARKETPLACE = "0x0aD920cDD7547622ed470086FA787A75b2D7EefE"
+                const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
+                const addr = await provider.request({method: 'eth_requestAccounts'})
+                await buyNftInMarket(provider, marketplaceContract, addr[0], nft_owner, nft_id, nft_price.toString())
+            } else {
+                console.log("please install metamask")
+            }
       }
     },
     components:{
@@ -128,6 +150,11 @@ export default {
   font-size:40px;
   font-weight: bold;
   color:'red';
+}
+
+.buyBtn {
+  font-size:40px;
+  font-weight: bold;
 }
 
 .properties{
