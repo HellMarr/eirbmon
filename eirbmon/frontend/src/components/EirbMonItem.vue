@@ -1,6 +1,6 @@
 <template>
   <div class="grid">
-    <img class="image" src="../assets/abeille_sortie_accessories3.svg">
+    <img class="image" :src="nft_image">
     <div class="description">
       <div class="infos">
         <div class="id">Eirbee#{{nft_id}}</div>
@@ -35,16 +35,17 @@ export default {
       nft_potential:Number,
       nft_antenna_color:String,
       nft_wings_color:String,
+      nft_image:String,
     },
     computed: {
       wings () {
-        return `background-color: ${this.nft_wings_color};`;
+        return `background-color: #${this.nft_wings_color};`;
       },
       antenna () {
-        return `background-color: ${this.nft_antenna_color};`;
+        return `background-color: #${this.nft_antenna_color};`;
       },
       background () {
-        return `background-color: ${this.nft_bg_color};`;
+        return `background-color: #${this.nft_bg_color};`;
       }
     },
     components:{
@@ -108,7 +109,7 @@ export default {
 
 .properties{
   grid-area: 2 / 1 / 3 / 2;
-  padding-left: 20%;
+  padding-left: 5%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -150,21 +151,54 @@ export default {
   color: #000;
   text-transform: uppercase;
   font-family: 'Fredoka', sans-serif;
-  font-size:20px;
-  margin-left: 10px;
-
+  font-size:18px;
+  margin-left: 8px;
   border: 1px solid #AAA;
 }
-.info {
+.Info {
   background: #16A116;
 }
-.telecom {
+.Telecom {
   background: #fbc235;
 }
-.elec {
+.Elec {
   background: #198DBC;
 }
-.matmeca{
+.Matmeca{
   background: #E74737;
 }
+
+
+  @media (max-width: 850px) {
+    .grid {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 5%;
+    }
+
+    .image{
+      grid-area: 1 / 1 / 2 / 2;
+      width:100%;
+      border-radius:20px;
+      background-size: cover;
+      margin-bottom:15px;
+    }
+
+    .description{
+      padding: 5%;
+      gap:20px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .properties{
+      padding-left: 5%;
+    }
+
+    .infos{
+      flex-direction: column;
+    } 
+  }
+
 </style>

@@ -254,12 +254,12 @@ function generateAll(files,changes,color,accessoiries){
                 var str = "" + compteur
                 var pad = "0000"
                 var ans = pad.substring(0, pad.length - str.length) + str
-                fs.writeFileSync("./abeilles/" + ans + ".svg",xmlFile) 
-                console.log(ans)
+                //fs.writeFileSync("./abeilles/" + compteur + ".svg",xmlFile) 
+                console.log(compteur)
                  
                 let data = JSON.stringify(tab,null,2);
                 JSON.parse(data)
-                fs.writeFileSync("./abeilles/" + ans + ".json", data);
+                fs.writeFileSync("./abeilles/" + compteur + ".json", data);
 
             }
         }

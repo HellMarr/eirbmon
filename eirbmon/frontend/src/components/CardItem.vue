@@ -1,6 +1,6 @@
 <template>
   <div @click="test" class="container" :style="style">
-    <img class="image" src="../assets/abeille_sortie_accessories3.svg">
+    <img class="image" :src="image">
     <div class="description">
       <div class="upper-div">
         <div class="name">#{{nft_id}}</div> 
@@ -8,6 +8,9 @@
       <div class="types">
         <div class="type" :class="nft_type">
           {{nft_type}}
+        </div>
+        <div class="type">
+          {{nft_potential}}
         </div>
       </div>
       <div class="stats">
@@ -17,6 +20,7 @@
   </div>
 </template>
 
+
 <script>
 export default {
   name: 'CardItem',
@@ -25,11 +29,13 @@ export default {
     nft_price:Number,
     nft_type:String,
     nft_bg_color:String,
-    homepage:String
+    homepage:String,
+    image:String,
+    nft_potential:Number,
   },
   computed: {
     style () {
-     return `background-color: ${this.nft_bg_color};`;
+     return `background-color: #${this.nft_bg_color};`;
     }
   },
   methods: {
@@ -103,16 +109,16 @@ export default {
   text-transform: uppercase;
 }
 
-.info {
+.Info {
   background: #16A116;
 }
-.telecom {
+.Telecom {
   background: #fbc235;
 }
-.elec {
+.Elec {
   background: #198DBC;
 }
-.matmeca{
+.Matmeca{
   background: #E74737;
 }
 

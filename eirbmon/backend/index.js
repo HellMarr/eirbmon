@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const fs = require('fs');
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -261,6 +262,41 @@ app.post("/api/signin", async(req, res) => {
 //     })
 // })
 
+app.get("/api/marketplace/hightolow", async(req, res) => {
+
+    console.log("Fetching Marketplace nft from high price to low price");
+    const bees = await nft.find({nft_forsale:true}).sort({ nft_price: -1}).limit(60);
+    console.log(bees)
+    res.status(200).send(bees)
+});
+
+app.get("/api/marketplace/lowtohigh", async(req, res) => {
+
+    console.log("Fetching Marketplace nft from low price to high price");
+    const bees = await nft.find({nft_forsale:true}).sort({ nft_price: 1}).limit(60);
+    console.log(bees)
+    res.status(200).send(bees)
+});
+
+app.get("/api/marketplace/potential", async(req, res) => {
+
+    console.log("Fetching Marketplace nft from high potential to low");
+    const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(60);
+    console.log(bees)
+    res.status(200).send(bees)
+});
+
+app.get("/api/marketplace/:type", async(req, res) => {
+
+    console.log("Fetching Marketplace nft by type");
+    console.log(req.params.type)
+    const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
+    console.log(bees)
+    res.status(200).send(bees)
+});
+
+
+
 app.get("/api/marketplace", async(req, res) => {
     
     //const NFTs = await nft.find({});
@@ -271,65 +307,65 @@ app.get("/api/marketplace", async(req, res) => {
         {
             nft_list: [
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
                 {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
                 {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
                 {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
                 {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
                 {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
                 {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
                 {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
                 {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",},
-                {nft_id:1225,nft_price:9999,nft_type:"telecom",nft_bg_color:"#FFF89A"},
-                {nft_id:1342,nft_price:0.001,nft_type:"matmeca",nft_bg_color:"#FFB2A6"},
-                {nft_id:2225,nft_price:1,nft_type:"info",nft_bg_color:"#FF8AAE"},
-                {nft_id:1225,nft_price:0.001,nft_type:"info",nft_bg_color:"#FCF4DD"},
+                {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6"},
+                {nft_id:2225,nft_price:1,nft_type:"elec",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#9ADCFF"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#9ADCFF"},
                 {nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"},
                 {nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FFB2A6",},
-                {nft_id:1225,nft_price:1089,nft_type:"info",nft_bg_color:"#FF8AAE"},
+                {nft_id:1225,nft_price:1089,nft_type:"elec",nft_bg_color:"#FF8AAE"},
                 {nft_id:1223,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DDEDEA"},
-                {nft_id:1342,nft_price:0.001,nft_type:"telecom",nft_bg_color:"#FCF4DD"},
+                {nft_id:1342,nft_price:0.001,nft_type:"elec",nft_bg_color:"#FCF4DD"},
             ],
             //{data: NFTs},
         }
@@ -343,27 +379,27 @@ app.get("/api/eirbmon/:id", async(req, res) => {
     const id = req.params.id;
     const nft_info = await nft.findOne({ nft_id: id});
     console.log(nft_info);
-    res.status(200).send(
-        {nft:{nft_id:1225,nft_price:0.001,nft_type:"elec",nft_bg_color:"#DAF7A6",nft_wings_color:"#ffffff",nft_antenna_color:"#00ff64",nft_potential:120}}
-    )
+    res.status(200).send(nft_info)
 });
 
 app.post("/api/profile", async(req, res) => {
-    console.log("Fetching Profile Nft")
+    console.log("Fetching Profile Nft");
 
     req.session.logged = true;
     const _user_wallet = req.body.user_wallet;
+    console.log('user wallet : ' + _user_wallet);
     
-    
-    const userss = await db.collection('users').findOne({user_wallet:_user_wallet});
-    // console.log(userss.tokenIds)
+    const user_db = await users.findOne({ user_wallet: _user_wallet });
 
-    nft_list = [];
-    for await (const doc of db.collection("nft").find({nft_id: {$in: userss.tokenIds} })) {
+    const nfts = await nft.find({nft_id: user_db.tokenIds });
+    console.log(nfts);
+
+    let nft_list = [];
+    for await (const doc of nft.find({nft_id: {$in: user_db.tokenIds} })) {
         console.log(doc);
         nft_list[nft_list.length] = doc;
       }
-      console.log(nft_list)
+      console.log(nft_list);
     
       res.send(nft_list)
 });
@@ -385,6 +421,16 @@ app.post("/api/profile", async(req, res) => {
 
 
 
+
 app.listen(3001, () => {
     console.log("Server started ...");
 });
+
+
+//Génération des métadata nft dans la database
+/*for (let i = 1; i < 4001; i++) {
+    let rawdata = fs.readFileSync('../bee_generator/abeilles/' + i +'.json');
+    let bee = JSON.parse(rawdata);
+    let price = Math.random() * 2;
+    createNft({ nft_id: i, nft_accessory_list: bee.accessories,nft_price: price,nft_type:bee.type,nft_bg_color:bee.background,nft_pedicel_color:bee.pedicel,nft_wings_color:bee.wings,nft_forsale:true,nft_potential:bee.QI,nft_image:"https://masteronepiece.com/wp-content/uploads/eirbmon/"+ i +".svg"});
+}*/

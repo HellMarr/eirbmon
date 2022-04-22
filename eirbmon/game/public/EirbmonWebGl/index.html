@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | EirbMon</title>
+    <title>Unity WebGL Player | EIRBMON_2</title>
     <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
   </head>
@@ -20,7 +20,7 @@
       <div id="unity-footer">
         <div id="unity-webgl-logo"></div>
         <div id="unity-fullscreen-button"></div>
-        <div id="unity-build-title">EirbMon</div>
+        <div id="unity-build-title">EIRBMON_2</div>
       </div>
     </div>
     <script>
@@ -62,8 +62,8 @@
         frameworkUrl: buildUrl + "/EirbmonWebGl.framework.js",
         codeUrl: buildUrl + "/EirbmonWebGl.wasm",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "DefaultCompany",
-        productName: "EirbMon",
+        companyName: "EIRBMON's team",
+        productName: "EIRBMON_2",
         productVersion: "1.0",
         showBanner: unityShowBanner,
       };
@@ -76,15 +76,29 @@
       // config.matchWebGLToCanvasSize = false;
 
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
         container.className = "unity-mobile";
-        // Avoid draining fillrate performance on mobile devices,
-        // and default/override low DPI mode on mobile browsers.
-        config.devicePixelRatio = 1;
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+        canvas.style.width = window.innerWidth + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+
         unityShowBanner('WebGL builds are not supported on mobile devices.');
       } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+
         canvas.style.width = "960px";
         canvas.style.height = "600px";
       }
+
       loadingBar.style.display = "block";
 
       var script = document.createElement("script");
