@@ -1,6 +1,6 @@
 <template>
   <div class="grid">
-    <img class="image" src="../assets/abeille_sortie_accessories3.svg">
+    <img class="image" :src="nft_image">
     <div class="description">
       <div class="infos">
         <div class="id">Eirbee#{{nft_id}}</div>
@@ -35,16 +35,17 @@ export default {
       nft_potential:Number,
       nft_antenna_color:String,
       nft_wings_color:String,
+      nft_image:String,
     },
     computed: {
       wings () {
-        return `background-color: ${this.nft_wings_color};`;
+        return `background-color: #${this.nft_wings_color};`;
       },
       antenna () {
-        return `background-color: ${this.nft_antenna_color};`;
+        return `background-color: #${this.nft_antenna_color};`;
       },
       background () {
-        return `background-color: ${this.nft_bg_color};`;
+        return `background-color: #${this.nft_bg_color};`;
       }
     },
     components:{
@@ -154,16 +155,16 @@ export default {
   margin-left: 8px;
   border: 1px solid #AAA;
 }
-.info {
+.Info {
   background: #16A116;
 }
-.telecom {
+.Telecom {
   background: #fbc235;
 }
-.elec {
+.Elec {
   background: #198DBC;
 }
-.matmeca{
+.Matmeca{
   background: #E74737;
 }
 
