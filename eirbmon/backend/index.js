@@ -307,7 +307,7 @@ app.get("/api/marketplace", async(req, res) => {
             console.log("Fetching Marketplace nft from high price to low price");
             bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_price : -1}).limit(60*page)
         }
-        if (req.query.price = "ascending"){
+        if (req.query.price == "ascending"){
             console.log("Fetching Marketplace nft from low price to high price");
             bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_price : 1}).limit(60*page)
         }
