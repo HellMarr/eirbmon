@@ -7,7 +7,7 @@
         <div class="market">
             <ul>
                 <li v-for="nft in nft_list" :key="nft">
-                    <CardItemProfile :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItemProfile>
+                    <CardItemProfile :nft_image=nft.nft_image :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItemProfile>
                     <div class="sell">
                         <input v-model="price" placeholder="price">
                         <button @click="sellNft(1,100,this.addr)">sell</button>

@@ -131,7 +131,7 @@
          d="m 24000,5883.7 c 4800.8,0 8692.6,-633.3 8692.6,-1414.6 0,-781.3 -3891.8,-1414.6 -8692.6,-1414.6 -4800.8,0 -8692.6,633.3 -8692.6,1414.6 0,781.3 3891.8,1414.6 8692.6,1414.6 v 0"
          style="fill:#f5d4a4;fill-opacity:1;fill-rule:evenodd;stroke:none"
          id="path70" /></g><g
-       style="display:none"
+       style="display:SLEEP"
        transform="translate(2742.3719,2884.7471)"
        id="g10-3"><g
          transform="scale(0.1)"

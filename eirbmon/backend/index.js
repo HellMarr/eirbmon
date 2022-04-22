@@ -266,7 +266,7 @@ app.get("/api/marketplace/hightolow", async(req, res) => {
 
     console.log("Fetching Marketplace nft from high price to low price");
     const bees = await nft.find({nft_forsale:true}).sort({ nft_price: -1}).limit(60);
-    console.log(bees)
+    // console.log(bees)
     res.status(200).send(bees)
 });
 
@@ -274,7 +274,7 @@ app.get("/api/marketplace/lowtohigh", async(req, res) => {
 
     console.log("Fetching Marketplace nft from low price to high price");
     const bees = await nft.find({nft_forsale:true}).sort({ nft_price: 1}).limit(60);
-    console.log(bees)
+    // console.log(bees)
     res.status(200).send(bees)
 });
 
@@ -282,7 +282,7 @@ app.get("/api/marketplace/potential", async(req, res) => {
 
     console.log("Fetching Marketplace nft from high potential to low");
     const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(60);
-    console.log(bees)
+    //console.log(bees)
     res.status(200).send(bees)
 });
 
@@ -291,7 +291,7 @@ app.get("/api/marketplace/:type", async(req, res) => {
     console.log("Fetching Marketplace nft by type");
     console.log(req.params.type)
     const bees = await nft.find({$and: [{ nft_type: req.params.type }, {nft_forsale:true}]}).sort({nft_id : 1}).limit(60)
-    console.log(bees)
+    // console.log(bees)
     res.status(200).send(bees)
 });
 
