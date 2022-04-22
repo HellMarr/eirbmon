@@ -281,8 +281,13 @@ app.get("/api/marketplace/lowtohigh", async(req, res) => {
 app.get("/api/marketplace/potential", async(req, res) => {
 
     console.log("Fetching Marketplace nft from high potential to low");
+<<<<<<< HEAD
     const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(4000);
     // console.log(bees)
+=======
+    const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(60);
+    console.log(bees)
+>>>>>>> c70ca31e8cc537e382cbf00f1f0c4d67570c6eae
     res.status(200).send(bees)
 });
 
