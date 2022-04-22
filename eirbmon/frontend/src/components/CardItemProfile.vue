@@ -4,7 +4,7 @@
 
 </head>
   <div class="container" :style="style">
-    <img class="image" :src="require(`@/assets/000${this.nft_id}.svg`)">
+    <img class="image" :src="nft_image">
     <div class="description">
       <div class="upper-div">
         <div class="name">#{{nft_id}}</div> 
@@ -29,6 +29,7 @@ export default {
     nft_price:Number,
     nft_type:String,
     nft_bg_color:String,
+    nft_image:String,
   },
   computed: {
     style () {
