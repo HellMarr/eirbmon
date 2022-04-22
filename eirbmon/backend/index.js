@@ -413,7 +413,7 @@ app.listen(3001, () => {
 
 //Génération des métadata nft dans la database
 /*for (let i = 1; i < 4001; i++) {
-    let rawdata = fs.readFileSync('../bee_generator/abeilles/' + i +'.json');
+    let rawdata = fs.readFileSync('../bee_generator/abeilles/sorties/' + i +'.json');
     let bee = JSON.parse(rawdata);
     let price = Math.random() * 2;
     createNft({ nft_id: i, nft_accessory_list: bee.accessories,nft_price: price,nft_type:bee.type,nft_bg_color:bee.background,nft_pedicel_color:bee.pedicel,nft_wings_color:bee.wings,nft_forsale:true,nft_potential:bee.QI,nft_image:"https://masteronepiece.com/wp-content/uploads/eirbmon/"+ i +".svg"});
