@@ -1,5 +1,5 @@
 <template>
-  <div @click="test" class="container" :style="style">
+  <div @click="RedirectToEirbmonPage" class="container" :style="style">
     <img class="image" :src="image">
     <div class="description">
       <div class="upper-div">
@@ -40,7 +40,7 @@ export default {
     }
   },
   methods: {
-    test(){
+    RedirectToEirbmonPage(){
       if(this.homepage==="False"){
         this.$router.push(`/eirbmon/${this.nft_id}`);
       }

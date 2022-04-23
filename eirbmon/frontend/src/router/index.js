@@ -17,6 +17,11 @@ const routes = [
     component: Marketplace
   },
   {
+    path: '/marketplace/:request',
+    name: 'marketplace-request',
+    component: Marketplace
+  },
+  {
     path: '/eirbmon/:id',
     name: 'marketplace-id',
     component: EirbMon

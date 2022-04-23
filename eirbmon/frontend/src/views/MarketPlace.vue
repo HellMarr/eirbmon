@@ -1,7 +1,6 @@
 <template>
 <div class="marketplace-container">
     <div class="menu">
-        MENU
         <button @click="getMarketItems"> check items in market place (see console / test)</button>
         <button @click="getMarketplaceSorted">Axios request</button>
         <div class="form" id="type_form">
@@ -122,7 +121,7 @@ export default {
         }
     },
     mounted(){
-        axios.get("/api/marketplace").then((res) => {
+        axios.get("/api/marketplace/?type=null&price=ascending&potential=descending&minprice=0&maxprice=1000&minpotential=0&maxpotential=200").then((res) => {
             if(res.data.msg === "Validation Failed"){
                 //let errors = res.data.errors;
                 let errorMsg = "";
