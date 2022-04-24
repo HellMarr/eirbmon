@@ -341,7 +341,6 @@ app.get("/api/marketplace", async(req, res) => {
 });
 
 app.get("/api/eirbmon/:id", async(req, res) => {
-    
     // await createNft({nft_id:1225,nft_price:9999,nft_type:"elec",nft_bg_color:"#FFF89A"});
     const id = req.params.id;
     const nft_info = await nft.findOne({ nft_id: id});

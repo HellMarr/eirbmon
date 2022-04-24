@@ -2,7 +2,7 @@
 <div class="marketplace-container">
     <div class="menu">
         <button @click="getMarketItems"> check items in market place (see console / test)</button>
-        <button @click="getMarketplaceSorted">Axios request</button>
+        <button @click="getMarketplace">Axios request</button>
         <div class="form" id="type_form">
             <div class="title">Type</div>
             <input type="radio" id="all" value="null" v-model="type_form">
@@ -55,6 +55,8 @@
             </li>
         </ul>
     </div>
+    <div>Page {{page}}</div>
+    <button @click="getMorePages">Get more Eirbees</button>
 </div>
 </template>
 
@@ -83,6 +85,7 @@ export default {
             potentialmin_form:0,
             potentialmax_form:200,
             route:null,
+            page:1,
         }
     },
     methods: {
@@ -102,8 +105,26 @@ export default {
                 console.log("please install metamask")
             }
         },
-        getMarketplaceSorted(){
+        getMarketplace(){
             let route="/api/marketplace/?type="+this.type_form+"&price="+this.pricesort_form+"&potential="+this.potentialsort_form+"&minprice="+this.pricemin_form+"&maxprice="+this.pricemax_form+"&minpotential="+this.potentialmin_form+"&maxpotential="+this.potentialmax_form
+            this.route=route;
+            axios.get(route).then((res) => {
+                if(res.data.msg === "Validation Failed"){
+                    //let errors = res.data.errors;
+                    let errorMsg = "";
+                    alert(errorMsg);
+                }
+                else{
+                    this.nft_list=res.data;
+                    console.log(res);
+                }
+                }).catch(()=>{
+                    alert("Something Went Wrong");
+            })
+        },
+        getMorePages(){
+            this.page+=1;
+            let route="/api/marketplace/?type="+this.type_form+"&price="+this.pricesort_form+"&potential="+this.potentialsort_form+"&minprice="+this.pricemin_form+"&maxprice="+this.pricemax_form+"&minpotential="+this.potentialmin_form+"&maxpotential="+this.potentialmax_form+"&page="+this.page
             this.route=route;
             axios.get(route).then((res) => {
                 if(res.data.msg === "Validation Failed"){
@@ -142,6 +163,9 @@ export default {
 <style scoped>
 .marketplace-container{
     padding: 0 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .menu{
     background-color:lightgrey;
