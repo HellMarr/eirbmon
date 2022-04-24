@@ -1,7 +1,6 @@
 <template>
 <div class="marketplace-container">
     <div class="menu">
-        <button @click="getMarketItems"> check items in market place (see console / test)</button>
         <div class="form" id="type_form">
             <div class="title">Type</div>
             <span>
@@ -24,7 +23,6 @@
                 <input type="radio" id="Info" value="Info" v-model="type_form">
                 <label for="Info">Info</label>
             </span>
-            <div>{{type_form}}</div>
         </div>
         <div class="form" id="pricesort_form">
             <div class="title">Price sorting</div>
@@ -62,7 +60,7 @@
                 <input type="number" v-model.number="potentialmax_form"/>
             </div>
         </div>
-        <button @click="getMarketplace">Axios request</button>
+        <button @click="getMarketplace">Go</button>
     </div>
     <div>{{route}}</div>
 
@@ -73,8 +71,8 @@
             </li>
         </ul>
     </div>
-    <div>Page {{page}}</div>
-    <button @click="getMorePages">Get more Eirbees</button>
+    <div v-if="(nft_list_length%60!=0)||(nft_list_length==0)" class="no-more-pages">No more Eirbee are matching your criteria</div>
+    <button v-else @click="getMorePages" id="more-pages">Get more Eirbees</button>
 </div>
 </template>
 
@@ -104,6 +102,7 @@ export default {
             potentialmax_form:200,
             route:null,
             page:1,
+            nft_list_length:1,
         }
     },
     methods: {
@@ -135,6 +134,7 @@ export default {
                 else{
                     this.nft_list=res.data;
                     console.log(res);
+                    this.nft_list_length=this.nft_list.length;
                 }
                 }).catch(()=>{
                     alert("Something Went Wrong");
@@ -151,8 +151,9 @@ export default {
                     alert(errorMsg);
                 }
                 else{
-                    this.nft_list=res.data;
+                    this.nft_list=this.nft_list.concat(res.data);
                     console.log(res);
+                    this.nft_list_length=this.nft_list.length;
                 }
                 }).catch(()=>{
                     alert("Something Went Wrong");
@@ -169,6 +170,7 @@ export default {
             else{
                 this.nft_list=res.data;
                 console.log(res);
+                this.nft_list_length=this.nft_list.length;
             }
         }).catch(()=>{
             alert("Something Went Wrong");
@@ -184,10 +186,11 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .menu{
-    background-color:white);
+    background-color:#eee;
     box-shadow: 3px 3px 6px 5px #ccc;
     margin-bottom:20px;
     border-radius: 10px;
@@ -196,14 +199,16 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    align-content: center;
     flex-wrap: wrap;
+    width:100%;
 }
 
 .form{
     display: flex;
     flex-direction: column;
     padding:5px 10px;
-    border: 2px lightgrey solid;
+    border: 2px rgb(160, 160, 160) solid;
     border-radius: 10px;
 }
 
@@ -228,6 +233,16 @@ span{
     gap:2px;
 }
 
+button{
+    cursor: pointer;
+    border: 2px rgb(160, 160, 160) solid;
+    border-radius: 10px;
+    padding:5px 10px;
+    font-size: 30px;
+}
+button:hover{
+    background-color: #ddd;
+}
 
 .market ul{
     display: flex;
@@ -241,15 +256,30 @@ span{
     padding-bottom: 20px;
 }
 
+.no-more-pages{
+    margin:50px;
+    font-size: 40px;
+}
+
+#more-pages{
+    width: 50%;
+    margin:20px 0;
+}
+
 @media(max-width:750px){
     .menu{
         flex-direction: column;
+        gap:10px;
     }
     .form{
         width:100%;
     }
     .card-container{
         width: 250px;
+    }
+
+    .no-more-pages{
+        font-size: 25px;
     }
 }
 </style>
