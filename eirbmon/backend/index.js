@@ -298,38 +298,38 @@ app.get("/api/marketplace", async(req, res) => {
         console.log("Fetching Marketplace nft by type "+ req.query.type);
         if (req.query.potential == "descending" && req.query.price == "descending"){
             console.log("Typed // Potential descending // Price descending");
-            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : -1}).sort({nft_price : -1}).limit(60*page);
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : -1}).sort({nft_price : -1}).limit(60*page);
         }
         if (req.query.potential == "ascending" && req.query.price == "descending"){
             console.log("Typed // Potential ascending // Price descending");
-            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : 1}).sort({nft_price : -1}).limit(60*page);
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : 1}).sort({nft_price : -1}).limit(60*page);
         }
         if (req.query.potential == "descending" && req.query.price == "ascending"){
             console.log("Typed // Potential descending // Price ascending");
-            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : -1}).sort({nft_price : 1}).limit(60*page);
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : -1}).sort({nft_price : 1}).limit(60*page);
         }
         if (req.query.potential == "ascending" && req.query.price == "ascending"){
             console.log("Typed // Potential ascending // Price ascending");
-            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).sort({nft_potential : 1}).sort({nft_price : 1}).limit(60*page);
+            bees = await nft.find({$and: [{ nft_type: req.query.type }, {nft_forsale:true}]}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : 1}).sort({nft_price : 1}).limit(60*page);
         }
-        res.status(200).json(bees)
+        res.status(200).json(bees.slice((page-1)*60,page*60))
         return;
     }
     else if (req.query.potential == "descending" && req.query.price == "descending"){
         console.log("Not typed // Potential descending // Price descending");
-        bees = await nft.find({nft_forsale:true}).sort({nft_potential : -1}).sort({nft_price : -1}).limit(60*page);
+        bees = await nft.find({nft_forsale:true}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : -1}).sort({nft_price : -1}).limit(60*page);
     }
     else if (req.query.potential == "ascending" && req.query.price == "descending"){
         console.log("Not typed // Potential ascending // Price descending");
-        bees = await nft.find({nft_forsale:true}).sort({nft_potential : 1}).sort({nft_price : -1}).limit(60*page);
+        bees = await nft.find({nft_forsale:true}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : 1}).sort({nft_price : -1}).limit(60*page);
     }
     else if (req.query.potential == "descending" && req.query.price == "ascending"){
         console.log("Not typed // Potential descending // Price ascending");
-        bees = await nft.find({nft_forsale:true}).sort({nft_potential : -1}).sort({nft_price : 1}).limit(60*page);
+        bees = await nft.find({nft_forsale:true}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : -1}).sort({nft_price : 1}).limit(60*page);
     }
     else if (req.query.potential == "ascending" && req.query.price == "ascending"){
         console.log("Not typed // Potential ascending // Price ascending");
-        bees = await nft.find({nft_forsale:true}).sort({nft_potential : 1}).sort({nft_price : 1}).limit(60*page);
+        bees = await nft.find({nft_forsale:true}).where('nft_price').gte(parseInt(req.query.minprice)).lte(parseInt(req.query.maxprice)).where('nft_potential').gte(parseInt(req.query.minpotential)).lte(parseInt(req.query.maxpotential)).sort({nft_potential : 1}).sort({nft_price : 1}).limit(60*page);
     }
     else {
         bees = await nft.aggregate([
@@ -394,9 +394,9 @@ app.listen(3001, () => {
 
 
 //Génération des métadata nft dans la database
-/*for (let i = 1; i < 4001; i++) {
-    let rawdata = fs.readFileSync('../bee_generator/abeilles/sorties/' + i +'.json');
+for (let i = 1; i < 4001; i++) {
+    let rawdata = fs.readFileSync('../bee_generator/abeilles/sorties/jsonabeilles/' + i +'.json');
     let bee = JSON.parse(rawdata);
-    let price = Math.random() * 2;
+    let price = Math.floor(Math.random() * 100)+1;
     createNft({ nft_id: i, nft_accessory_list: bee.accessories,nft_price: price,nft_type:bee.type,nft_bg_color:bee.background,nft_pedicel_color:bee.pedicel,nft_wings_color:bee.wings,nft_forsale:true,nft_potential:bee.QI,nft_image:"https://masteronepiece.com/wp-content/uploads/eirbmon/"+ i +".svg"});
-}*/
+}
