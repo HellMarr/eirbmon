@@ -2,49 +2,67 @@
 <div class="marketplace-container">
     <div class="menu">
         <button @click="getMarketItems"> check items in market place (see console / test)</button>
-        <button @click="getMarketplace">Axios request</button>
         <div class="form" id="type_form">
             <div class="title">Type</div>
-            <input type="radio" id="all" value="null" v-model="type_form">
-            <label for="all">All</label>
-            <input type="radio" id="Telecom" value="Telecom" v-model="type_form">
-            <label for="Telecom">Telecom</label>
-            <input type="radio" id="Matmeca" value="Matmeca" v-model="type_form">
-            <label for="Matmeca">Matmeca</label>
-            <input type="radio" id="Elec" value="Elec" v-model="type_form">
-            <label for="Elec">Elec</label>  
-            <input type="radio" id="Info" value="Info" v-model="type_form">
-            <label for="Info">Info</label>
+            <span>
+                <input type="radio" id="all" value="null" v-model="type_form">
+                <label for="all">All</label>
+            </span>
+            <span>
+                <input type="radio" id="Telecom" value="Telecom" v-model="type_form">
+                <label for="Telecom">Telecom</label>
+            </span>
+            <span>
+                <input type="radio" id="Matmeca" value="Matmeca" v-model="type_form">
+                <label for="Matmeca">Matmeca</label>
+            </span>
+            <span>
+                <input type="radio" id="Elec" value="Elec" v-model="type_form">
+                <label for="Elec">Elec</label>  
+            </span>
+            <span>
+                <input type="radio" id="Info" value="Info" v-model="type_form">
+                <label for="Info">Info</label>
+            </span>
             <div>{{type_form}}</div>
         </div>
         <div class="form" id="pricesort_form">
             <div class="title">Price sorting</div>
-            <input type="radio" id="ascending" value="ascending" v-model="pricesort_form">
-            <label for="ascending">Ascending</label>  
-            <input type="radio" id="descending" value="descending" v-model="pricesort_form">
-            <label for="descending">Descending</label>
-            <div>{{pricesort_form}}</div>
+            <span>
+                <input type="radio" id="ascending" value="ascending" v-model="pricesort_form">
+                <label for="ascending">Ascending</label>
+            </span>
+            <span>
+                <input type="radio" id="descending" value="descending" v-model="pricesort_form">
+                <label for="descending">Descending</label>
+            </span>
         </div>
         <div class="form" id="pricemaxmin_form">
             <div class="title">Price range</div>
-            <input type="number" v-model.number="pricemin_form"/>
-            <input type="number" v-model.number="pricemax_form"/>
-            <div>Min: {{pricemin_form}} Max : {{pricemax_form}}</div>
+            <div class="subform-range">
+                <input type="number" v-model.number="pricemin_form"/>
+                <input type="number" v-model.number="pricemax_form"/>
+            </div>
         </div>
         <div class="form" id="potentialsort_form">
             <div class="title">Potential Sorting</div>
-            <input type="radio" id="ascending" value="ascending" v-model="potentialsort_form">
-            <label for="ascending">Ascending</label>  
-            <input type="radio" id="descending" value="descending" v-model="potentialsort_form">
-            <label for="descending">Descending</label>
-            <div>{{potentialsort_form}}</div>
+            <span>
+                <input type="radio" id="ascending" value="ascending" v-model="potentialsort_form">
+                <label for="ascending">Ascending</label>
+            </span>
+            <span>
+                <input type="radio" id="descending" value="descending" v-model="potentialsort_form">
+                <label for="descending">Descending</label>
+            </span>
         </div>
         <div class="form" id="potentialmaxmin_form">
             <div class="title">Potential range</div>
-            <input type="number" v-model.number="potentialmin_form"/>
-            <input type="number" v-model.number="potentialmax_form"/>
-            <div>Min: {{potentialmin_form}}     Max : {{potentialmax_form}}</div>
+            <div class="subform-range">
+                <input type="number" v-model.number="potentialmin_form"/>
+                <input type="number" v-model.number="potentialmax_form"/>
+            </div>
         </div>
+        <button @click="getMarketplace">Axios request</button>
     </div>
     <div>{{route}}</div>
 
@@ -81,7 +99,7 @@ export default {
             pricesort_form:"ascending",
             potentialsort_form:"descending",
             pricemin_form:0,
-            pricemax_form:2,
+            pricemax_form:100,
             potentialmin_form:0,
             potentialmax_form:200,
             route:null,
@@ -167,25 +185,49 @@ export default {
     flex-direction: column;
     justify-content: center;
 }
+
 .menu{
-    background-color:lightgrey;
+    background-color:white);
+    box-shadow: 3px 3px 6px 5px #ccc;
     margin-bottom:20px;
     border-radius: 10px;
+    padding:10px;
     position: relative;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .form{
     display: flex;
     flex-direction: column;
+    padding:5px 10px;
+    border: 2px lightgrey solid;
+    border-radius: 10px;
 }
 
 .title{
     font-size: 50;
     font-weight: bold;
+    justify-self: center;
 }
+
+input[type=number]{
+    border:1px solid black;
+    border-radius: 10px;
+    width:80px;
+    padding:2px 7px 2px 4px;
+    margin:1px 5px;
+}
+
+span{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:2px;
+}
+
 
 .market ul{
     display: flex;
@@ -200,6 +242,12 @@ export default {
 }
 
 @media(max-width:750px){
+    .menu{
+        flex-direction: column;
+    }
+    .form{
+        width:100%;
+    }
     .card-container{
         width: 250px;
     }
