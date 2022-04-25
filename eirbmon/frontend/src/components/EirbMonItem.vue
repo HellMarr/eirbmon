@@ -15,9 +15,10 @@
       <div class="properties">
         <div class="title">Properties</div>
         <div class="types">Type <div class="type" :class="nft_type">{{nft_type}}</div></div>
-        <div class="types">Wings <div class="type" :style="wings">{{nft_wings_color}}</div></div>
-        <div class="types">Antenna <div class="type" :style="antenna">{{nft_antenna_color}}</div></div>
-        <div class="types">Background <div class="type" :style="background">{{nft_bg_color}}</div></div>
+        <div class="types">Wings <div class="type" :style="wings">#{{nft_wings_color}}</div></div>
+        <div class="types">Antenna <div class="type" :style="antenna">#{{nft_antenna_color}}</div></div>
+        <div class="types">Background <div class="type" :style="background">#{{nft_bg_color}}</div></div>
+        <div class="types">Objects <div class="type" :class="nft_type" v-for="object in nft_accessories" :key="object">{{object}}</div></div>
       </div>
       <div class="potential">
         <div class="price">Potential {{nft_potential}}</div>
@@ -49,6 +50,7 @@ export default {
       nft_image:String,
       nft_forsale:Boolean,
       nft_owner:String,
+      nft_accessories:Array,
     },
     computed: {
       wings () {
