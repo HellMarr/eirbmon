@@ -2,8 +2,8 @@
 
 
 async function addNftInMarket(_provider, _marketplaceContract, _tokenId, _price, _from) {
-    const CONTRACT_ADDRESS_NFT = "0x94b62dB15F4b5349AD748B66a2ed341d2314eE37";
-    const CONTRACT_ADDRESS_MARKETPLACE = "0x0aD920cDD7547622ed470086FA787A75b2D7EefE"
+    const CONTRACT_ADDRESS_NFT = "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC";
+    const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182"
 
     const transactionParameters = {
     from: _from,
@@ -55,8 +55,13 @@ async function buyNftInMarket(_provider, _marketplaceContract, _buyerAddress, _o
     });
 }
 
+async function getBalance(_mintContract, from) {
+    const balance = await _mintContract.methods.balanceOf(from).call({from: from})
+    return balance
+}
 
 
 
 
-module.exports = {addNftInMarket, fetchMarketItems, fetchMyItemsInSale, fetchMyNFTs, buyNftInMarket};
+
+module.exports = {addNftInMarket, fetchMarketItems, fetchMyItemsInSale, fetchMyNFTs, buyNftInMarket, getBalance};
