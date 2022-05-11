@@ -87,8 +87,8 @@ export default {
 
 <style scoped>
 .grid {
-  margin-left: 10%;
-  width:80%;
+  margin-left: 2.5%;
+  width:95%;
   display: grid;
   grid-template-columns: 0.7fr 1fr;
   grid-template-rows: 1fr;
@@ -254,7 +254,8 @@ export default {
 
     .head{
       flex-direction: column;
-    } 
+    }
+    
   }
 
 </style>

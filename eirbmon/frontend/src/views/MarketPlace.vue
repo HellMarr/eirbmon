@@ -62,8 +62,6 @@
         </div>
         <button @click="getMarketplace">Go</button>
     </div>
-    <div>{{route}}</div>
-
     <div class="market">
         <ul>
             <li v-for="nft in nft_list" :key="nft">

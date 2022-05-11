@@ -1,60 +1,69 @@
 <template>
 <body>
-    <div class="carousel-container">
-        <div class="gap"></div>
-        <input type="radio" name="slider" id="item-1" checked>
-        <input type="radio" name="slider" id="item-2">
-        <input type="radio" name="slider" id="item-3">
-        <div class="cards">
-            <label class="card" for="item-1" id="song-1">
-                <CardItem homepage="True" nft_id="2546" nft_price="0.6954668258530998" nft_type="Matmeca" nft_bg_color="F16F6F" image="https://masteronepiece.com/wp-content/uploads/eirbmon/2546.svg" nft_potential="89"></CardItem>
-            </label>
-            <label class="card" for="item-2" id="song-2">
-                <CardItem homepage="True" nft_id="433" nft_price="0.5891368747407384" nft_type="Telecom" nft_bg_color="CEAEF6" image="https://masteronepiece.com/wp-content/uploads/eirbmon/433.svg" nft_potential="89"></CardItem>
-            </label>
-            <label class="card" for="item-3" id="song-3">
-                <CardItem homepage="True" nft_id="1983" nft_price="0.4407372990127594" nft_type="Info" nft_bg_color="74E38C" image="https://masteronepiece.com/wp-content/uploads/eirbmon/1983.svg" nft_potential="139"></CardItem>
-            </label>
-        </div>
+    <div class="browser">
+        <div class="carousel-container">
+            <div class="gap"></div>
+            <input type="radio" name="slider" id="item-1" checked>
+            <input type="radio" name="slider" id="item-2">
+            <input type="radio" name="slider" id="item-3">
+            <div class="cards">
+                <label class="card" for="item-1" id="song-1">
+                    <CardItem homepage="True" nft_id="2546" nft_price="0.6954668258530998" nft_type="Matmeca" nft_bg_color="F16F6F" image="https://masteronepiece.com/wp-content/uploads/eirbmon/2546.svg" nft_potential="89"></CardItem>
+                </label>
+                <label class="card" for="item-2" id="song-2">
+                    <CardItem homepage="True" nft_id="433" nft_price="0.5891368747407384" nft_type="Telecom" nft_bg_color="CEAEF6" image="https://masteronepiece.com/wp-content/uploads/eirbmon/433.svg" nft_potential="89"></CardItem>
+                </label>
+                <label class="card" for="item-3" id="song-3">
+                    <CardItem homepage="True" nft_id="1983" nft_price="0.4407372990127594" nft_type="Info" nft_bg_color="74E38C" image="https://masteronepiece.com/wp-content/uploads/eirbmon/1983.svg" nft_potential="139"></CardItem>
+                </label>
+            </div>
 
-        <div class="infos">
-            <div class="upper-part">
-                <div class="info-area" id="title">
-                    <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="title">Eirbee#2546</div>
-                    </label>
-                    <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="title">Eirbee#433</div>
-                    </label>
-                    <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="title">Eirbee#1983</div>
-                    </label>
+            <div class="infos">
+                <div class="upper-part">
+                    <div class="info-area" id="title">
+                        <label class="eirbmon-info" id="eirbmon-info-1">
+                            <div class="title">Eirbee#2546</div>
+                        </label>
+                        <label class="eirbmon-info" id="eirbmon-info-1">
+                            <div class="title">Eirbee#433</div>
+                        </label>
+                        <label class="eirbmon-info" id="eirbmon-info-1">
+                            <div class="title">Eirbee#1983</div>
+                        </label>
+                    </div>
+                </div>
+                <div class="lower-part">
+                    <div class="info-area" id="test">
+                        <label class="eirbmon-info" id="eirbmon-info-1">
+                            <div class="subtitle">Buy or capture, then fight with your Eirbees!</div>
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="lower-part">
-                <div class="info-area" id="test">
-                    <label class="eirbmon-info" id="eirbmon-info-1">
-                        <div class="subtitle">Buy or capture, then fight with your Eirbees!</div>
-                    </label>
-                </div>
+        </div>
+        <div class="image-container">
+            <div class="image"></div>
+        </div>
+        
+        <div class="video-container">
+            <img class="video" src="../assets/Ingame_fight.png">
+            <img class="video" src="../assets/Ingame.png">
+            <div class="video-text">
+                <div class="title">Eirbmon's game</div>
+                <div class="subtitle">Collect bees from all the main sectors of Enseirb, exchange them with others, fight them, and increase their value! Become the most accomplished trainer in Enseirb!</div>
             </div>
         </div>
     </div>
 
 
-    <div class="image-container">
-        <div class="image"></div>
-    </div>
-    
-    <div class="video-container">
-        <img width="560" height="315" class="video" src="../assets/Ingame_fight.png">
-        <img width="560" height="315" class="video" src="../assets/Ingame.png">
+    <div class="mobile">
         <div class="video-text">
             <div class="title">Eirbmon's game</div>
             <div class="subtitle">Collect bees from all the main sectors of Enseirb, exchange them with others, fight them, and increase their value! Become the most accomplished trainer in Enseirb!</div>
         </div>
+        <img class="video" src="../assets/Ingame_fight.png">
+        <img class="video" src="../assets/Ingame.png">
     </div>
-
 </body>
 </template>
 
@@ -253,4 +262,31 @@ footer{
 #logo{
     height: 100%;
 }
+
+@media(min-width:750px){
+    .mobile{
+        display: none;
+    }
+}
+
+@media(max-width:750px){
+    .browser{
+        display: none;
+    }
+    .video-text{
+        background: none;
+        color: #403d40;
+        margin-bottom: 15px;
+    }
+    .video-text .title,.video-text .subtitle{
+        color: #616161;
+    }
+    .video{
+        max-width: 80%;
+        height: auto;
+        margin:0 0 10% 10%;
+        box-shadow: 0 .5rem 1rem rgba(0, 0, 0, 0.1);
+    }
+}
+
 </style>
