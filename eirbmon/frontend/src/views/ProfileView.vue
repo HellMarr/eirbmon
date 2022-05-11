@@ -10,7 +10,7 @@
                     <CardItemProfile :nft_image=nft.nft_image :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItemProfile>
                     <div class="sell">
                         <input v-model="price" placeholder="price">
-                        <button @click="sellNft(1,100,this.addr)">sell</button>
+                        <button @click="sellNft(nft.nft_id,price,this.addr)">sell</button>
                     </div>
                         
                 </li>
@@ -68,7 +68,17 @@
         },
         methods: {
             sellNft: async function (_tokenId, _price, _from) {
-                await addNftInMarket(this.provider, this.marketplaceContract, _tokenId, _price, _from)
+                try {
+                    await addNftInMarket(this.provider, this.marketplaceContract, _tokenId, _price, _from)
+
+                    axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
+                        console.log(res.data)
+                    }).catch((err) => {
+                        alert(err)
+                    })
+                } catch (err) {
+                   console.log("err")
+                }
                 
             }
 

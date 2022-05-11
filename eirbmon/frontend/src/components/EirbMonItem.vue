@@ -70,7 +70,7 @@ export default {
             if (provider) {
                 const web3 = new Web3(provider);
                 const contract = require("../../../blockchain/build/contracts/NFTMarketplace")
-                const CONTRACT_ADDRESS_MARKETPLACE = "0x0aD920cDD7547622ed470086FA787A75b2D7EefE"
+                const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182"
                 const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
                 const addr = await provider.request({method: 'eth_requestAccounts'})
                 await buyNftInMarket(provider, marketplaceContract, addr[0], nft_owner, nft_id, nft_price.toString())
