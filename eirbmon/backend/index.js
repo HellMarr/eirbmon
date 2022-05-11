@@ -359,7 +359,7 @@ app.post("/api/profile", async(req, res) => {
     // const user_db = await users.findOne({ user_wallet: _user_wallet });
 
     const nfts = await nft.find({nft_owner: _user_wallet });
-    console.log(nfts);
+    // console.log(nfts);
 
     // let nft_list = [];
     // for await (const doc of nft.find({nft_id: {$in: user_db.tokenIds} })) {
@@ -370,6 +370,22 @@ app.post("/api/profile", async(req, res) => {
     
       res.send(nfts)
 });
+
+app.post("/api/profile/sell", async (req,res) => {
+    console.log("selling");
+    const _user_wallet = req.body.user_wallet;
+    const _nft_id = req.body.token_id
+    const price = req.body.price
+
+    try{
+        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: true, nft_price: price})
+        // console.log(response)
+        res.send("db succesfully updated")
+
+    }catch(err){
+        res.send(err)
+    }
+})
 
 // app.get("/api/profile", async(req, res) => {
 

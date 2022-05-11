@@ -70,6 +70,12 @@
             sellNft: async function (_tokenId, _price, _from) {
                 try {
                     await addNftInMarket(this.provider, this.marketplaceContract, _tokenId, _price, _from)
+
+                    axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
+                        console.log(res.data)
+                    }).catch((err) => {
+                        alert(err)
+                    })
                 } catch (err) {
                    console.log("err")
                 }
