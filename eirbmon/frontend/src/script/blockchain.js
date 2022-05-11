@@ -60,10 +60,10 @@ async function getBalance(_mintContract, from) {
     return balance
 }
 
-async function sendFirstNft(nftContract, _to, tokenId) {
+async function sendFirstNft(nftContract, web3, _to, tokenId) {
     const owner = "0x23Ec543f995D80AD727Cf2284eC448E55BF769fB";
     const mintAddr = "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC";
-    const nonce = await web3.eth.getTransactionCount(_from, 'latest'); //get latest nonce
+    const nonce = await web3.eth.getTransactionCount(owner, 'latest'); //get latest nonce
   
   //the transaction
     const tx = {
