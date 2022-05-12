@@ -62,16 +62,14 @@
         </div>
         <button @click="getMarketplace">Go</button>
     </div>
-    <div>{{route}}</div>
-
     <div class="market">
         <ul>
             <li v-for="nft in nft_list" :key="nft">
-                <CardItem homepage="False" :nft_owner=nft.nft_owner :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
+                <CardItem page="marketplace" :nft_owner=nft.nft_owner :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
             </li>
         </ul>
     </div>
-    <div v-if="(nft_list_length%60!=0)||(nft_list_length==0)" class="no-more-pages">No more Eirbee are matching your criteria</div>
+    <div v-if="(nft_list_length%60!=0)||(nft_list_length==0)" class="no-more-pages">No more Eirbee is matching your criteria</div>
     <button v-else @click="getMorePages" id="more-pages">Get more Eirbees</button>
 </div>
 </template>

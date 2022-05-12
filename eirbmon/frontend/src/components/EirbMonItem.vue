@@ -6,7 +6,7 @@
         <div class="infos">
           <div class="id">Eirbee#{{nft_id}}</div>
           <div class="price">{{nft_price}} ETH</div>
-          <div class="owner">Owner</div>
+          <div class="owner">Owner {{nft_owner}}</div>
         </div>
         <div v-if="nft_forsale" class="sale">
           <button class="buyBtn" @click="buy(nft_owner, nft_id, nft_price)"> Buy </button>
@@ -106,8 +106,8 @@ export default {
 
 <style scoped>
 .grid {
-  margin-left: 10%;
-  width:80%;
+  margin-left: 2.5%;
+  width:95%;
   display: grid;
   grid-template-columns: 0.7fr 1fr;
   grid-template-rows: 1fr;
@@ -273,7 +273,8 @@ export default {
 
     .head{
       flex-direction: column;
-    } 
+    }
+    
   }
 
 </style>
