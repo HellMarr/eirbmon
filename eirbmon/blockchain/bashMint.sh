@@ -1,6 +1,6 @@
 #!/bin/sh
 
-for i in {0011..4000}
+for i in {14..4000}
 do
-    node mintNft.js $1
+    node mintNft.js $i
 done

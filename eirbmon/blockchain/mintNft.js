@@ -1,11 +1,11 @@
 require("dotenv").config()
 
 
-const PUBLIC_KEY = process.env.PUBLIC_KEY;
-const PRIVATE_KEY = process.env.PRIVATE_KEY;
-const API_KEY = process.env.API_KEY;
-const API_URL = process.env.API_URL;
-const CONTRACT_ADDRESS = process.env.CONTRACT_ADDRESS;
+const PUBLIC_KEY = "0x23Ec543f995D80AD727Cf2284eC448E55BF769fB";
+const PRIVATE_KEY = "";
+// const API_KEY = process.env.API_KEY;
+const API_URL = "https://eth-ropsten.alchemyapi.io/v2/5GENn06x76Xi3K5y8sfOR7jtO9cLhsXU";
+const CONTRACT_ADDRESS = "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC";
 
 // alchemy
 const { createAlchemyWeb3 } = require("@alch/alchemy-web3")
@@ -54,7 +54,7 @@ async function mintNFT(tokenURI) {
     })
 }
 const num = process.argv[2];
-mintNFT("https://ipfs.io/ipfs/QmVfMoyBitJoXKvjGSii15BiWfGUYADZvHqesoK77RSf4Z/"+num+".json")
+mintNFT("https://ipfs.io/ipfs/QmVQDN1tp8dZswvHPPY3hV87Xwn8wMhmjcXvkxk9cf7HzF/"+num+".json")
 
 
 function sleep(ms) {
