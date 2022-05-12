@@ -1,22 +1,31 @@
 
 
 
-async function addNftInMarket(_provider, _marketplaceContract, _tokenId, _price, _from) {
+async function addNftInMarket(mintContract, _provider, _marketplaceContract, _tokenId, _price, _from) {
     const CONTRACT_ADDRESS_NFT = "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC";
     const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182"
 
+    try{
+        await mintContract.methods.approve(CONTRACT_ADDRESS_MARKETPLACE, _tokenId).send({from:_from})
+        // console.log("approve:",res)
+    } catch(err){
+        console.log(err)
+    }
+
+
     const transactionParameters = {
-    from: _from,
-    to: CONTRACT_ADDRESS_MARKETPLACE,
-    // value: _price,
-    data: _marketplaceContract.methods.addNftInMarketplace(CONTRACT_ADDRESS_NFT, _tokenId, _price).encodeABI()
-  };
-  _provider.request({
-    method: 'eth_sendTransaction',
-    params: [transactionParameters],
-  })
-  .then((result) => {
-    console.log(result)
+        from: _from,
+        to: CONTRACT_ADDRESS_MARKETPLACE,
+        // value: _price,
+        data: _marketplaceContract.methods.addNftInMarketplace(CONTRACT_ADDRESS_NFT, _tokenId, _price).encodeABI()
+    };
+    return _provider.request({
+        method: 'eth_sendTransaction',
+        params: [transactionParameters],
+    })
+    .then((result) => {
+        console.log(result)
+        return result
     });
 }
 
@@ -47,12 +56,13 @@ async function buyNftInMarket(_provider, _marketplaceContract, _buyerAddress, _o
         value: _price,
         data: _marketplaceContract.methods.buyNftInMarketplace(CONTRACT_ADDRESS_NFT, _itemId).encodeABI()
     };
-    _provider.request({
+     return _provider.request({
         method: 'eth_sendTransaction',
         params: [transactionParameters],
     })
     .then((result) => {
-        console.log(result) 
+        console.log("log buy market: ", result)
+        return result
     });
 }
 

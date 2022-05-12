@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const fs = require('fs');
+
 
 const app = express();
 app.use(express.urlencoded({extended: true}));
@@ -47,244 +47,10 @@ const createNft = async object => {
     const collection = db.collection('nft');
     return await collection.insertOne(object);
 }
-  
-
-// const findUsers = async user_name => {
-//     const userss = await users.find({});
-//     userss.map(users => users.user_name);
-//     return userss
-// }
-
-
 
 app.get("/", (req, res) => {
     res.send("Hello From The Server!");
 })
-
-
-function validateUsername(username) {
-    let errors = [];
-    if (username.length == 0) {
-        errors.push("Username Is Null");
-    }
-
-    if (username.length > 50) {
-        errors.push("Username Length Can Not Exceed 50 Characters.");
-    }
-
-    return errors;
-}
-
-function validatePasswordconfirm(password,passwordconfirm) {
-    let errors = [];
-    if (password !== passwordconfirm || passwordconfirm === "") {
-        errors.push("password confirmation is different from password.");
-    }
-    return errors;
-}
-
-function validatePassword(password) {
-    let errors = [];
-
-    // check whether contact no is empty or not
-    if (password.length == 0) {
-        errors.push("Password Is Null.");
-    }
-
-    return errors;
-}
-
-function validateEmail(email) {
-    let errors = [];
-
-    // checks whether email is empty or not
-    if (email.length == 0) {
-        errors.push("Email Is Null.");
-    }
-
-    // checks whether email length is more then 100 or not
-    if (email.length > 100) {
-        errors.push("Email Can not exceed 100 characters.");
-    }
-
-
-    // checks whether email is valid or not usinf regular expression
-    if (!(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(email))) {
-        errors.push("Email Is Not Valid");
-    }
-
-    return errors;
-}
-
-async function validateRegister(username,email) {   
-    let errors = [];
-    const users_db = await users.find({});
-    //On parcourt les pseudos et les emails pour voir si ils sont déjà pris
-    let test = false;
-    for (const element of users_db) {
-        if (element.user_mail ===email) {
-            test = true;
-        }
-    }
-    if (test){
-        errors.push("The chosen email is already taken!"); 
-    }
-    test = false;
-    for (const element of users_db) {
-        if (element.user_name ===username) {
-            test = true;
-        }
-    }
-    if (test) {
-        errors.push("The chosen username is already taken!");  
-    }
-    return errors;
-}
-
-async function ValidateUser_email(username_email) {   
-    let errors = [];
-    const users_db = await users.find({});
-    let test = false;
-    for (const element of users_db) {
-        if (element.user_mail ===username_email) {
-            console.log(element);
-            test = true;
-        }
-    }
-    for (const element of users_db) {
-        if (element.user_name ===username_email) {
-            test = true;
-        }
-    }
-    if (!test){
-            errors.push("There are no accounts linked to this email or username");
-    }
-    return errors;
-}
-
-async function ValidateMatchPassword(password,username_email) {   
-    let errors = [];
-    test = false;
-    const good_user = await users.findOne({ $or: [ { user_mail: username_email } , { user_name: username_email } ] });
-    if (good_user !== null){
-        if (good_user.user_password === password) {
-        test = true;
-        }
-        if (!test){
-            errors.push("The password is wrong");
-        }
-    }
-    return errors;
-}
-
-app.post("/api/signup", async(req, res) => {
-    console.log("Sigining up...	");
-    let username = req.body.username;
-    let email = req.body.email;
-    let password = req.body.password;
-    let passwordconfirm = req.body.passwordconfirm;
-
-    let errFUsername = validateUsername(username); // will validate username
-    let errEmail = validateEmail(email); // will validate email
-    let errPassword = validatePassword(password); // will validate contact no
-    let errPasswordconfirm = validatePasswordconfirm(password,passwordconfirm); // will validate passwordconfirm
-
-    //On teste la database
-    let errRegister = await validateRegister(username,email); //will validate final registration
-
-    if (errFUsername.length || errEmail.length || errPassword.length || errPasswordconfirm.length || errRegister.length) {
-        res.status(200).json({
-            msg: "Validation Failed",
-            errors: {
-                username: errFUsername,
-                email: errEmail,
-                password: errPassword,
-                passwordconfirm: errPasswordconfirm,
-                register: errRegister
-            }
-        });
-    }
-    else {
-        console.log("We add a new user to the database");
-        console.log("We redirect to the home page");
-        await createUser({ user_name: username, user_mail: email,user_password:password});
-        req.session.logged = true; 
-        res.status(200).send({
-            msg: "Student Registered Succesfully",
-        })
-    }
-});
-
-
-// app.get("/api/signup", async(req, res) => {
-    
-//     const users_db = await users.find({});
-//     console.log(users_db[1]);
-//     res.status(200).send({
-//         msg: "All the data fetched successfully",
-//         data: users_db
-//     })
-// })
-
-app.post("/api/signin", async(req, res) => {
-    
-    console.log("Signing in...	");
-    let username_email = req.body.username_email;
-    let password = req.body.password;
-
-    let errFUsername_email = await ValidateUser_email(username_email); // will check database to confirm username or email
-    let errPassword = await ValidateMatchPassword(password,username_email); // will check the match in the database
-
-    if (errFUsername_email.length ||  errPassword.length) {
-        res.status(200).json({
-            msg: "Validation Failed",
-            errors: {
-                username_email: errFUsername_email,
-                password: errPassword,
-            }
-        });
-    }
-    else {
-        console.log("We redirect to the home page");
-        req.session.logged = true;  
-        res.status(200).send({
-            msg: "Student Registered Succesfully",
-        })
-    }
-});
-
-// app.get("/api/signin", async(req, res) => {
-//     const users_db = await users.find({})
-//     console.log(users_db[1]);
-//     res.status(200).send({
-//         msg: "All the data fetched successfully",
-//         data: users_db
-//     })
-// })
-
-/*app.get("/api/marketplace/hightolow", async(req, res) => {
-
-    console.log("Fetching Marketplace nft from high price to low price");
-    const bees = await nft.find({nft_forsale:true}).sort({ nft_price: -1}).limit(60);
-    // console.log(bees)
-    res.status(200).send(bees)
-});*/
-
-/*app.get("/api/marketplace/lowtohigh", async(req, res) => {
-
-    console.log("Fetching Marketplace nft from low price to high price");
-    const bees = await nft.find({nft_forsale:true}).sort({ nft_price: 1}).limit(60);
-    // console.log(bees)
-    res.status(200).send(bees)
-});*/
-
-/*app.get("/api/marketplace/potential", async(req, res) => {
-
-    console.log("Fetching Marketplace nft from high potential to low");
-    const bees = await nft.find({nft_forsale:true}).sort({ nft_potential: -1}).limit(60);
-    //console.log(bees)
-    res.status(200).send(bees)
-});*/
 
 
 app.get("/api/marketplace", async(req, res) => {
@@ -358,7 +124,7 @@ app.post("/api/profile", async(req, res) => {
     
     // const user_db = await users.findOne({ user_wallet: _user_wallet });
 
-    const nfts = await nft.find({nft_owner: _user_wallet });
+    const nfts = await nft.find({ nft_owner: _user_wallet });
     // console.log(nfts);
 
     // let nft_list = [];
@@ -376,9 +142,10 @@ app.post("/api/profile/sell", async (req,res) => {
     const _user_wallet = req.body.user_wallet;
     const _nft_id = req.body.token_id
     const price = parseInt(req.body.price)
+    const marketAddr = "0x1568aa48477086083237153bbd6faf38a1697182"
 
     try{
-        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: true, nft_price: price})
+        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: true, nft_price: price, nft_owner: marketAddr})
         // console.log(response)
         res.send("db succesfully updated")
 
@@ -418,6 +185,55 @@ app.post("/api/marketplace/buy", async (req,res) => {
 // });
 
 
+app.get("/api/game", async(req, res) => {
+
+    const user_wallet = req.body.user_wallet;
+    const position = await users.findOne({user_wallet: user_wallet}, 'user_x user_y');
+    const nfts = await nft.find({nft_owner: user_wallet, nft_forsale:false}, 'nft_potential nft_hp nft_id nft_level nft_image');
+    res.status(200).send({
+        user_x: position.user_x,
+        user_y: position.user_y,
+        nfts: nfts,
+    })
+});
+
+app.get("/api/game/catchables", async(req, res) => {
+
+    const nfts = await nft.find({nft_owner: "0x23ec543f995d80ad727cf2284ec448e55bf769fb", nft_forsale:false},'nft_potential nft_hp nft_id nft_level nft_image');
+    res.status(200).send({
+        nfts: nfts,
+    })
+
+});
+
+app.post("/api/game/position", async(req, res) => {
+
+    const user_wallet = req.body.user_wallet;
+    const user_x = req.body.user_x;
+    const user_y = req.body.user_y;
+    await users.updateOne({user_wallet: user_wallet}, {user_x: user_x, user_y: user_y});
+    
+
+});
+
+app.post("/api/game/nft_catch", async(req, res) => {
+
+    const user_wallet = req.body.user_wallet;
+    const new_nft = req.body.nft_id;
+    
+    await nft.updateOne({ nft_id: new_nft}, {nft_owner: user_wallet});
+
+});
+
+
+app.post("/api/game/nft_update", async(req, res) => {
+
+    const nft_id = req.body.nft_id;
+    const nft_level = req.body.nft_level;
+    const nft_hp = req.body.nft_hp;
+    await nft.updateOne({ nft_id: nft_id}, {nft_level: nft_level, nft_hp: nft_hp});
+
+});
 
 
 app.listen(3001, () => {
@@ -426,9 +242,37 @@ app.listen(3001, () => {
 
 
 //Génération des métadata nft dans la database
+
+
+/*for (let i = 1; i < 4000; i++) {
+    const collection = db.collection('nft_compare');
+    const real_url = "https://masteronepiece.com/wp-content/uploads/eirbmon/" + i +".svg"
+    collection.findOne({nft_img : real_url}).then((new_nft) => {
+        
+        if(new_nft){
+            console.log(new_nft.nft_id)
+            const collection2 = db.collection('nft');
+            collection2.findOneAndUpdate({nft_image : real_url},{$set :{nft_id:new_nft.nft_id}}).then((nft_) => {
+            console.log("old id: " + i + " new id: " + new_nft.nft_id);
+            })
+        }
+        
+    });
+    //const nft_old = await nft.findOneAndUpdate({});
+    
+   }*/
+
 /*for (let i = 1; i < 4001; i++) {
-    let rawdata = fs.readFileSync('../bee_generator/abeilles/sorties/jsonabeilles/' + i +'.json');
-    let bee = JSON.parse(rawdata);
-    let price = Math.floor(Math.random() * 100)+1;
-    createNft({ nft_id: i, nft_accessory_list: bee.accessories,nft_price: price,nft_type:bee.type,nft_bg_color:bee.background,nft_pedicel_color:bee.pedicel,nft_wings_color:bee.wings,nft_forsale:true,nft_potential:bee.QI,nft_image:"https://masteronepiece.com/wp-content/uploads/eirbmon/"+ i +".svg"});
+    const collection = db.collection('users');
+    const real_url = "https://masteronepiece.com/wp-content/uploads/eirbmon/" + i +".svg"
+    collection.findOne({nft_img : real_url}).then((new_nft) => {
+        console.log(i)
+        collection.findOneAndUpdate({nft_image : real_url},{$set :{nft_forsale:false, nft_level:1, nft_hp:1}}).then((nft_) => {
+            console.log(i);
+        })
+        
+    });
+    
+//const nft_old = await nft.findOneAndUpdate({});
+
 }*/
