@@ -446,12 +446,12 @@ app.listen(3001, () => {
     
    }*/
 
-for (let i = 1; i < 4001; i++) {
-    const collection = db.collection('nft');
+/*for (let i = 1; i < 4001; i++) {
+    const collection = db.collection('users');
     const real_url = "https://masteronepiece.com/wp-content/uploads/eirbmon/" + i +".svg"
     collection.findOne({nft_img : real_url}).then((new_nft) => {
-        //console.log(new_nft.nft_id)
-        collection.findOneAndUpdate({nft_image : real_url},{$set :{nft_owner:"0x23ec543f995d80ad727cf2284ec448e55bf769fb"}}).then((nft_) => {
+        console.log(i)
+        collection.findOneAndUpdate({nft_image : real_url},{$set :{nft_forsale:false, nft_level:1, nft_hp:1}}).then((nft_) => {
             console.log(i);
         })
         
@@ -459,4 +459,4 @@ for (let i = 1; i < 4001; i++) {
     
 //const nft_old = await nft.findOneAndUpdate({});
 
-}
+}*/
