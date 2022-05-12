@@ -65,7 +65,7 @@
     <div class="market">
         <ul>
             <li v-for="nft in nft_list" :key="nft">
-                <CardItem homepage="False" :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
+                <CardItem page="marketplace" :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
             </li>
         </ul>
     </div>

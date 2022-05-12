@@ -30,7 +30,7 @@ export default {
     nft_price:Number,
     nft_type:String,
     nft_bg_color:String,
-    homepage:String,
+    page:String,
     image:String,
     nft_potential:Number,
   },
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     RedirectToEirbmonPage(){
-      if(this.homepage==="False"){
+      if(this.page==="marketplace"){
         this.$router.push(`/eirbmon/${this.nft_id}`);
       }
     }
