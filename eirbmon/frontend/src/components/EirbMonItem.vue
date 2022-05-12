@@ -77,17 +77,18 @@ export default {
       },
       async buy (nft_owner, nft_id, nft_price) {
         console.log(nft_owner+" "+nft_id+" "+nft_price)
+        console.log("addr ",this.user_addr)
          const provider = await detectEthereumProvider();
             if (provider) {
                 const web3 = new Web3(provider);
                 const contract = require("../../../blockchain/build/contracts/NFTMarketplace")
                 const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182"
                 const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
-                const addr = await provider.request({method: 'eth_requestAccounts'})
-                const itemId = await this.getItemId(marketplaceContract, nft_id, addr[0])
-                await buyNftInMarket(provider, marketplaceContract, addr[0], nft_owner, itemId, nft_price.toString(16))
+                // const addr = await provider.request({method: 'eth_requestAccounts'})
+                const itemId = await this.getItemId(marketplaceContract, nft_id, this.user_addr)
+                await buyNftInMarket(provider, marketplaceContract, this.user_addr, nft_owner, itemId, nft_price.toString(16))
 
-                axios.post("/api/marketplace/buy", {user_wallet:addr[0], token_id:nft_id}).then((res) => {
+                axios.post("/api/marketplace/buy", {user_wallet:this.user_addr, token_id:nft_id}).then((res) => {
                         console.log(res.data)
                     }).catch((err) => {
                         alert(err)
@@ -99,8 +100,18 @@ export default {
       }
     },
     components:{
-    GaussianCurve
-}
+      GaussianCurve
+    },
+    data(){
+      return {
+        user_addr:undefined
+      };
+    },
+    async mounted(){
+      const provider = await detectEthereumProvider();
+      const addr = await provider.request({method: 'eth_requestAccounts'})
+      this.user_addr = addr[0]
+    }
 }
 </script>
 
