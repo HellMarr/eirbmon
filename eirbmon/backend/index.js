@@ -394,9 +394,37 @@ app.listen(3001, () => {
 
 
 //Génération des métadata nft dans la database
-/*for (let i = 1; i < 4001; i++) {
-    let rawdata = fs.readFileSync('../bee_generator/abeilles/sorties/jsonabeilles/' + i +'.json');
-    let bee = JSON.parse(rawdata);
-    let price = Math.floor(Math.random() * 100)+1;
-    createNft({ nft_id: i, nft_accessory_list: bee.accessories,nft_price: price,nft_type:bee.type,nft_bg_color:bee.background,nft_pedicel_color:bee.pedicel,nft_wings_color:bee.wings,nft_forsale:true,nft_potential:bee.QI,nft_image:"https://masteronepiece.com/wp-content/uploads/eirbmon/"+ i +".svg"});
-}*/
+
+
+/*for (let i = 1; i < 4000; i++) {
+    const collection = db.collection('nft_compare');
+    const real_url = "https://masteronepiece.com/wp-content/uploads/eirbmon/" + i +".svg"
+    collection.findOne({nft_img : real_url}).then((new_nft) => {
+        
+        if(new_nft){
+            console.log(new_nft.nft_id)
+            const collection2 = db.collection('nft');
+            collection2.findOneAndUpdate({nft_image : real_url},{$set :{nft_id:new_nft.nft_id}}).then((nft_) => {
+            console.log("old id: " + i + " new id: " + new_nft.nft_id);
+            })
+        }
+        
+    });
+    //const nft_old = await nft.findOneAndUpdate({});
+    
+   }*/
+
+for (let i = 1; i < 4001; i++) {
+    const collection = db.collection('nft');
+    const real_url = "https://masteronepiece.com/wp-content/uploads/eirbmon/" + i +".svg"
+    collection.findOne({nft_img : real_url}).then((new_nft) => {
+        //console.log(new_nft.nft_id)
+        collection.findOneAndUpdate({nft_image : real_url},{$set :{nft_owner:"0x23ec543f995d80ad727cf2284ec448e55bf769fb"}}).then((nft_) => {
+            console.log(i);
+        })
+        
+    });
+    
+//const nft_old = await nft.findOneAndUpdate({});
+
+}
