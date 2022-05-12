@@ -5,11 +5,16 @@
       <div class="head">
         <div class="infos">
           <div class="id">Eirbee#{{nft_id}}</div>
-          <div class="price">{{nft_price}} ETH</div>
-          <div class="owner">Owner {{nft_owner}}</div>
+          <div v-if="nft_forsale" class="price">{{nft_price}} ETH</div>
         </div>
         <div v-if="nft_forsale" class="sale">
           <button class="buyBtn" @click="buy(nft_owner, nft_id, nft_price)"> Buy </button>
+        </div>
+        <div v-else-if="nft_owner===this.user_addr">
+          <div class="sell">
+              <input v-model="price" placeholder="Price" type="number">
+              <button @click="sellNft(nft.nft_id,price,this.addr)">Sell</button>
+          </div>
         </div>
       </div>
       <div class="properties">
@@ -18,7 +23,11 @@
         <div class="types">Wings <div class="type" :style="wings">#{{nft_wings_color}}</div></div>
         <div class="types">Antenna <div class="type" :style="antenna">#{{nft_antenna_color}}</div></div>
         <div class="types">Background <div class="type" :style="background">#{{nft_bg_color}}</div></div>
-        <div class="types">Objects <div class="type" :class="nft_type" v-for="object in nft_accessories" :key="object">{{object}}</div></div>
+        <div v-if="nft_accessories" class="types">
+          <div v-if="!nft_accessories.length"> No items</div>
+          <div v-else>Items</div>
+          <div class="type" :class="nft_type" v-for="object in nft_accessories" :key="object">{{object}}</div>
+        </div>
       </div>
       <div class="potential">
         <div class="price">Potential {{nft_potential}}</div>
@@ -170,8 +179,8 @@ export default {
 .id{
   font-size: 50px;
 }
-.price .owner{
-  font-size:20px;
+.price, .owner{
+  font-size:25px;
 }
 .price, .id{
   font-family: 'Fredoka', sans-serif;
@@ -184,9 +193,37 @@ export default {
   color:'red';
 }
 
-.buyBtn {
-  font-size:40px;
+.sell{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+input{
+  font-size:20px;
+  width: 100px;
   font-weight: bold;
+  background: #FFF;
+  padding: 0 10px;
+  border: 2px solid rgb(104, 104, 104);
+  border-radius: 10px 0 0 10px;
+}
+
+button {
+  font-size:30px;
+  font-weight: bold;
+  background: #FFBF49;
+  padding: 0 10px;
+  border: 2px solid rgb(104, 104, 104);
+  border-radius: 0 10px 10px 0;
+}
+
+button:hover{
+  cursor: pointer;
+}
+
+.buyBtn{
+  border-radius: 10px;
 }
 
 .properties{
