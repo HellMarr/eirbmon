@@ -75,9 +75,12 @@ export default {
         })
         return itemId
       },
+      sleep(milliseconds) {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+      },
       async buy (nft_owner, nft_id, nft_price) {
         console.log(nft_owner+" "+nft_id+" "+nft_price)
-        console.log("addr ",this.user_addr)
+        // console.log("addr ",this.user_addr)
          const provider = await detectEthereumProvider();
             if (provider) {
                 const web3 = new Web3(provider);
@@ -86,13 +89,23 @@ export default {
                 const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
                 // const addr = await provider.request({method: 'eth_requestAccounts'})
                 const itemId = await this.getItemId(marketplaceContract, nft_id, this.user_addr)
-                await buyNftInMarket(provider, marketplaceContract, this.user_addr, nft_owner, itemId, nft_price.toString(16))
-
-                axios.post("/api/marketplace/buy", {user_wallet:this.user_addr, token_id:nft_id}).then((res) => {
-                        console.log(res.data)
+                try{
+                  let transactionReceipt = null
+                  const transactionHash = await buyNftInMarket(provider, marketplaceContract, this.user_addr, nft_owner, itemId, nft_price.toString(16))
+                  while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+                      transactionReceipt = await web3.eth.getTransactionReceipt(transactionHash);
+                      console.log("waiting")
+                      await this.sleep(1000)
+                  }
+                  axios.post("/api/marketplace/buy", {user_wallet:this.user_addr, token_id:nft_id}).then((res) => {
+                    console.log("after buy: ",res.data)
                     }).catch((err) => {
-                        alert(err)
+                      alert(err)
                   })
+                  
+                }catch(err) {
+                  console.log(err)
+                }
 
             } else {
                 console.log("please install metamask")

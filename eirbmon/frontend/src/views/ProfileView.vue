@@ -26,6 +26,7 @@
     import Web3 from "web3/dist/web3.min.js";
     import CardItem from '@/components/CardItem.vue';
     const _contract = require("../../../blockchain/build/contracts/NFTMarketplace");
+    const _contractMint = require("../../../blockchain/build/contracts/mintNft.json");
 
     const getAddr = async (provider) => {
         const addr = await provider.request({method: 'eth_requestAccounts'});
@@ -33,8 +34,7 @@
 
     }
 
-    const getContract = async (provider, contract, CONTRACT_ADDRESS_MARKETPLACE) => {
-        const web3 = new Web3(provider);
+    const getContract = async (web3, contract, CONTRACT_ADDRESS_MARKETPLACE) => {
         return new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE)
     }
 
@@ -48,9 +48,11 @@
                 nft_list:[],
                 provider: undefined,
                 marketplaceContract: undefined,
-                CONTRACT_ADDRESS_MARKETPLACE: "0x94b62dB15F4b5349AD748B66a2ed341d2314eE37",
+                CONTRACT_ADDRESS_MARKETPLACE: "0x1568aa48477086083237153bbd6faf38a1697182",
+                CONTRACT_ADDRESS_MINT: "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC",
                 conctract: undefined,
-                price: undefined
+                price: undefined,
+                web3: undefined
             }
         },
         async mounted() {
@@ -58,7 +60,10 @@
             this.addr = await getAddr(_provider)
             this.provider = _provider;
             this.contract = _contract;
-            this.marketplaceContract = await getContract(this.provider, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
+            this.web3 = new Web3(this.provider);
+            this.marketplaceContract = await getContract(this.web3, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
+            this.mintContract = new this.web3.eth.Contract(_contractMint.abi, this.CONTRACT_ADDRESS_MINT)
+
 
             axios.post("/api/profile", {user_wallet:this.addr}).then((res) => {
                 console.log(res.data)
@@ -68,10 +73,20 @@
             })
         },
         methods: {
+            sleep(milliseconds) {
+                return new Promise(resolve => setTimeout(resolve, milliseconds))
+            },
             sellNft: async function (_tokenId, _price, _from) {
+                // const web3 = new Web3(this.provider);
+                console.log("token:",_tokenId," price:", _price, " from:", _from)
                 try {
-                    await addNftInMarket(this.provider, this.marketplaceContract, _tokenId, _price, _from)
-
+                    let transactionReceipt = null
+                    const transactionHash = await addNftInMarket(this.mintContract, this.provider, this.marketplaceContract, _tokenId, _price, _from)
+                    while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+                        transactionReceipt = await this.web3.eth.getTransactionReceipt(transactionHash);
+                        console.log("waiting")
+                        await this.sleep(1000)
+                     }
                     axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
                         console.log(res.data)
                     }).catch((err) => {

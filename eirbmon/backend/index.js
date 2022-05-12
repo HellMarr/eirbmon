@@ -142,9 +142,10 @@ app.post("/api/profile/sell", async (req,res) => {
     const _user_wallet = req.body.user_wallet;
     const _nft_id = req.body.token_id
     const price = parseInt(req.body.price)
+    const marketAddr = "0x1568aa48477086083237153bbd6faf38a1697182"
 
     try{
-        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: true, nft_price: price})
+        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: true, nft_price: price, nft_owner: marketAddr})
         // console.log(response)
         res.send("db succesfully updated")
 
