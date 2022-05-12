@@ -1,8 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 import Unity, { UnityContext } from "react-unity-webgl";
 import detectEthereumProvider from '@metamask/detect-provider';
-import axios from 'axios';
 import React from 'react';
 import Web3 from "web3/dist/web3.min.js";
 const getBalance = require("./blockchain").getBalance;
