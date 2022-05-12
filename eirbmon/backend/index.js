@@ -368,19 +368,35 @@ app.post("/api/profile", async(req, res) => {
     //   }
     //   console.log(nft_list);
     
-      res.send(nfts)
+    res.send(nfts) 
 });
 
 app.post("/api/profile/sell", async (req,res) => {
     console.log("selling");
     const _user_wallet = req.body.user_wallet;
     const _nft_id = req.body.token_id
-    const price = req.body.price
+    const price = parseInt(req.body.price)
 
     try{
         const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: true, nft_price: price})
         // console.log(response)
         res.send("db succesfully updated")
+
+    }catch(err){
+        res.send(err)
+    }
+})
+
+app.post("/api/marketplace/buy", async (req,res) => {
+    console.log("buying")
+    const _user_wallet = req.body.user_wallet;
+    const _nft_id = req.body.token_id
+    console.log("id ",_nft_id," user_wallet ", _user_wallet)
+
+    try{
+        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: false, nft_price: 0, nft_owner: _user_wallet})
+        console.log("db succesfully updated")
+        res.send("db succesfully updated when buying")
 
     }catch(err){
         res.send(err)

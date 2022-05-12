@@ -49,7 +49,8 @@
                 provider: undefined,
                 marketplaceContract: undefined,
                 CONTRACT_ADDRESS_MARKETPLACE: "0x94b62dB15F4b5349AD748B66a2ed341d2314eE37",
-                conctract: undefined
+                conctract: undefined,
+                price: undefined
             }
         },
         async mounted() {
@@ -60,7 +61,7 @@
             this.marketplaceContract = await getContract(this.provider, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
 
             axios.post("/api/profile", {user_wallet:this.addr}).then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.nft_list=res.data;
             }).catch(()=>{
                 alert("Something Went Wrong")
