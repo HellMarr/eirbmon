@@ -38,20 +38,21 @@ async function fetchMyNFTs(_marketplaceContract, _addr){
     return items; 
 }
 
-async function buyNftInMarket(_provider, _marketplaceContract, _buyerAddress, _ownerAddr, _tokenId, _price) {
-
+async function buyNftInMarket(_provider, _marketplaceContract, _buyerAddress, _ownerAddr, _itemId, _price) {
+    const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182";
+    const CONTRACT_ADDRESS_NFT = "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC";
     const transactionParameters = {
         from: _buyerAddress,
+        to: CONTRACT_ADDRESS_MARKETPLACE,
         value: _price,
-        data: _marketplaceContract.methods.buyNftInMarketplace(_ownerAddr, _tokenId).encodeABI()
+        data: _marketplaceContract.methods.buyNftInMarketplace(CONTRACT_ADDRESS_NFT, _itemId).encodeABI()
     };
     _provider.request({
         method: 'eth_sendTransaction',
         params: [transactionParameters],
     })
     .then((result) => {
-        console.log(result)
-        return 
+        console.log(result) 
     });
 }
 

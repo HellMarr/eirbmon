@@ -1,0 +1,1 @@
+../../frontend/src/script/blockchain.js

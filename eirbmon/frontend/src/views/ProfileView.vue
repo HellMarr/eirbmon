@@ -7,7 +7,7 @@
         <div class="market">
             <ul>
                 <li v-for="nft in nft_list" :key="nft">
-                    <CardItemProfile :nft_image=nft.nft_image :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItemProfile>
+                    <CardItem page="profile" :nft_owner=nft.nft_owner :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
                     <div class="sell">
                         <input v-model="price" placeholder="price">
                         <button @click="sellNft(nft.nft_id,price,this.addr)">sell</button>
@@ -21,10 +21,10 @@
 
 <script>
     import detectEthereumProvider from '@metamask/detect-provider';
-    import CardItemProfile from '../components/CardItemProfile.vue';
     import axios from 'axios';
     import {addNftInMarket} from '../script/blockchain.js';
     import Web3 from "web3/dist/web3.min.js";
+    import CardItem from '@/components/CardItem.vue';
     const _contract = require("../../../blockchain/build/contracts/NFTMarketplace");
 
     const getAddr = async (provider) => {
@@ -41,7 +41,7 @@
 
     export default {
         name: "ProfileView",
-        components: { CardItemProfile },
+        components: { CardItem },
         data() {
             return {
                 addr: undefined,
@@ -49,7 +49,8 @@
                 provider: undefined,
                 marketplaceContract: undefined,
                 CONTRACT_ADDRESS_MARKETPLACE: "0x94b62dB15F4b5349AD748B66a2ed341d2314eE37",
-                conctract: undefined
+                conctract: undefined,
+                price: undefined
             }
         },
         async mounted() {

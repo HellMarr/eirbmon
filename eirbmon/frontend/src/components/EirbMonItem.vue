@@ -6,7 +6,7 @@
         <div class="infos">
           <div class="id">Eirbee#{{nft_id}}</div>
           <div class="price">{{nft_price}} ETH</div>
-          <div class="owner">Owner</div>
+          <div class="owner">Owner {{nft_owner}}</div>
         </div>
         <div v-if="nft_forsale" class="sale">
           <button class="buyBtn" @click="buy(nft_owner, nft_id, nft_price)"> Buy </button>
@@ -33,9 +33,10 @@
 import GaussianCurve from './GaussianCurve.vue'
 
 // blockchain
-import {buyNftInMarket} from '../script/blockchain.js'
+import {buyNftInMarket, fetchMarketItems} from '../script/blockchain.js'
 import detectEthereumProvider from '@metamask/detect-provider'
 import Web3 from "web3/dist/web3.min.js";
+import axios from 'axios';
 
 export default {
     name: "EirbMonItem",
@@ -64,8 +65,18 @@ export default {
       }
     },
     methods: {
+      async getItemId(marketplaceContract, nft_id, addr) {
+        const items = await fetchMarketItems(marketplaceContract, addr);
+        let itemId;
+        items.forEach(element => {
+          if (element["tokenId"] === nft_id.toString()) {
+            itemId = element["itemId"]
+          }
+        })
+        return itemId
+      },
       async buy (nft_owner, nft_id, nft_price) {
-        console.log(nft_id+" "+nft_price)
+        console.log(nft_owner+" "+nft_id+" "+nft_price)
          const provider = await detectEthereumProvider();
             if (provider) {
                 const web3 = new Web3(provider);
@@ -73,7 +84,15 @@ export default {
                 const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182"
                 const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
                 const addr = await provider.request({method: 'eth_requestAccounts'})
-                await buyNftInMarket(provider, marketplaceContract, addr[0], nft_owner, nft_id, nft_price.toString())
+                const itemId = await this.getItemId(marketplaceContract, nft_id, addr[0])
+                await buyNftInMarket(provider, marketplaceContract, addr[0], nft_owner, itemId, nft_price.toString(16))
+
+                axios.post("/api/marketplace/buy", {user_wallet:addr[0], token_id:nft_id}).then((res) => {
+                        console.log(res.data)
+                    }).catch((err) => {
+                        alert(err)
+                  })
+
             } else {
                 console.log("please install metamask")
             }
