@@ -188,12 +188,21 @@ app.get("/api/game", async(req, res) => {
 
     const user_wallet = req.body.user_wallet;
     const position = await users.findOne({user_wallet: user_wallet}, 'user_x user_y');
-    const nfts = await nft.find({nft_owner: user_wallet}, 'nft_potential nft_hp nft_');
+    const nfts = await nft.find({nft_owner: user_wallet, nft_forsale:false}, 'nft_potential nft_hp nft_id nft_level nft_image');
     res.status(200).send({
         user_x: position.user_x,
         user_y: position.user_y,
         nfts: nfts,
     })
+});
+
+app.get("/api/game/catchables", async(req, res) => {
+
+    const nfts = await nft.find({nft_owner: "0x23ec543f995d80ad727cf2284ec448e55bf769fb", nft_forsale:false},'nft_potential nft_hp nft_id nft_level nft_image');
+    res.status(200).send({
+        nfts: nfts,
+    })
+
 });
 
 app.post("/api/game/position", async(req, res) => {
