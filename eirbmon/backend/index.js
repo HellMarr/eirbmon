@@ -356,20 +356,52 @@ app.post("/api/profile", async(req, res) => {
     const _user_wallet = req.body.user_wallet;
     console.log('user wallet : ' + _user_wallet);
     
-    const user_db = await users.findOne({ user_wallet: _user_wallet });
+    // const user_db = await users.findOne({ user_wallet: _user_wallet });
 
-    const nfts = await nft.find({nft_id: user_db.tokenIds });
-    console.log(nfts);
+    const nfts = await nft.find({nft_owner: _user_wallet });
+    // console.log(nfts);
 
-    let nft_list = [];
-    for await (const doc of nft.find({nft_id: {$in: user_db.tokenIds} })) {
-        console.log(doc);
-        nft_list[nft_list.length] = doc;
-      }
-      console.log(nft_list);
+    // let nft_list = [];
+    // for await (const doc of nft.find({nft_id: {$in: user_db.tokenIds} })) {
+    //     console.log(doc);
+    //     nft_list[nft_list.length] = doc;
+    //   }
+    //   console.log(nft_list);
     
-      res.send(nft_list)
+    res.send(nfts) 
 });
+
+app.post("/api/profile/sell", async (req,res) => {
+    console.log("selling");
+    const _user_wallet = req.body.user_wallet;
+    const _nft_id = req.body.token_id
+    const price = parseInt(req.body.price)
+
+    try{
+        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: true, nft_price: price})
+        // console.log(response)
+        res.send("db succesfully updated")
+
+    }catch(err){
+        res.send(err)
+    }
+})
+
+app.post("/api/marketplace/buy", async (req,res) => {
+    console.log("buying")
+    const _user_wallet = req.body.user_wallet;
+    const _nft_id = req.body.token_id
+    console.log("id ",_nft_id," user_wallet ", _user_wallet)
+
+    try{
+        const response = await nft.updateOne({nft_id: _nft_id}, {nft_forsale: false, nft_price: 0, nft_owner: _user_wallet})
+        console.log("db succesfully updated")
+        res.send("db succesfully updated when buying")
+
+    }catch(err){
+        res.send(err)
+    }
+})
 
 // app.get("/api/profile", async(req, res) => {
 

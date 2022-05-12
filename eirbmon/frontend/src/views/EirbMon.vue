@@ -9,6 +9,7 @@
                         :nft_image="nft_image"
                         :nft_forsale="nft_forsale"
                         :nft_accessories="nft_accessories"
+                        :nft_owner="nft_owner"
                         ></EirbMonItem>
     </div>
 </template>
@@ -31,6 +32,7 @@ export default {
             nft_image:undefined,
             nft_forsale:undefined,
             nft_accessories:undefined,
+            nft_owner:undefined
         };
     },
     components: {
@@ -51,6 +53,7 @@ export default {
         this.nft_image=nft_info.nft_image;
         this.nft_forsale=nft_info.nft_forsale;
         this.nft_accessories=nft_info.nft_accessory_list;
+        this.nft_owner=nft_info.nft_owner;
     },
 }
 </script>

@@ -26,6 +26,7 @@
 export default {
   name: 'CardItem',
   props:{
+    nft_owner:String,
     nft_id:Number,
     nft_price:Number,
     nft_type:String,

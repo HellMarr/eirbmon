@@ -10,7 +10,7 @@
                     <CardItemProfile :nft_image=nft.nft_image :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color></CardItemProfile>
                     <div class="sell">
                         <input v-model="price" placeholder="price">
-                        <button @click="sellNft(1,100,this.addr)">sell</button>
+                        <button @click="sellNft(nft.nft_id,price,this.addr)">sell</button>
                     </div>
                         
                 </li>
@@ -49,7 +49,8 @@
                 provider: undefined,
                 marketplaceContract: undefined,
                 CONTRACT_ADDRESS_MARKETPLACE: "0x94b62dB15F4b5349AD748B66a2ed341d2314eE37",
-                conctract: undefined
+                conctract: undefined,
+                price: undefined
             }
         },
         async mounted() {
@@ -60,7 +61,7 @@
             this.marketplaceContract = await getContract(this.provider, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
 
             axios.post("/api/profile", {user_wallet:this.addr}).then((res) => {
-                console.log(res.data)
+                // console.log(res.data)
                 this.nft_list=res.data;
             }).catch(()=>{
                 alert("Something Went Wrong")
@@ -68,7 +69,17 @@
         },
         methods: {
             sellNft: async function (_tokenId, _price, _from) {
-                await addNftInMarket(this.provider, this.marketplaceContract, _tokenId, _price, _from)
+                try {
+                    await addNftInMarket(this.provider, this.marketplaceContract, _tokenId, _price, _from)
+
+                    axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
+                        console.log(res.data)
+                    }).catch((err) => {
+                        alert(err)
+                    })
+                } catch (err) {
+                   console.log("err")
+                }
                 
             }
 

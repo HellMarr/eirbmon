@@ -67,7 +67,7 @@
     <div class="market">
         <ul>
             <li v-for="nft in nft_list" :key="nft">
-                <CardItem homepage="False" :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
+                <CardItem homepage="False" :nft_owner=nft.nft_owner :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
             </li>
         </ul>
     </div>
@@ -112,7 +112,7 @@ export default {
             if (provider) {
                 const web3 = new Web3(provider);
                 const contract = require("../../../blockchain/build/contracts/NFTMarketplace")
-                const CONTRACT_ADDRESS_MARKETPLACE = "0x0aD920cDD7547622ed470086FA787A75b2D7EefE"
+                const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182"
                 const marketplaceContract = new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE);
                 const addr = await provider.request({method: 'eth_requestAccounts'})
                 const items = await fetchMarketItems(marketplaceContract, addr[0]);
@@ -161,6 +161,7 @@ export default {
         }
     },
     mounted(){
+        this.getMarketItems()
         axios.get("/api/marketplace/?type=null&price=ascending&potential=descending&minprice=0&maxprice=1000&minpotential=0&maxpotential=200").then((res) => {
             if(res.data.msg === "Validation Failed"){
                 //let errors = res.data.errors;
