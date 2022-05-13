@@ -32,7 +32,12 @@ function render(authorized){
       }}
     />
   }else if(authorized==="not authorized"){
-    return <h1>You must first buy an NFT before accessing the game</h1>
+    return <div>
+            <h1>You must first buy an NFT before accessing the game</h1>
+            <form action="http://localhost:8080/?#/marketplace">
+              <button type="submit" style={{marginBottom:'40px',padding:'10px 20px 10px 20px',fontSize:'32px',background:'linear-gradient(-90deg, #FD992D 0%, #FFBF49 100%)',borderRadius:'1em', fontWeight:'bold'}}>Accéder à la marketplace</button>
+            </form>
+          </div>
   }else if(authorized==="loading"){
     return <h1>Loading ...</h1>
   }else{
