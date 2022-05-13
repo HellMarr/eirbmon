@@ -84,12 +84,12 @@
                     const transactionHash = await addNftInMarket(this.mintContract, this.provider, this.marketplaceContract, _tokenId, _price, _from)
                     while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
                         transactionReceipt = await this.web3.eth.getTransactionReceipt(transactionHash);
-                        if(transactionReceipt.status === false){
-                            throw "transaction reverted"
-                        }
                         console.log("waiting")
                         await this.sleep(1000)
                      }
+                    if(transactionReceipt.status === false){
+                        throw "transaction reverted"
+                    }
                     axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
                         console.log(res.data)
                     }).catch((err) => {
