@@ -115,16 +115,14 @@ app.get("/api/eirbmon/:id", async(req, res) => {
 });
 
 
-app.post("/api/profile", async(req, res) => {
+app.get("/api/profile/:user_wallet", async(req, res) => {
     console.log("Fetching Profile Nft");
-
-    req.session.logged = true;
-    const _user_wallet = req.body.user_wallet;
-    console.log('user wallet : ' + _user_wallet);
+    const user_wallet = req.params.user_wallet;
+    console.log('user wallet : ' + user_wallet);
     
     // const user_db = await users.findOne({ user_wallet: _user_wallet });
 
-    const nfts = await nft.find({ nft_owner: _user_wallet });
+    const nfts = await nft.find({ nft_owner: user_wallet });
     // console.log(nfts);
 
     // let nft_list = [];

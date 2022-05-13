@@ -65,8 +65,8 @@
             this.mintContract = new this.web3.eth.Contract(_contractMint.abi, this.CONTRACT_ADDRESS_MINT)
 
 
-            axios.post("/api/profile", {user_wallet:this.addr}).then((res) => {
-                console.log(res.data)
+            axios.get("/api/profile/"+this.addr).then((res) => {
+                console.log(res.data);
                 this.nft_list=res.data;
             }).catch(()=>{
                 alert("Something Went Wrong")
