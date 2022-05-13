@@ -1,15 +1,26 @@
 
-
+function sleep(milliseconds) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
 
 async function addNftInMarket(mintContract, _provider, _marketplaceContract, _tokenId, _price, _from) {
     const CONTRACT_ADDRESS_NFT = "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC";
     const CONTRACT_ADDRESS_MARKETPLACE = "0x1568aA48477086083237153BbD6Faf38A1697182"
 
     try{
-        await mintContract.methods.approve(CONTRACT_ADDRESS_MARKETPLACE, _tokenId).send({from:_from})
+        const transactionHash =  await mintContract.methods.approve(CONTRACT_ADDRESS_MARKETPLACE, _tokenId).send({from:_from})
         // console.log("approve:",res)
+        let transactionReceipt = null
+        while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+            transactionReceipt = await this.web3.eth.getTransactionReceipt(transactionHash);
+            console.log("waiting approval")
+            await sleep(1000)
+        }
+        if(transactionReceipt.status === false){
+            throw "transaction reverted"
+        }
     } catch(err){
-        console.log(err)
+            console.log(err)
     }
 
 

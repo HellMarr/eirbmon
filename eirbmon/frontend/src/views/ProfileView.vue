@@ -86,7 +86,7 @@
                         transactionReceipt = await this.web3.eth.getTransactionReceipt(transactionHash);
                         console.log("waiting")
                         await this.sleep(1000)
-                     }
+                    }
                     if(transactionReceipt.status === false){
                         throw "transaction reverted"
                     }
