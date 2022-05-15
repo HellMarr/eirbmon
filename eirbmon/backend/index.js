@@ -233,7 +233,17 @@ app.post("/api/game/nft_update", async(req, res) => {
 
 });
 
+// ===========  TEST COMM UNITY ===============
+app.post("/unity/catching", async(req, res) => {
 
+    console.log('from unity received:')
+    console.log(req.body)
+ 
+    res.status(200).send({received: true})
+ 
+ });
+//==============================================
+ 
 app.listen(3001, () => {
     console.log("Server started ...");
 });
