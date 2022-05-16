@@ -113,8 +113,9 @@
     background: rgba(238, 238, 238, 0.7);
     /* align-items: center;
     justify-content: center; */
-    padding:20px;
+    padding:20px 40px;
     margin-bottom: 10px;
+    text-overflow: ellipsis;
 }
 
 .container{
