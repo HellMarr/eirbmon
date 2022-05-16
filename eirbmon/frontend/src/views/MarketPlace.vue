@@ -174,6 +174,10 @@ export default {
         }).catch(()=>{
             alert("Something Went Wrong");
         })
+
+        window.ethereum.on('accountsChanged',()=>{
+            window.location.reload();
+        });
     }
 }
 </script>
