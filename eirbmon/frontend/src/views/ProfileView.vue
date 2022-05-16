@@ -59,13 +59,16 @@
             this.marketplaceContract = await getContract(this.web3, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
             this.mintContract = new this.web3.eth.Contract(_contractMint.abi, this.CONTRACT_ADDRESS_MINT)
 
-
             axios.get("/api/profile/"+this.addr).then((res) => {
                 console.log(res.data);
                 this.nft_list=res.data;
             }).catch(()=>{
                 alert("Something Went Wrong")
             })
+
+            window.ethereum.on('accountsChanged',()=>{
+                window.location.reload();
+            });
         },
         methods: {
             sleep(milliseconds) {

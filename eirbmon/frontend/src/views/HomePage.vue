@@ -72,7 +72,12 @@ import CardItem from '../components/CardItem.vue'
 
 export default {
     name: "HomePage",
-    components: { CardItem }
+    components: { CardItem },
+    mounted(){
+        window.ethereum.on('accountsChanged',()=>{
+            window.location.reload();
+        });
+    }
 }
 </script>
 

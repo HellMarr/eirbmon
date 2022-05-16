@@ -54,6 +54,10 @@ export default {
         this.nft_forsale=nft_info.nft_forsale;
         this.nft_accessories=nft_info.nft_accessory_list;
         this.nft_owner=nft_info.nft_owner;
+
+        window.ethereum.on('accountsChanged',()=>{
+            window.location.reload();
+        });
     },
 }
 </script>

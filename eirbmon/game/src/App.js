@@ -69,6 +69,11 @@ function App() {
     const web3 = new Web3(prov);
     const mintContract = new web3.eth.Contract(contract.abi, contractAddress);
     const balance = await getBalance(mintContract, addr);
+
+    window.ethereum.on('accountsChanged',()=>{
+      window.location.reload();
+    });
+
     if(balance>0){
       setAuthorized("authorized");
     }else{
