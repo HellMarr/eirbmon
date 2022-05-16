@@ -6,6 +6,7 @@
         <div class="infos">
           <div class="id">Eirbee#{{nft_id}}</div>
           <div v-if="nft_forsale" class="price">{{nft_price}} ETH</div>
+          <div v-if="this.transaction">Transaction is proceeding ... Don't leave the page</div>
         </div>
         <div v-if="nft_forsale" class="sale">
           <button class="buyBtn" @click="buy(nft_owner, nft_id, nft_price)"> Buy </button>
@@ -116,14 +117,17 @@ export default {
                   const transactionHash = await buyNftInMarket(provider, marketplaceContract, this.user_addr, nft_owner, itemId, nft_price.toString(16))
                   while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
                       transactionReceipt = await web3.eth.getTransactionReceipt(transactionHash);
-                      console.log("waiting")
+                      console.log("waiting");
+                      this.transaction=true;
                       await this.sleep(1000)
                   }
                   if(transactionReceipt.status === false){
+                    this.transaction=false;
                     throw "transaction reverted"
                   }
                   axios.post("/api/marketplace/buy", {user_wallet:this.user_addr, token_id:nft_id}).then((res) => {
-                    console.log("after buy: ",res.data)
+                    console.log("after buy: ",res.data);
+                    window.location.reload();
                     }).catch((err) => {
                       alert(err)
                   })
@@ -141,17 +145,20 @@ export default {
         console.log("token:",_tokenId," price:", _price, " from:", _from)
         try {
             let transactionReceipt = null
+            this.transaction=true;
             const transactionHash = await addNftInMarket(this.mintContract, this.provider, this.marketplaceContract, _tokenId, _price, _from)
             while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
                 transactionReceipt = await this.web3.eth.getTransactionReceipt(transactionHash);
-                console.log("waiting")
+                console.log("waiting");
                 await this.sleep(1000)
             }
             if(transactionReceipt.status === false){
-                throw "transaction reverted"
+                this.transaction=false;
+                throw "transaction reverted";
             }
             axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
-                console.log(res.data)
+                console.log(res.data);
+                window.location.reload();
             }).catch((err) => {
                 alert(err)
             })
@@ -174,7 +181,8 @@ export default {
         CONTRACT_ADDRESS_MINT: "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC",
         conctract: undefined,
         price: undefined,
-        web3: undefined
+        web3: undefined,
+        transaction:false,
       };
     },
     async mounted(){
