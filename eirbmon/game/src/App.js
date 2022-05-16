@@ -2,6 +2,13 @@ import logo from './logo.svg';
 import React, { Component } from "react";
 import './App.css';
 import Unity, { UnityContext } from "react-unity-webgl";
+import detectEthereumProvider from '@metamask/detect-provider';
+import React from 'react';
+import Web3 from "web3/dist/web3.min.js";
+const getBalance = require("./blockchain").getBalance;
+
+const contract = require("./mintNft.json");
+const contractAddress = "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC";
 
 
 const unityContext = new UnityContext({
