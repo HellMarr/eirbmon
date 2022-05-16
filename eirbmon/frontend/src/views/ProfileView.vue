@@ -65,8 +65,8 @@
             this.mintContract = new this.web3.eth.Contract(_contractMint.abi, this.CONTRACT_ADDRESS_MINT)
 
 
-            axios.post("/api/profile", {user_wallet:this.addr}).then((res) => {
-                console.log(res.data)
+            axios.get("/api/profile/"+this.addr).then((res) => {
+                console.log(res.data);
                 this.nft_list=res.data;
             }).catch(()=>{
                 alert("Something Went Wrong")
@@ -84,12 +84,12 @@
                     const transactionHash = await addNftInMarket(this.mintContract, this.provider, this.marketplaceContract, _tokenId, _price, _from)
                     while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
                         transactionReceipt = await this.web3.eth.getTransactionReceipt(transactionHash);
-                        if(transactionReceipt.status === false){
-                            throw "transaction reverted"
-                        }
                         console.log("waiting")
                         await this.sleep(1000)
-                     }
+                    }
+                    if(transactionReceipt.status === false){
+                        throw "transaction reverted"
+                    }
                     axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
                         console.log(res.data)
                     }).catch((err) => {

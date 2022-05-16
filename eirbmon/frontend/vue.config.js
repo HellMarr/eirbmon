@@ -7,6 +7,5 @@ module.exports = {
               "changeOrigin": true
           }
       },
-      https: true,
   }
 }
