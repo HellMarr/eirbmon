@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-logo {
@@ -35,4 +39,78 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+span{
+  position: relative;
+  display: inline-flex;
+  width: 350px;
+  height: 65px;
+  margin: 0 15px;
+  perspective: 1000px;
+}
+span a{
+  font-size: 25px;
+  letter-spacing: 1px;
+  transform-style: preserve-3d;
+  transform: translateZ(-25px);
+  transition: transform .25s;  
+}
+
+span a:before{
+  color: #000;
+  background: #FD992D;
+  transform: rotateY(0deg) translateZ(25px);
+}
+span a:after{
+  color: #fff;
+  background: #FFBF49;
+  transform: rotateX(90deg) translateZ(25px);
+}
+span a:hover{
+  transform: translateZ(-25px) rotateX(-90deg);
+}
+
+#website:after, #website:before{
+  content: "Come back to the website";
+  position: absolute;
+  height: 65px;
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+#marketplace:after, #marketplace:before{
+  content: "Go to marketplace";
+  position: absolute;
+  height: 65px;
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+#metamask:after, #metamask:before{
+  content: "Download Metamask";
+  background-image: url("../public/metamask.png");
+  background-size: 30px;
+  background-repeat: no-repeat;
+  background-position: right center;
+  position: absolute;
+  height: 65px;
+  width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 5px solid black;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding-right: 25px;
 }

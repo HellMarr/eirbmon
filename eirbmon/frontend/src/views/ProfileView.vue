@@ -1,7 +1,6 @@
 <template>
     <div class="container">
         <div class="profile-description">
-            Profile
             <div>Your metamask address is {{ addr }}</div>
         </div>
         <div class="market">
