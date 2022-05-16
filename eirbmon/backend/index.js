@@ -195,12 +195,14 @@ app.get("/api/game", async(req, res) => {
     })
 });
 
-app.get("/api/game/catchables", async(req, res) => {
+app.get("/game/catchables", async(req, res) => {
 
+    console.log("requested pokemon")
     const nfts = await nft.find({nft_owner: "0x23ec543f995d80ad727cf2284ec448e55bf769fb", nft_forsale:false},'nft_potential nft_hp nft_id nft_level nft_image');
-    res.status(200).send({
-        nfts: nfts,
-    })
+    // console.log(nfts)
+    const num = Math.floor(Math.random() * (nfts.length-1))
+    console.log(nfts[num])
+    res.status(200).send(nfts[num])
 
 });
 
