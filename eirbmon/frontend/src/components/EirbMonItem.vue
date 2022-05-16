@@ -13,7 +13,7 @@
         <div v-else-if="nft_owner===this.user_addr">
           <div class="sell">
               <input v-model="price" placeholder="Price" type="number">
-              <button @click="sellNft(nft.nft_id,price,this.addr)">Sell</button>
+              <button @click="sellNft(nft_id,price,this.addr)">Sell</button>
           </div>
         </div>
       </div>
@@ -42,10 +42,23 @@
 import GaussianCurve from './GaussianCurve.vue'
 
 // blockchain
-import {buyNftInMarket, fetchMarketItems} from '../script/blockchain.js'
-import detectEthereumProvider from '@metamask/detect-provider'
-import Web3 from "web3/dist/web3.min.js";
-import axios from 'axios';
+  import {buyNftInMarket, fetchMarketItems, addNftInMarket} from '../script/blockchain.js'
+  import detectEthereumProvider from '@metamask/detect-provider'
+  import Web3 from "web3/dist/web3.min.js";
+  import axios from 'axios';
+  const _contract = require("../../../blockchain/build/contracts/NFTMarketplace");
+  const _contractMint = require("../../../blockchain/build/contracts/mintNft.json");
+
+  const getAddr = async (provider) => {
+      const addr = await provider.request({method: 'eth_requestAccounts'});
+      return addr[0];
+
+  }
+
+  const getContract = async (web3, contract, CONTRACT_ADDRESS_MARKETPLACE) => {
+      return new web3.eth.Contract(contract.abi, CONTRACT_ADDRESS_MARKETPLACE)
+  }
+
 
 export default {
     name: "EirbMonItem",
@@ -122,6 +135,29 @@ export default {
             } else {
                 console.log("please install metamask")
             }
+      },
+      sellNft: async function (_tokenId, _price, _from) {
+        // const web3 = new Web3(this.provider);
+        console.log("token:",_tokenId," price:", _price, " from:", _from)
+        try {
+            let transactionReceipt = null
+            const transactionHash = await addNftInMarket(this.mintContract, this.provider, this.marketplaceContract, _tokenId, _price, _from)
+            while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
+                transactionReceipt = await this.web3.eth.getTransactionReceipt(transactionHash);
+                console.log("waiting")
+                await this.sleep(1000)
+            }
+            if(transactionReceipt.status === false){
+                throw "transaction reverted"
+            }
+            axios.post("/api/profile/sell", {user_wallet:this.addr, token_id:_tokenId, price:_price}).then((res) => {
+                console.log(res.data)
+            }).catch((err) => {
+                alert(err)
+            })
+        } catch (err) {
+            console.log("err")
+        }    
       }
     },
     components:{
@@ -129,13 +165,38 @@ export default {
     },
     data(){
       return {
-        user_addr:undefined
+        user_addr:undefined,
+        addr: undefined,
+        nft_list:[],
+        provider: undefined,
+        marketplaceContract: undefined,
+        CONTRACT_ADDRESS_MARKETPLACE: "0x1568aa48477086083237153bbd6faf38a1697182",
+        CONTRACT_ADDRESS_MINT: "0x70DCf436b3F8B9b0B7507727b63fe0deaf257aFC",
+        conctract: undefined,
+        price: undefined,
+        web3: undefined
       };
     },
     async mounted(){
       const provider = await detectEthereumProvider();
       const addr = await provider.request({method: 'eth_requestAccounts'})
-      this.user_addr = addr[0]
+      this.user_addr = addr[0];
+
+      const _provider = await detectEthereumProvider();
+      this.addr = await getAddr(_provider)
+      this.provider = _provider;
+      this.contract = _contract;
+      this.web3 = new Web3(this.provider);
+      this.marketplaceContract = await getContract(this.web3, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
+      this.mintContract = new this.web3.eth.Contract(_contractMint.abi, this.CONTRACT_ADDRESS_MINT)
+
+
+      axios.get("/api/profile/"+this.addr).then((res) => {
+          console.log(res.data);
+          this.nft_list=res.data;
+      }).catch(()=>{
+          alert("Something Went Wrong")
+      })
     }
 }
 </script>
