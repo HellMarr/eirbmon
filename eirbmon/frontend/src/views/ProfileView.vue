@@ -1,18 +1,13 @@
 <template>
     <div class="container">
         <div class="profile-description">
-            Profile
+            <div class="title">Inventory</div>
             <div>Your metamask address is {{ addr }}</div>
         </div>
         <div class="market">
             <ul>
                 <li v-for="nft in nft_list" :key="nft">
-                    <CardItem page="profile" :nft_owner=nft.nft_owner :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>
-                    <div class="sell">
-                        <input v-model="price" placeholder="price">
-                        <button @click="sellNft(nft.nft_id,price,this.addr)">sell</button>
-                    </div>
-                        
+                    <CardItem page="profile" :nft_owner=nft.nft_owner :nft_id=nft.nft_id :nft_price=nft.nft_price :nft_type=nft.nft_type :nft_bg_color=nft.nft_bg_color :image=nft.nft_image :nft_potential=nft.nft_potential></CardItem>                      
                 </li>
             </ul>
         </div>
@@ -64,13 +59,16 @@
             this.marketplaceContract = await getContract(this.web3, this.contract, this.CONTRACT_ADDRESS_MARKETPLACE)
             this.mintContract = new this.web3.eth.Contract(_contractMint.abi, this.CONTRACT_ADDRESS_MINT)
 
-
             axios.get("/api/profile/"+this.addr).then((res) => {
                 console.log(res.data);
                 this.nft_list=res.data;
             }).catch(()=>{
                 alert("Something Went Wrong")
             })
+
+            window.ethereum.on('accountsChanged',()=>{
+                window.location.reload();
+            });
         },
         methods: {
             sleep(milliseconds) {
@@ -107,15 +105,20 @@
 
 <style scoped>
 
+.title{
+    font-size: 30px;;
+}
+
 .profile-description {
-    height: 80%;
-    width: 40%;
+    width: auto;
     border-radius: 20px;
     background-size: cover;
     background: rgba(238, 238, 238, 0.7);
     /* align-items: center;
     justify-content: center; */
-
+    padding:20px 40px;
+    margin-bottom: 10px;
+    text-overflow: ellipsis;
 }
 
 .container{

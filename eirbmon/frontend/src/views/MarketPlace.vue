@@ -174,6 +174,10 @@ export default {
         }).catch(()=>{
             alert("Something Went Wrong");
         })
+
+        window.ethereum.on('accountsChanged',()=>{
+            window.location.reload();
+        });
     }
 }
 </script>
@@ -185,6 +189,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-content: center;
 }
 
 .menu{
@@ -257,6 +262,7 @@ button:hover{
 .no-more-pages{
     margin:50px;
     font-size: 40px;
+    text-align: center;
 }
 
 #more-pages{
