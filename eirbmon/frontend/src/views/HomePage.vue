@@ -8,13 +8,13 @@
             <input type="radio" name="slider" id="item-3">
             <div class="cards">
                 <label class="card" for="item-1" id="song-1">
-                    <CardItem page="homepage" nft_id="2546" nft_price="0.6954668258530998" nft_type="Matmeca" nft_bg_color="F16F6F" image="https://masteronepiece.com/wp-content/uploads/eirbmon/2546.svg" nft_potential="89"></CardItem>
+                    <CardItem page="homepage" nft_id="2001" nft_price="42" nft_type="Matmeca" nft_bg_color="DAF7A6" image="https://masteronepiece.com/wp-content/uploads/eirbmon/2016.svg" nft_potential="104"></CardItem>
                 </label>
                 <label class="card" for="item-2" id="song-2">
-                    <CardItem page="homepage" nft_id="433" nft_price="0.5891368747407384" nft_type="Telecom" nft_bg_color="CEAEF6" image="https://masteronepiece.com/wp-content/uploads/eirbmon/433.svg" nft_potential="89"></CardItem>
+                    <CardItem page="homepage" nft_id="29" nft_price="58" nft_type="Telecom" nft_bg_color="DAF7A6" image="https://masteronepiece.com/wp-content/uploads/eirbmon/28.svg" nft_potential="97"></CardItem>
                 </label>
                 <label class="card" for="item-3" id="song-3">
-                    <CardItem page="homepage" nft_id="1983" nft_price="0.4407372990127594" nft_type="Info" nft_bg_color="74E38C" image="https://masteronepiece.com/wp-content/uploads/eirbmon/1983.svg" nft_potential="139"></CardItem>
+                    <CardItem page="homepage" nft_id="1001" nft_price="51" nft_type="Info" nft_bg_color="DAF7A6" image="https://masteronepiece.com/wp-content/uploads/eirbmon/1001.svg" nft_potential="79"></CardItem>
                 </label>
             </div>
 
@@ -22,13 +22,13 @@
                 <div class="upper-part">
                     <div class="info-area" id="title">
                         <label class="eirbmon-info" id="eirbmon-info-1">
-                            <div class="title">Eirbee#2546</div>
+                            <div class="title">Eirbee#2001</div>
                         </label>
                         <label class="eirbmon-info" id="eirbmon-info-1">
-                            <div class="title">Eirbee#433</div>
+                            <div class="title">Eirbee#29</div>
                         </label>
                         <label class="eirbmon-info" id="eirbmon-info-1">
-                            <div class="title">Eirbee#1983</div>
+                            <div class="title">Eirbee#1001</div>
                         </label>
                     </div>
                 </div>
