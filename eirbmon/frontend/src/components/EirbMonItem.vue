@@ -6,7 +6,7 @@
         <div class="infos">
           <div class="id">Eirbee#{{nft_id}}</div>
           <div v-if="nft_forsale" class="price">{{nft_price}} ETH</div>
-          <div v-if="this.transaction">Transaction is proceeding ... Don't leave the page</div>
+          <div v-if="this.transaction">Transaction is proceeding ... Do not leave the page</div>
         </div>
         <div v-if="nft_forsale" class="sale">
           <button class="buyBtn" @click="buy(nft_owner, nft_id, nft_price)"> Buy </button>
@@ -114,11 +114,11 @@ export default {
                 const itemId = await this.getItemId(marketplaceContract, nft_id, this.user_addr)
                 try{
                   let transactionReceipt = null
+                  this.transaction=true;
                   const transactionHash = await buyNftInMarket(provider, marketplaceContract, this.user_addr, nft_owner, itemId, nft_price.toString(16))
                   while (transactionReceipt == null) { // Waiting expectedBlockTime until the transaction is mined
                       transactionReceipt = await web3.eth.getTransactionReceipt(transactionHash);
                       console.log("waiting");
-                      this.transaction=true;
                       await this.sleep(1000)
                   }
                   if(transactionReceipt.status === false){
