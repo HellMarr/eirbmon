@@ -29,26 +29,29 @@ function render(authorized){
         height: "750px",
         border: "2px solid black",
         background: "white",
+        marginBottom: "20px"
       }}
     />
   }else if(authorized==="not authorized"){
     return <div>
             <h1>You must first buy an NFT before accessing the game</h1>
-            <form action="http://localhost:8080/?#/marketplace">
+            {/* <form action="http://localhost:8080/?#/marketplace">
               <button type="submit" style={{marginBottom:'40px',padding:'10px 20px 10px 20px',fontSize:'32px',background:'linear-gradient(-90deg, #FD992D 0%, #FFBF49 100%)',borderRadius:'1em', fontWeight:'bold'}}>Go to marketplace</button>
-            </form>
+            </form> */}
+            <span style={{marginBottom: "20px"}}><a id="marketplace" href="http://localhost:8080/?#/marketplace"></a></span>
           </div>
   }else if(authorized==="loading"){
     return <h1>Loading ...</h1>
   }else{
     return <div>
             <h1>Please install metamask before accessing the game</h1>
-            <form action="https://metamask.io/download/">
+            {/* <form action="https://metamask.io/download/">
               <button type="submit" style={{marginBottom:'40px',padding:'10px 20px 10px 20px',fontSize:'32px',background:'linear-gradient(-90deg, #FD992D 0%, #FFBF49 100%)',borderRadius:'1em', fontWeight:'bold'}}>
                 Download Metamask
                 <img src="./metamask.png" style={{width: "30px", marginLeft: "15px"}}></img>
               </button>
-            </form>
+            </form> */}
+            <span style={{marginBottom: "20px"}}><a id="metamask" href="https://metamask.io/download/"></a></span>
           </div>
   }
 }
@@ -75,13 +78,12 @@ function App() {
 
   return (
     <div className="App">
-      <h1 style={{fontSize:35}}>Eirbmon</h1>
+      <h1 style={{fontSize:35}}>Eirbmon Game</h1>
       {render(authorized)}
-      <div>
-        <form action="http://localhost:8080">
-          <button type="submit" style={{padding:'10px 20px 10px 20px',fontSize:'32px',background:'linear-gradient(90deg, #FD992D 0%, #FFBF49 100%)',borderRadius:'1em', fontWeight:'bold'}}>Come back to the website</button>
-        </form>
-      </div>
+      {/* <form action="http://localhost:8080">
+        <button type="submit" style={{padding:'10px 20px 10px 20px',fontSize:'32px',background:'linear-gradient(90deg, #FD992D 0%, #FFBF49 100%)',borderRadius:'1em', fontWeight:'bold'}}>Come back to the website</button>
+      </form> */}
+      <span><a id="website" href="http://localhost:8080"></a></span>
     </div>
   );
 }
