@@ -202,6 +202,11 @@ app.get("/game/catchables", async(req, res) => {
     // console.log(nfts)
     const num = Math.floor(Math.random() * (nfts.length-1))
     console.log(nfts[num])
+    const first = nfts[num].nft_image.split("/")
+    const second = first[6].split(".")
+    const id = second[0]
+    nfts[num].nft_image = id;
+    console.log(nfts[num])
     res.status(200).send(nfts[num])
 
 });
