@@ -36,6 +36,8 @@ sess.cookie.secure = true // serve secure cookies
 }
 app.use(session(config))
 
+const sendNft = require("./blockchain.js")
+
 //Fonction d'appel à la database 
 
 const createUser = async object => {
@@ -220,6 +222,11 @@ app.post("/api/game/position", async(req, res) => {
     
 
 });
+
+app.post("/game/save", async (req, res) => {
+    const data = req.body;
+    console.log(data);
+})
 
 app.post("/api/game/nft_catch", async(req, res) => {
 
