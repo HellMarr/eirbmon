@@ -183,36 +183,34 @@ app.post("/api/marketplace/buy", async (req,res) => {
 // });
 
 
-app.get("/api/game", async(req, res) => {
-
+app.get("/game/position", async(req, res) => {
+    //send user position to the game
     const user_wallet = req.body.user_wallet;
     const position = await users.findOne({user_wallet: user_wallet}, 'user_x user_y');
-    const nfts = await nft.find({nft_owner: user_wallet, nft_forsale:false}, 'nft_potential nft_hp nft_id nft_level nft_image');
     res.status(200).send({
         user_x: position.user_x,
         user_y: position.user_y,
-        nfts: nfts,
     })
 });
 
 app.get("/game/catchables", async(req, res) => {
 
-    console.log("requested pokemon")
     const nfts = await nft.find({nft_owner: "0x23ec543f995d80ad727cf2284ec448e55bf769fb", nft_forsale:false},'nft_potential nft_hp nft_id nft_level nft_image');
-    // console.log(nfts)
-    const num = Math.floor(Math.random() * (nfts.length-1))
-    console.log(nfts[num])
-    res.status(200).send(nfts[num])
+    res.status(200).send({
+        nfts: nfts,
+    })
 
 });
 
-app.post("/api/game/position", async(req, res) => {
-
+app.post("/game/savePosition", async(req, res) => {
+    //save position of the user in the game
     const user_wallet = req.body.user_wallet;
     const user_x = req.body.user_x;
     const user_y = req.body.user_y;
+    console.log("------------POSITION-------------");
+    console.log(user_x);
+    console.log(user_y);
     await users.updateOne({user_wallet: user_wallet}, {user_x: user_x, user_y: user_y});
-    
 
 });
 
@@ -234,6 +232,7 @@ app.post("/api/game/nft_update", async(req, res) => {
     await nft.updateOne({ nft_id: nft_id}, {nft_level: nft_level, nft_hp: nft_hp});
 
 });
+
 
 // ===========  TEST COMM UNITY ===============
 app.post("/unity/catching", async(req, res) => {

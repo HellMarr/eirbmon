@@ -20,7 +20,12 @@ const getAddr = async (provider) => {
   return addr[0];
 }
 
-function render(authorized,addr) {
+
+function setWallet(wallet){
+  unityContext.send("GameController", "setWalletUser", wallet);
+}
+
+function render(authorized,wallet) {
   if (authorized === "authorized") {
     return (
       <div>
@@ -33,7 +38,7 @@ function render(authorized,addr) {
             background: "white",
           }}
         />
-        {unityContext.send("PlayerController", "setWallet", addr)} 
+        {setTimeout(()=>setWallet(wallet),2000)}
       </div>
 
     )
@@ -63,7 +68,7 @@ function render(authorized,addr) {
 
 function App() {
   const [authorized, setAuthorized] = React.useState("loading");
-  const [addr, setAddr] = useState(null);
+  const [wallet, setWallet] = useState(null);
 
   React.useEffect(async () => {
     const prov = await detectEthereumProvider();
@@ -72,7 +77,7 @@ function App() {
       return;
     }
     const addr = await getAddr(prov);
-    setAddr(addr);
+    setWallet(addr);
     const web3 = new Web3(prov);
     const mintContract = new web3.eth.Contract(contract.abi, contractAddress);
     const balance = await getBalance(mintContract, addr);
@@ -93,7 +98,7 @@ function App() {
   return (
     <div className="App">
       <h1 style={{fontSize:35}}>Eirbmon Game</h1>
-      {render(authorized)}
+      {render(authorized,wallet)}
       {/* <form action="http://localhost:8080">
         <button type="submit" style={{padding:'10px 20px 10px 20px',fontSize:'32px',background:'linear-gradient(90deg, #FD992D 0%, #FFBF49 100%)',borderRadius:'1em', fontWeight:'bold'}}>Come back to the website</button>
       </form> */}
