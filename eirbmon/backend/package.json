@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@alch/alchemy-web3": "^1.4.2",
     "body-parser": "^1.19.2",
+    "dotenv": "^16.0.1",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "mongoose": "^6.2.6",

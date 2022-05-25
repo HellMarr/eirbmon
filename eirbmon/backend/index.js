@@ -36,6 +36,8 @@ sess.cookie.secure = true // serve secure cookies
 }
 app.use(session(config))
 
+const sendNft = require("./blockchain.js")
+
 //Fonction d'appel à la database 
 
 const createUser = async object => {
@@ -196,9 +198,15 @@ app.get("/game/position", async(req, res) => {
 app.get("/game/catchables", async(req, res) => {
 
     const nfts = await nft.find({nft_owner: "0x23ec543f995d80ad727cf2284ec448e55bf769fb", nft_forsale:false},'nft_potential nft_hp nft_id nft_level nft_image');
-    res.status(200).send({
-        nfts: nfts,
-    })
+    // console.log(nfts)
+    const num = Math.floor(Math.random() * (nfts.length-1))
+    console.log(nfts[num])
+    const first = nfts[num].nft_image.split("/")
+    const second = first[6].split(".")
+    const id = second[0]
+    nfts[num].nft_image = id;
+    console.log(nfts[num])
+    res.status(200).send(nfts[num])
 
 });
 
@@ -213,6 +221,11 @@ app.post("/game/savePosition", async(req, res) => {
     await users.updateOne({user_wallet: user_wallet}, {user_x: user_x, user_y: user_y});
 
 });
+
+app.post("/game/save", async (req, res) => {
+    const data = req.body;
+    console.log(data);
+})
 
 app.post("/api/game/nft_catch", async(req, res) => {
 
