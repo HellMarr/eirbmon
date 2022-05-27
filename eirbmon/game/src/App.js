@@ -20,15 +20,20 @@ const getAddr = async (provider) => {
   return addr[0];
 }
 
-function setWallet(wallet) {
-  unityContext.send("GameController", "setWalletUser", wallet);
+let rendered = false
+
+function setUnityWallet(wallet) {
+  if(rendered === false){
+    unityContext.send("GameController", "setWalletUser", wallet);
+    rendered = true;
+  }
 }
 
 function setPosition() {
   unityContext.send("GameController", "receivePosition");
 }
 
-function render(authorized, wallet) {
+function render(authorized, wallet, setRendered) {
   if (authorized === "authorized") {
     return (
       <div>
@@ -41,7 +46,7 @@ function render(authorized, wallet) {
             background: "white",
           }}
         />
-        {setTimeout(() => {setWallet(wallet)}, 5000)}
+        {setTimeout(() => {setUnityWallet(wallet)}, 5000)}
         {setPosition}
       </div>
 
