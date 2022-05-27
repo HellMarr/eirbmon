@@ -20,7 +20,6 @@ const getAddr = async (provider) => {
   return addr[0];
 }
 
-
 function setWallet(wallet) {
   unityContext.send("GameController", "setWalletUser", wallet);
 }
