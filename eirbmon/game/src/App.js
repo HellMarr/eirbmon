@@ -20,18 +20,27 @@ const getAddr = async (provider) => {
   return addr[0];
 }
 
-function render(authorized){
+function setWallet(wallet) {
+  unityContext.send("GameController", "setWalletUser", wallet);
+}
+
+function render(authorized, wallet){
   if(authorized==="authorized"){
-    return <Unity 
-      unityContext={unityContext} 
-      style={{
-        width: "1000px",
-        height: "750px",
-        border: "2px solid black",
-        background: "white",
-        marginBottom: "20px"
-      }}
-    />
+    return (
+      <div>
+        <Unity 
+        unityContext={unityContext} 
+        style={{
+          width: "1000px",
+          height: "750px",
+          border: "2px solid black",
+          background: "white",
+          marginBottom: "20px"
+        }}
+      />
+      {setTimeout(() => setWallet(wallet),5000)}
+    </div> 
+    )
   }else if(authorized==="not authorized"){
     return <div>
             <h1>You must first buy an NFT before accessing the game</h1>
@@ -49,6 +58,7 @@ function render(authorized){
 
 function App() {
   const [authorized, setAuthorized] = React.useState("loading");
+  const [wallet, setWallet] = React.useState(null);
 
   React.useEffect(async ()=>{
     const prov = await detectEthereumProvider();
@@ -57,6 +67,7 @@ function App() {
       return;
     }
     const addr = await getAddr(prov);
+    setWallet(addr)
     const web3 = new Web3(prov);
     const mintContract = new web3.eth.Contract(contract.abi, contractAddress);
     const balance = await getBalance(mintContract, addr);
@@ -75,7 +86,7 @@ function App() {
   return (
     <div className="App">
       <h1 style={{fontSize:35}}>Eirbmon Game</h1>
-      {render(authorized)}
+      {render(authorized, wallet)}
       <span><a id="website" href="http://localhost:8080"></a></span>
     </div>
   );
