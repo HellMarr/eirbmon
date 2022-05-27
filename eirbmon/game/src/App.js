@@ -21,11 +21,15 @@ const getAddr = async (provider) => {
 }
 
 
-function setWallet(wallet){
+function setWallet(wallet) {
   unityContext.send("GameController", "setWalletUser", wallet);
 }
 
-function render(authorized,wallet) {
+function setPosition() {
+  unityContext.send("GameController", "receivePosition");
+}
+
+function render(authorized, wallet) {
   if (authorized === "authorized") {
     return (
       <div>
@@ -38,23 +42,24 @@ function render(authorized,wallet) {
             background: "white",
           }}
         />
-        {setTimeout(()=>setWallet(wallet),2000)}
+        {setTimeout(() => {setWallet(wallet)}, 5000)}
+        {setPosition}
       </div>
 
     )
 
   } else if (authorized === "not authorized") {
     return <div>
-            <h1>You must first buy an NFT before accessing the game</h1>
-            <span style={{marginBottom: "20px"}}><a id="marketplace" href="http://localhost:8080/?#/marketplace"></a></span>
-          </div>
-  }else if(authorized==="loading"){
+      <h1>You must first buy an NFT before accessing the game</h1>
+      <span style={{ marginBottom: "20px" }}><a id="marketplace" href="http://localhost:8080/?#/marketplace"></a></span>
+    </div>
+  } else if (authorized === "loading") {
     return <h1>Loading ...</h1>
   } else {
     return <div>
-            <h1>Please install metamask before accessing the game</h1>
-            <span style={{marginBottom: "20px"}}><a id="metamask" href="https://metamask.io/download/"></a></span>
-          </div>
+      <h1>Please install metamask before accessing the game</h1>
+      <span style={{ marginBottom: "20px" }}><a id="metamask" href="https://metamask.io/download/"></a></span>
+    </div>
   }
 }
 
@@ -74,23 +79,23 @@ function App() {
     const mintContract = new web3.eth.Contract(contract.abi, contractAddress);
     const balance = await getBalance(mintContract, addr);
 
-    window.ethereum.on('accountsChanged',()=>{
+    window.ethereum.on('accountsChanged', () => {
       window.location.reload();
     });
 
-    if(balance>0){
+    if (balance > 0) {
       setAuthorized("authorized");
     } else {
       setAuthorized("not authorized");
     }
   }, []);
 
-  
+
 
   return (
     <div className="App">
-      <h1 style={{fontSize:35}}>Eirbmon Game</h1>
-      {render(authorized,wallet)}
+      <h1 style={{ fontSize: 35 }}>Eirbmon Game</h1>
+      {render(authorized, wallet)}
       <span><a id="website" href="http://localhost:8080"></a></span>
     </div>
   );
