@@ -196,6 +196,7 @@ app.post("/game/position", async(req, res) => {
     const user_wallet = req.body.user_wallet;
     console.log("wallet:",user_wallet);
     const position = await users.findOne({user_wallet: user_wallet}, 'user_x user_y');
+    console.log(position)
     res.status(200).send({
         user_x: position.user_x,
         user_y: position.user_y,
