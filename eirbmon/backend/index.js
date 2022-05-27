@@ -185,9 +185,11 @@ app.post("/api/marketplace/buy", async (req,res) => {
 // });
 
 
-app.get("/game/position", async(req, res) => {
+app.post("/game/position", async(req, res) => {
     //send user position to the game
+    console.log("recuperer la position");
     const user_wallet = req.body.user_wallet;
+    console.log("wallet:",user_wallet);
     const position = await users.findOne({user_wallet: user_wallet}, 'user_x user_y');
     res.status(200).send({
         user_x: position.user_x,
