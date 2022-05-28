@@ -22,16 +22,13 @@ const getAddr = async (provider) => {
 
 let rendered = false
 
-function setUnityWallet(wallet) {
+function initialisationData(wallet) {
   if(rendered === false){
-    unityContext.send("GameController", "setWalletUser", wallet);
+    unityContext.send("GameController", "initialisationData", wallet);
     rendered = true;
   }
 }
 
-function setPosition() {
-  unityContext.send("GameController", "receivePosition");
-}
 
 function render(authorized, wallet, setRendered) {
   if (authorized === "authorized") {
@@ -46,8 +43,7 @@ function render(authorized, wallet, setRendered) {
             background: "white",
           }}
         />
-        {setTimeout(() => {setUnityWallet(wallet)}, 5000)}
-        {setPosition}
+        {setTimeout(() => {initialisationData(wallet)}, 10000)}
       </div>
 
     )

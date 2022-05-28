@@ -203,6 +203,116 @@ app.post("/game/position", async(req, res) => {
     })
 });
 
+
+function resizeID(arr, size) {
+    while (arr.length > size) { arr.pop(); }
+    while (arr.length < size) { arr.push({nft_id:0}); }
+}
+
+function resizeHP(arr, size) {
+    while (arr.length > size) { arr.pop(); }
+    while (arr.length < size) { arr.push({nft_hp:0}); }
+}
+
+function resizeLevel(arr, size) {
+    while (arr.length > size) { arr.pop(); }
+    while (arr.length < size) { arr.push({nft_level:0}); }
+}
+
+function resizeImage(arr, size) {
+    while (arr.length > size) { arr.pop(); }
+    while (arr.length < size) { arr.push({nft_image:0}); }
+}
+
+
+app.post("/game/dataEirbeesID", async(req, res) => {
+    //send eirbees id user to the game
+    console.log("recuperer les ID eirbees");
+    const nft_wallet = req.body.user_wallet;
+    console.log("wallet:",nft_wallet);
+    const nftDataID = await nft.find({nft_owner: nft_wallet}, 'nft_id');
+    resizeID(nftDataID,6);
+    console.log(nftDataID)
+    let send = {};
+    send.id0 = nftDataID[0].nft_id;
+    send.id1 = nftDataID[1].nft_id;
+    send.id2 = nftDataID[2].nft_id;
+    send.id3 = nftDataID[3].nft_id;
+    send.id4 = nftDataID[4].nft_id;
+    send.id5 = nftDataID[5].nft_id;
+    console.log(send)
+    res.status(200).send(send)
+});
+
+app.post("/game/dataEirbeesHP", async(req, res) => {
+    //send eirbees id user to the game
+    console.log("recuperer les HP eirbees");
+    const nft_wallet = req.body.user_wallet;
+    console.log("wallet:",nft_wallet);
+    const nftDataHP = await nft.find({nft_owner: nft_wallet}, 'nft_hp');
+    resizeHP(nftDataHP,6);
+    console.log(nftDataHP)
+    let send = {};
+    send.hp0 = nftDataHP[0].nft_hp;
+    send.hp1 = nftDataHP[1].nft_hp;
+    send.hp2 = nftDataHP[2].nft_hp;
+    send.hp3 = nftDataHP[3].nft_hp;
+    send.hp4 = nftDataHP[4].nft_hp;
+    send.hp5 = nftDataHP[5].nft_hp;
+    console.log(send)
+    res.status(200).send(send)
+});
+
+
+
+app.post("/game/dataEirbeesLevel", async(req, res) => {
+    //send eirbees id user to the game
+    console.log("recuperer les levels eirbees");
+    const nft_wallet = req.body.user_wallet;
+    console.log("wallet:",nft_wallet);
+    const nftDataLevel = await nft.find({nft_owner: nft_wallet}, 'nft_level');
+    resizeLevel(nftDataLevel,6);
+    console.log(nftDataLevel)
+    let send = {};
+    send.lvl0 = nftDataLevel[0].nft_level;
+    send.lvl1 = nftDataLevel[1].nft_level;
+    send.lvl2 = nftDataLevel[2].nft_level;
+    send.lvl3 = nftDataLevel[3].nft_level;
+    send.lvl4 = nftDataLevel[4].nft_level;
+    send.lvl5 = nftDataLevel[5].nft_level;
+    console.log(send)
+    res.status(200).send(send)
+});
+
+app.post("/game/dataEirbeesImages", async(req, res) => {
+    //send eirbees id user to the game
+    console.log("recuperer les images eirbees");
+    const nft_wallet = req.body.user_wallet;
+    console.log("wallet:",nft_wallet);
+    const nftDataImage = await nft.find({nft_owner: nft_wallet}, 'nft_image');
+    resizeImage(nftDataImage,6);
+    console.log(nftDataImage)
+    let send = {};
+
+    for(let i=0;i<6;i++){
+        if(nftDataImage[i].nft_image!=0){
+            const first = nftDataImage[i].nft_image.split("/")
+            const second = first[6].split(".")
+            const id = second[0]
+            nftDataImage[i].nft_image = id;
+        }
+    }
+    
+    send.img0 = nftDataImage[0].nft_image;
+    send.img1 = nftDataImage[1].nft_image;
+    send.img2 = nftDataImage[2].nft_image;
+    send.img3 = nftDataImage[3].nft_image;
+    send.img4 = nftDataImage[4].nft_image;
+    send.img5 = nftDataImage[5].nft_image;
+    console.log(send)
+    res.status(200).send(send)
+});
+
 app.get("/game/catchables", async(req, res) => {
 
     const nfts = await nft.find({nft_owner: "0x23ec543f995d80ad727cf2284ec448e55bf769fb", nft_forsale:false},'nft_potential nft_hp nft_id nft_level nft_image');
