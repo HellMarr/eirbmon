@@ -291,7 +291,7 @@ app.post("/game/dataEirbeesImages", async(req, res) => {
     console.log("wallet:",nft_wallet);
     const nftDataImage = await nft.find({nft_owner: nft_wallet}, 'nft_image');
     resizeImage(nftDataImage,6);
-    console.log(nftDataImage)
+    // console.log(nftDataImage)
     let send = {};
 
     for(let i=0;i<6;i++){
