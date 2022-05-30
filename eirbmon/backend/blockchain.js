@@ -18,7 +18,7 @@ const contract = require("../blockchain/build/contracts/mintNft.json")
 const nftContract = new web3.eth.Contract(contract.abi, mintcontract)
 
 
-async function sendNft(_to, tokenId) {
+async function sendNft(_from, _to, tokenId) {
   const nonce = await web3.eth.getTransactionCount(_from, 'latest'); //get latest nonce
 
 //the transaction
