@@ -16,7 +16,7 @@
       </div>
       <div v-if="page !='profile'">
         <div class="stats">
-          <div class="price">{{nft_price}} ETH</div>
+          <div class="price">{{nft_price}} WEI</div>
         </div>
       </div>
     </div>

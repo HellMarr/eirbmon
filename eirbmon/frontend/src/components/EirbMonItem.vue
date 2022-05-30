@@ -5,7 +5,7 @@
       <div class="head">
         <div class="infos">
           <div class="id">Eirbee#{{nft_id}}</div>
-          <div v-if="nft_forsale" class="price">{{nft_price}} ETH</div>
+          <div v-if="nft_forsale" class="price">{{nft_price}} WEI</div>
           <div v-if="this.transaction">Transaction is proceeding ... Do not leave the page</div>
         </div>
         <div v-if="nft_forsale" class="sale">
