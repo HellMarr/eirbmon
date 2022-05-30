@@ -72,7 +72,7 @@ span a:hover{
 }
 
 #website:after, #website:before{
-  content: "Come back to the website";
+  content: "Go back to the website";
   position: absolute;
   height: 65px;
   width: 350px;
