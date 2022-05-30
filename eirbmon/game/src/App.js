@@ -32,6 +32,7 @@ function initialisationData(wallet) {
 
 function render(authorized, wallet, setRendered) {
   if (authorized === "authorized") {
+    setTimeout(() => {initialisationData(wallet)}, 5000);
     return (
       <div>
         <Unity
@@ -43,11 +44,8 @@ function render(authorized, wallet, setRendered) {
             background: "white",
           }}
         />
-        {setTimeout(() => {initialisationData(wallet)}, 10000)}
       </div>
-
     )
-
   } else if (authorized === "not authorized") {
     return <div>
       <h1>You must first buy an NFT before accessing the game</h1>
