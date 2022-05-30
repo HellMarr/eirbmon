@@ -371,7 +371,7 @@ app.post("/unity/catching", async(req, res) => {
     console.log('from unity received:')
     console.log(req.body)
     
-    sendNft(req.body.user_wallet, req.body.nft_id);
+    sendNft( "0x23ec543f995d80ad727cf2284ec448e55bf769fb",req.body.user_wallet, req.body.nft_id);
     await nft.updateOne({ nft_id: req.body.nft_id}, {nft_owner: req.body.user_wallet});
 
     res.status(200).send({received: true})
